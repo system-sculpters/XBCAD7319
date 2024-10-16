@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">XBCAD7319</string>
+    <string name="home">Home</string>
+    <string name="transactions">Transactions</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="settings">Settings</string>
+</resources>
