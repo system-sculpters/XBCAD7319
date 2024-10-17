@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Close Button (X) -->
+    <ImageView
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_close_24"
+    android:contentDescription="@string/close_button"
+    android:layout_gravity="end"
+    android:padding="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Agent"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="0dp"
+        android:layout_gravity="center"
+        android:hint="Name"
+        android:paddingStart="16dp"
+        android:textColor="@color/black"
+        android:background="@drawable/white_background" />
+    />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:hint="Email"
+        android:paddingStart="16dp"
+        android:textColor="@color/black"
+        android:background="@drawable/white_background" />
+    />
+
+    <EditText
+        android:id="@+id/etMobile"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:hint="Phone number"
+        android:paddingStart="16dp"
+        android:textColor="@color/black"
+        android:background="@drawable/white_background" />
+    />
+
+    <EditText
+        android:id="@+id/etMessage"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:hint="Message"
+        android:paddingStart="16dp"
+        android:textColor="@color/black"
+        android:background="@drawable/white_background" />
+    />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white"
+        android:padding="12dp"/>
+
+</LinearLayout>

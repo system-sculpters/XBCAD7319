@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.PropertyDetails">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:layout_width="410dp"
+        android:layout_height="400dp"
+        android:src="@drawable/narcary_house"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="400dp"> <!-- Adjusted margin top for grouping -->
+
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="40dp"
+            android:text="Nacary elite house"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="30dp"
+            android:text="Waterfall Equestrian Estate, Midrand"
+            android:textSize="16sp" /> <!-- Changed dp to sp for text size -->
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="360dp"
+        android:src="@drawable/baseline_bookmark_24"/>
+
+
+    <LinearLayout
+        android:id="@+id/bed_container"
+        android:layout_width="120dp"
+    android:layout_height="60dp"
+    android:layout_gravity="left"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="480dp"
+    android:background="@drawable/search_bar_background"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/house_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="8dp"
+    android:src="@drawable/baseline_bed_24" />
+
+    <TextView
+        android:id="@+id/house_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="4 Beds"
+        android:textSize="16dp"
+        android:textColor="@color/black"/>
+</LinearLayout>
+
+
+    <!-- BATH CONTAINER -->
+    <LinearLayout
+        android:id="@+id/bath_container"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="145dp"
+        android:layout_marginTop="480dp"
+        android:background="@drawable/search_bar_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/bath_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/baseline_bathtub_24" />
+
+        <TextView
+            android:id="@+id/bath_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="3 Bath"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/garage_container"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="275dp"
+        android:layout_marginTop="480dp"
+        android:background="@drawable/search_bar_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/car_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/baseline_car_24" />
+
+        <TextView
+            android:id="@+id/garage_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="3 Parking"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+    android:layout_marginTop="550dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Property Description"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        android:textSize="12dp"
+        android:lineSpacingExtra="4dp"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp" />
+    </LinearLayout>
+
+     <TextView
+         android:layout_width="400dp"
+         android:layout_height="30dp"
+         android:text="See maps"
+         android:textSize="20dp"
+         android:layout_marginLeft="20dp"
+         android:layout_marginTop="640dp"/>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/baseline_arrow_forward_ios_24"
+        android:layout_marginTop="640dp"
+        android:layout_marginLeft="380dp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="690dp"
+        android:layout_marginLeft="20dp">
+
+        <!-- Contact Agent TextView -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Contact agent"
+            android:textSize="20dp"
+            android:layout_marginRight="20dp" />
+
+        <!-- Message Container LinearLayout -->
+        <LinearLayout
+            android:id="@+id/message_container"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="120dp"
+            android:background="@drawable/search_bar_background"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/message_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/baseline_message_24" />
+
+            <TextView
+                android:id="@+id/message_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text=" Message"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="740dp"
+        android:text="Price"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="770dp"
+    android:text="R6 000 000"
+    android:textSize="20dp"
+    android:textStyle="bold" />
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="750dp"
+    android:backgroundTint="@color/black"
+    android:text="Buy Now" />
+
+
+</FrameLayout>
