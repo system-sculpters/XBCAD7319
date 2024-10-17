@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.LoginFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <EditText
+        android:id="@+id/Username"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="-60dp"
+        android:layout_gravity="center"
+        android:hint="Username"
+        android:paddingStart="16dp"
+        android:textColor="@color/black"
+        android:background="@drawable/white_background" />
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center"
+        android:hint="Password"
+        android:paddingStart="16dp"
+        android:textColor="@color/black"
+        android:inputType="textPassword"
+        android:background="@drawable/white_background" />
+
+
+    <Button
+        android:layout_width="280dp"
+        android:layout_height="80dp"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="580dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Login In"
+        android:textSize="30dp" />
+
+</FrameLayout>

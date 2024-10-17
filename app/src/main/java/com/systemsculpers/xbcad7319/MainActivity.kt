@@ -3,12 +3,11 @@ package com.systemsculpers.xbcad7319
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.systemsculpers.xbcad7319.databinding.ActivityMainBinding
+import com.systemsculpers.xbcad7319.view.fragment.PropertyDetails
+import com.systemsculpers.xbcad7319.view.fragment.PropertyListings
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -24,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById<DrawerLayout>(R.id.main)
 
         setupBottomNavigation()
+
+        //changeCurrentFragment(WelcomeFragment.newInstance("param1", "param2"))
+        changeCurrentFragment(PropertyDetails.newInstance("param1","param2"))
+
     }
     private fun setupBottomNavigation() {
 
@@ -49,6 +52,7 @@ class MainActivity : AppCompatActivity() {
     private fun changeCurrentFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.frame_layout, fragment)
+
             commit()
         }
     }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.WelcomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:layout_width="340dp"
+        android:layout_height="430dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/house"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:layout_width="400dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="480dp"
+        android:textSize="28dp"
+        android:text="Discover a home of your dreams"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="560dp"
+        android:text="Leading real estate company based in the prestigious Waterfall Country Estate"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textSize="18dp"/>
+
+    <Button
+        android:layout_width="280dp"
+        android:layout_height="80dp"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="650dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Register"
+        android:textSize="30dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="750dp"
+        android:gravity="center">
+        <TextView
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Already have an account?"
+    android:textSize="16dp"
+    android:layout_gravity="center_vertical" />
+
+    <TextView
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Log in"
+    android:textSize="16dp"
+    android:textStyle="bold"
+    android:layout_marginStart="8dp" />
+</LinearLayout>
+
+
+
+
+
+
+    </FrameLayout>
