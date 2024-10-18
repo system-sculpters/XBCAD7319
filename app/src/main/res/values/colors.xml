@@ -3,15 +3,18 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#1E1E1E</color>
-    <color name="secondary">#007BFF</color>
+    <color name="secondary">#343A40</color>
+    <color name="blue">#007BFF</color>
+    <color name="hint">#007BFF</color>
 
-    <color name="colorPrimary">#007BFF</color>
-    <color name="colorPrimaryDark">#FFFFFF</color>
+
+    <color name="colorPrimary">#343A40</color>
+    <color name="colorPrimaryVariant">#1E1E1E</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="backgroundColor">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="colorOnPrimary">#343A40</color>
 
-
-    <color name="darkPrimary">#007BFF</color>
     <color name="darkPrimaryDark">#1E1E1E</color>
     <color name="darkAccent">#03DAC5</color>
     <color name="darkBackgroundColor">#1E1E1E</color>

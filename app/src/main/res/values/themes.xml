@@ -1,8 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.XBCAD7319" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/blue</item>
+
+        <!-- PRIMARY-->
+        <item name="android:windowBackground">@color/windowBackground</item>
+
+        <!-- TEXT-->
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+
+        <!-- -->
+        <item name="ItemBorder">@color/colorPrimary</item>
+
+        <item name="colorItemLayoutBg">@color/windowBackground</item>
+
+
     </style>
 
     <style name="Theme.XBCAD7319" parent="Base.Theme.XBCAD7319" />

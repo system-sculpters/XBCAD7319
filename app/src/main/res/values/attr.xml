@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomTheme">
+        <attr name="colorItemLayoutBg" format="color"/>
+        <attr name="colorItemBorder" format="color"/>
+        <attr name="ItemBorder" format="color"/>
+        <attr name="themeBgBorder" format="color"/>
+        <attr name="darkerTitle" format="color"/>
+        <attr name="userHomeImg" format="color"/>
+        <attr name="switchCompat" format="reference|color"/>
+    </declare-styleable>
+</resources>

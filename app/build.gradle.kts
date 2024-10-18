@@ -48,4 +48,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.github.skydoves:powerspinner:1.2.4")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation("androidx.preference:preference:1.2.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation(libs.osmdroid.android) // Check for the latest version
+
 }

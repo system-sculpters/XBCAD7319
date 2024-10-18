@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.systemsculpers.xbcad7319.databinding.ActivityMainBinding
+import com.systemsculpers.xbcad7319.view.fragment.CreatePropertyFragment
 import com.systemsculpers.xbcad7319.view.fragment.PropertyDetails
 import com.systemsculpers.xbcad7319.view.fragment.PropertyListings
+import com.systemsculpers.xbcad7319.view.fragment.SearchLocationFragment
+import com.systemsculpers.xbcad7319.view.fragment.ViewOnMapFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -25,19 +28,20 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
 
         //changeCurrentFragment(WelcomeFragment.newInstance("param1", "param2"))
-        changeCurrentFragment(PropertyDetails.newInstance("param1","param2"))
+        //changeCurrentFragment(PropertyDetails.newInstance("param1","param2"))
 
     }
     private fun setupBottomNavigation() {
 
-        //changeCurrentFragment(HomeFragment())
+        //changeCurrentFragment(CreatePropertyFragment())
+        changeCurrentFragment(SearchLocationFragment())
 
         // Code for when a different button is pressed on the navigation menu
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.home -> {
-
+                    changeCurrentFragment(ViewOnMapFragment())
                 }//changeCurrentFragment(/*HomeFragment())
                 R.id.transactions -> {
 

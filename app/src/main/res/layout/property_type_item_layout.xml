@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/property_type_container"
+
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:gravity="center"
+    android:elevation="2dp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/edittext_background"
+    >
+    <ImageView
+        android:id="@+id/property_type_icon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/baseline_home_filled_24"
+        android:layout_marginEnd="10dp"/>
+    <TextView
+        android:id="@+id/property_type_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/land"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/inter_medium"/>
+
+</LinearLayout>
