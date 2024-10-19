@@ -28,6 +28,8 @@ class CreatePropertyFragment : Fragment() {
     private lateinit var userManager: UserManager
     private lateinit var tokenManager: TokenManager
 
+    private var propType: String = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +38,17 @@ class CreatePropertyFragment : Fragment() {
         // Inflate the layout for this fragment and initialize binding
         _binding = FragmentCreatePropertyBinding.inflate(inflater, container, false)
 
+        // Get instances of user and token managers
+        userManager = UserManager.getInstance(requireContext())
+        tokenManager = TokenManager.getInstance(requireContext())
+
         setPropertyTypes()
 
         binding.locationRedirect.setOnClickListener{
+
+        }
+
+        binding.uploadImageRedirect.setOnClickListener{
 
         }
         // Inflate the layout for this fragment
@@ -53,6 +63,7 @@ class CreatePropertyFragment : Fragment() {
         // Adapter to display available colors and handle color selection
         propertyTypeAdapter = PropertyTypeAdapter(requireContext()) { selectedPropertyType ->
             Log.d("SelectedCategory", "Selected Property Type: $selectedPropertyType")
+            propType = selectedPropertyType.name
 
             if(selectedPropertyType.name == getString(R.string.house) || selectedPropertyType.name == getString(R.string.rental)){
                 binding.noOfBedrooms.visibility = View.VISIBLE

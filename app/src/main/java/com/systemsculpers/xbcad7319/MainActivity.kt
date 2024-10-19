@@ -26,6 +26,7 @@ import com.systemsculpers.xbcad7319.view.fragment.MessagesFragment
 import com.systemsculpers.xbcad7319.view.fragment.PropertyDetails
 import com.systemsculpers.xbcad7319.view.fragment.PropertyListings
 import com.systemsculpers.xbcad7319.view.fragment.SearchLocationFragment
+import com.systemsculpers.xbcad7319.view.fragment.UploadImagesFragment
 import com.systemsculpers.xbcad7319.view.fragment.ViewOnMapFragment
 import java.util.Locale
 
@@ -149,6 +150,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.chat->{
                     changeCurrentFragment(ChatsFragment())
+                }
+                R.id.properties ->{
+                    changeCurrentFragment(UploadImagesFragment())
                 }
             }
             true

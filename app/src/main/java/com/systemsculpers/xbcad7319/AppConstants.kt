@@ -9,9 +9,9 @@ object AppConstants {
     // This URL is used as the prefix for all network requests.
 
 
-    //const val BASE_URL = "https://pennywise-1rw5.onrender.com/api/"
+    const val BASE_URL = "https://xbcad7319-api.onrender.com/api/"
 
-    const val BASE_URL = "http://10.0.2.2:3001/api/"
+    //const val BASE_URL = "http://10.0.2.2:3001/api/"
 
     // Converts a timestamp (in milliseconds) to a formatted date string (dd/MM/yyyy).
     // This function is useful for displaying dates in a user-friendly format.

@@ -126,6 +126,43 @@
                 android:textSize="14sp"
                 />
 
+            <LinearLayout
+                android:id="@+id/upload_image_redirect"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edittext_background"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="10dp"
+                >
+                <ImageView
+                    android:id="@+id/property_image"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/baseline_cloud_upload_24"
+                    android:layout_marginEnd="10dp"/>
+                <TextView
+                    android:id="@+id/image_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_images"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/inter_light"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:layout_marginEnd="10dp"/>
+            </LinearLayout>
+
+
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/no_of_bedrooms"
                 android:layout_width="match_parent"
