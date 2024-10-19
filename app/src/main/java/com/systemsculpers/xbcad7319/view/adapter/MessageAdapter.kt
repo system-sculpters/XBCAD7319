@@ -20,6 +20,11 @@ class MessageAdapter (
         notifyDataSetChanged() // Notify the adapter that the data has changed
     }
 
+    fun addMessage(message: Message) {
+        messages.add(message)
+        notifyItemInserted(messages.size - 1)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
         return if (viewType == 0) { // 0 for outgoing messages
             val view = LayoutInflater.from(parent.context)

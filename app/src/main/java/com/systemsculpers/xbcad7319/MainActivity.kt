@@ -19,6 +19,7 @@ import com.systemsculpers.xbcad7319.data.preferences.UserManager
 import com.systemsculpers.xbcad7319.databinding.ActivityMainBinding
 import com.systemsculpers.xbcad7319.view.activity.WelcomeActivity
 import com.systemsculpers.xbcad7319.view.fragment.AgentValuationsFragment
+import com.systemsculpers.xbcad7319.view.fragment.ChatsFragment
 import com.systemsculpers.xbcad7319.view.fragment.CreatePropertyFragment
 import com.systemsculpers.xbcad7319.view.fragment.CreateValuationFragment
 import com.systemsculpers.xbcad7319.view.fragment.MessagesFragment
@@ -147,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                     changeCurrentFragment(CreateValuationFragment())
                 }
                 R.id.chat->{
-                    changeCurrentFragment(MessagesFragment())
+                    changeCurrentFragment(ChatsFragment())
                 }
             }
             true

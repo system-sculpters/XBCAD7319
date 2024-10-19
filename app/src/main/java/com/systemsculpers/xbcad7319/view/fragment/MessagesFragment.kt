@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.systemsculpers.xbcad7319.R
+import com.systemsculpers.xbcad7319.data.api.controller.ChatController
 import com.systemsculpers.xbcad7319.data.model.Message
+import com.systemsculpers.xbcad7319.data.model.SendMessage
+import com.systemsculpers.xbcad7319.data.model.Valuation
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
 import com.systemsculpers.xbcad7319.databinding.FragmentCreateValuationBinding
@@ -31,6 +35,21 @@ class MessagesFragment : Fragment() {
 
     private lateinit var messageAdapter: MessageAdapter
 
+    private var messages: MutableList<Message>? = mutableListOf()
+
+    private lateinit var chatController: ChatController
+
+    // Declare chatId
+    private var chatId: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            messages = it.getParcelableArrayList(MESSAGES_ARG)
+            chatId = it.getString(CHAT_ID_ARG) // Extract chatId from arguments
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,8 +60,13 @@ class MessagesFragment : Fragment() {
         userManager = UserManager.getInstance(requireContext())
         tokenManager = TokenManager.getInstance(requireContext())
 
+        chatController = ViewModelProvider(this).get(ChatController::class.java)
+
         setUpUserDetails()
 
+        binding.submitButton.setOnClickListener{
+            sendMessage()
+        }
 
         return binding.root
     }
@@ -53,7 +77,7 @@ class MessagesFragment : Fragment() {
         val token = tokenManager.getToken() // Retrieve the authentication token
 
         if (token != null) {
-            setMessages(user.id)
+            getMessages(user.id)
             // Observe the view model to get transactions based on the user ID
             //observeViewModel(token, user.id)
         } else {
@@ -61,89 +85,140 @@ class MessagesFragment : Fragment() {
         }
     }
     // Sets up the color picker RecyclerView
-    private fun setMessages(userId: String) {
-        val dummyMessages = listOf(
-            Message(
-                id = "1",
-                chatId = "chat_001",
-                senderId = "H6IIUSfcivgzGZsEGSMQer8mZUv2", // Your message
-                timestamp = System.currentTimeMillis(),
-                text = "Hey, how are you?"
-            ),
-            Message(
-                id = "2",
-                chatId = "chat_001",
-                senderId = "other_user_id", // Other user's message
-                timestamp = System.currentTimeMillis(),
-                text = "I'm good, thanks! How about you?"
-            ),
-            Message(
-                id = "3",
-                chatId = "chat_001",
-                senderId = "H6IIUSfcivgzGZsEGSMQer8mZUv2",
-                timestamp = System.currentTimeMillis(),
-                text = "I'm doing well, just working on a project."
-            ),
-            Message(
-                id = "4",
-                chatId = "chat_001",
-                senderId = "other_user_id",
-                timestamp = System.currentTimeMillis(),
-                text = "That sounds interesting. What kind of project?"
-            ),
-            Message(
-                id = "5",
-                chatId = "chat_001",
-                senderId = "H6IIUSfcivgzGZsEGSMQer8mZUv2",
-                timestamp = System.currentTimeMillis(),
-                text = "It's a mobile app development project."
-            ),
-            Message(
-                id = "6",
-                chatId = "chat_001",
-                senderId = "other_user_id",
-                timestamp = System.currentTimeMillis(),
-                text = "Nice! What features does it have?"
-            ),
-            Message(
-                id = "7",
-                chatId = "chat_001",
-                senderId = "H6IIUSfcivgzGZsEGSMQer8mZUv2",
-                timestamp = System.currentTimeMillis(),
-                text = "It has chat functionality, notifications, and more. It has chat functionality, notifications, and more."
-            ),
-            Message(
-                id = "8",
-                chatId = "chat_001",
-                senderId = "other_user_id",
-                timestamp = System.currentTimeMillis(),
-                text = "That sounds cool! Is it almost done?"
-            ),
-            Message(
-                id = "9",
-                chatId = "chat_001",
-                senderId = "H6IIUSfcivgzGZsEGSMQer8mZUv2",
-                timestamp = System.currentTimeMillis(),
-                text = "Almost! Just polishing some features now."
-            ),
-            Message(
-                id = "10",
-                chatId = "chat_001",
-                senderId = "other_user_id",
-                timestamp = System.currentTimeMillis(),
-                text = "Good luck with it! Let me know when it's done."
-            )
-        )
+    private fun getMessages(userId: String) {
+
 
         messageAdapter = MessageAdapter(userId)
         binding.messages.adapter = messageAdapter
         binding.messages.layoutManager = LinearLayoutManager(requireContext()) // 3 icons per row
 
-        // Adapter to display available colors and handle color selection
-        //messageAdapter.notifyItemInserted(dummyMessages.size - 1)
-        //binding.messages.scrollToPosition(dummyMessages.size - 1)
-
-        messageAdapter.updateMessages(dummyMessages)
+        messages?.let { messageAdapter.updateMessages(it) }
     }
 
+    private fun sendMessage(){
+        val user = userManager.getUser() // Get the current user details
+        val token = tokenManager.getToken() // Retrieve the authentication token
+
+        if (token != null) {
+            observeViewModel(token, user.id)
+            // Observe the view model to get transactions based on the user ID
+            //observeViewModel(token, user.id)
+        } else {
+            // Handle case when the token is not available (e.g., show error or redirect)
+        }
+    }
+
+
+    // Method to observe the ViewModel for transaction-related data and status updates
+    private fun observeViewModel(token: String, userId: String) {
+        Log.d("token", "token: ${token}")
+        val messageText = binding.message.text.toString()
+
+
+        // Validate user input before sending data to the server
+        if (messageText.isEmpty() || chatId.isNullOrEmpty()) {
+            return
+        }
+
+        val newMessage = SendMessage(chatId = chatId!!, senderId = userId, text = messageText)
+        // Observe the status of the transaction fetching operation
+        chatController.status.observe(viewLifecycleOwner) { status ->
+            // Handle changes in the status (indicates success or failure)
+
+            // Check for timeout or inability to resolve host
+            // This observer implementation was adapted from stackoverflow
+            // https://stackoverflow.com/questions/47025233/android-lifecycle-library-cannot-add-the-same-observer-with-different-lifecycle
+            // Kevin Robatel
+            // https://stackoverflow.com/users/244702/kevin-robatel
+            if (status) {
+                // Success: Dismiss the progress dialog
+                //progressDialog.dismiss()
+                Log.d("status", "successful")
+
+                binding.message.setText("")
+            } else {
+                Log.d("status", "fail")
+// Failure: Dismiss the progress dialog
+                //progressDialog.dismiss()
+                // Optionally handle failure case (e.g., show an error message)
+            }
+        }
+
+        // Observe any messages from the ViewModel
+        chatController.message.observe(viewLifecycleOwner) { message ->
+            // Check for timeout or inability to resolve host
+            // This observer implementation was adapted from stackoverflow
+            // https://stackoverflow.com/questions/47025233/android-lifecycle-library-cannot-add-the-same-observer-with-different-lifecycle
+            // Kevin Robatel
+            // https://stackoverflow.com/users/244702/kevin-robatel
+
+            // Log the message for debugging purposes
+            Log.d("Valuations message", message)
+
+            // Check for specific messages that indicate a timeout or network issue
+            if (message == "timeout" || message.contains("Unable to resolve host")) {
+                // Show a timeout dialog and attempt to reconnect
+                Log.d("failed retrieval", "Retry...")
+
+                chatController.sendMessage(token, newMessage)
+
+            }
+        }
+
+        // Set up the message RecyclerView
+        getUpdatedMessages(userId)
+        // Initial call to fetch all transactions for the user
+        chatController.sendMessage(token, newMessage)
+    }
+
+
+
+    // Sets up the message RecyclerView
+    private fun getUpdatedMessages(userId: String) {
+        // Initialize the message adapter only once
+        if (!::messageAdapter.isInitialized) {
+            messageAdapter = MessageAdapter(userId)
+            binding.messages.adapter = messageAdapter
+            binding.messages.layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        // Update messages in adapter with the latest data
+        messages?.let { messageAdapter.updateMessages(it) }
+
+        // Observe new incoming messages from the ViewModel
+        chatController.messageList.observe(viewLifecycleOwner) { newMessage ->
+            newMessage?.let {
+                // Add new message to the list and notify the adapter
+                //messages = messages?.toMutableList() // Convert to MutableList
+
+                messages?.clear()
+
+                // Sort the new messages by timestamp (assuming messages have a 'timestamp' field)
+                val sortedMessages = it.messages.sortedBy { message -> message.timestamp }
+
+                // Add the sorted messages to the list
+                messages?.addAll(sortedMessages)
+
+                //messages?.addAll(it.messages) // Add new message to the list
+                messageAdapter.notifyItemInserted(messages!!.size - 1) // Notify adapter
+                binding.messages.smoothScrollToPosition(messages!!.size - 1) // Scroll to the latest message
+            }
+        }
+    }
+
+
+    companion object {
+        const val MESSAGES_ARG = "messages"
+        const val CHAT_ID_ARG = "chatId" // New constant for chatId argument
+
+        // Factory method to create a new instance of this fragment with a list of messages and chatId
+        @JvmStatic
+        fun newInstance(messages: List<Message>, chatId: String) =
+            MessagesFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelableArrayList(MESSAGES_ARG, ArrayList(messages))
+                    putString(CHAT_ID_ARG, chatId) // Pass chatId to the fragment
+                }
+            }
+    }
 }

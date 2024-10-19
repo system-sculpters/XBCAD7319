@@ -2,17 +2,20 @@ package com.systemsculpers.xbcad7319.data.api.controller
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.systemsculpers.xbcad7319.data.api.retrofitclient.RetrofitClient
 import com.systemsculpers.xbcad7319.data.api.service.ChatService
 import com.systemsculpers.xbcad7319.data.api.service.PropertyService
 import com.systemsculpers.xbcad7319.data.model.Chat
+import com.systemsculpers.xbcad7319.data.model.Message
+import com.systemsculpers.xbcad7319.data.model.MessageResponse
 import com.systemsculpers.xbcad7319.data.model.Property
 import com.systemsculpers.xbcad7319.data.model.SendMessage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ChatController {
+class ChatController: ViewModel() {
     // Retrofit API service instance for category-related network requests
     private var api: ChatService = RetrofitClient.createService<ChatService>()
 
@@ -26,9 +29,9 @@ class ChatController {
     // MutableLiveData holding a list of categories fetched from the backend
     val chatList: MutableLiveData<List<Chat>> = MutableLiveData()
 
-    // Fetches all categories associated with a specific user, identified by `id`.
-    // Requires an authentication token and the user's ID.
-    // Updates the `categoryList`, `status`, and `message` based on the response.
+    // MutableLiveData holding a list of messages fetched from the backend
+    val messageList: MutableLiveData<MessageResponse> = MutableLiveData()
+
 
     // This method was adapted from medium
     // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
@@ -74,6 +77,9 @@ class ChatController {
         })
     }
 
+
+
+
     // Sends a request to create a new category for the user.
     // Takes a user token for authentication and a Category object.
     // Updates the `status` and `message` based on the success of the request.
@@ -84,14 +90,15 @@ class ChatController {
     // https://medium.com/@meghaverma12
     fun sendMessage(userToken: String, sendMessage: SendMessage) {
         val token = "Bearer $userToken"
-        api.sendMessage(token, sendMessage).enqueue(object : Callback<SendMessage> {
-            override fun onResponse(call: Call<SendMessage>, response: Response<SendMessage>) {
+        api.sendMessage(token, sendMessage).enqueue(object : Callback<MessageResponse> {
+            override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                 if (response.isSuccessful) {
                     // On successful category creation, update the status and message
-                    val createdCategory = response.body()
-                    createdCategory?.let {
+                    val messageResponse = response.body()
+                    messageResponse?.let {
                         status.postValue(true)
                         message.postValue("Category created: $it")
+                        messageList.postValue(it)
                         Log.d("MainActivity", "Category created: $it")
                     }
                 } else {
@@ -103,7 +110,7 @@ class ChatController {
             }
 
             // Handles network or other request failures
-            override fun onFailure(call: Call<SendMessage>, t: Throwable) {
+            override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
                 Log.e("MainActivity", "Error: ${t.message}")
                 status.postValue(false)
                 message.postValue(t.message)

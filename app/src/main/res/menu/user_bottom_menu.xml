@@ -16,7 +16,7 @@
         android:title="@string/valuations"/>
 
     <item
-        android:id="@+id/bookmark"
+        android:id="@+id/chat"
         android:icon="@drawable/baseline_bookmark_24"
         android:title="@string/bookmark"/>
 
