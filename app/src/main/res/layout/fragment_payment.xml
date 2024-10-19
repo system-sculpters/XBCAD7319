@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Card Section -->
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/visa"
+        android:padding="16dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Input fields -->
+    <EditText
+        android:id="@+id/etNameOnCard"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:paddingStart="16dp"
+        android:hint="Name On Card"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/search_bar_background"/>
+
+    <EditText
+        android:id="@+id/etCardNumber"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:hint="Card Number"
+        android:paddingStart="16dp"
+        android:inputType="number"
+        android:maxLength="16"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/search_bar_background"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <EditText
+            android:id="@+id/etCvv"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:paddingStart="10dp"
+            android:hint="CVV"
+            android:inputType="numberPassword"
+            android:maxLength="3"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/search_bar_background"/>
+
+        <EditText
+            android:id="@+id/etExpiryDate"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:paddingStart="16dp"
+            android:hint="Expire date"
+            android:layout_marginLeft="70dp"
+            android:inputType="date"
+            android:background="@drawable/search_bar_background"/>
+    </LinearLayout>
+
+    <!-- Amount and Proceed Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginTop="80dp"> <!-- Added margin to move it lower -->
+
+        <!-- Amount Label -->
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount"
+            android:textSize="16sp"
+            android:layout_marginTop="60dp" />
+
+        <!-- Horizontal Layout for Amount and Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Amount Value -->
+            <TextView
+                android:id="@+id/tvAmountValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="R6 000 000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_weight="1" />
+
+            <!-- Proceed Button -->
+            <Button
+                android:id="@+id/btnProceed"
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:textColor="@color/white"
+                android:text="Proceed"
+                android:drawableEnd="@drawable/baseline_arrow_forward_24"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
