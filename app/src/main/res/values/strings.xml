@@ -22,4 +22,23 @@
     <string name="enter_description">Enter Description</string>
     <string name="find_property_location">Find Property Location</string>
     <string name="search">Search</string>
+    <string name="slogan">Leading real estate company based in the prestigious Waterfall Country Estate</string>
+    <string name="discover_a_home_of_your_dreams">Discover a home of your dreams</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login_redirect">
+        <font>Already have an account? </font>
+        <b><font>sign in</font></b>
+    </string>
+    <string name="for_sale">For Sale</string>
+    <string name="contact_agent">Contact agent</string>
+    <string name="see_on_maps">See on maps</string>
+    <string name="message">Message</string>
+    <string name="buy_now">Buy now</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="properties">Properties</string>
+    <string name="chat">Chat</string>
+    <string name="valuations">Valuations</string>
+    <string name="valuation_description">Looking to sell your property? Then please fill out some of the information below and we will contact you immediately to perform a Free valuation for you.</string>
+    <string name="free_valuation">Free Valuation</string>
 </resources>

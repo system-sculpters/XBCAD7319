@@ -1,260 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.PropertyDetails">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <ImageView
-        android:layout_width="410dp"
-        android:layout_height="400dp"
-        android:src="@drawable/narcary_house"
-        android:layout_marginTop="20dp"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="400dp"> <!-- Adjusted margin top for grouping -->
-
-        <TextView
-            android:layout_width="230dp"
-            android:layout_height="40dp"
-            android:text="Nacary elite house"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-        <TextView
-            android:layout_width="280dp"
-            android:layout_height="30dp"
-            android:text="Waterfall Equestrian Estate, Midrand"
-            android:textSize="16sp" /> <!-- Changed dp to sp for text size -->
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginLeft="360dp"
-        android:src="@drawable/baseline_bookmark_24"/>
-
-
-    <LinearLayout
-        android:id="@+id/bed_container"
-        android:layout_width="120dp"
-    android:layout_height="60dp"
-    android:layout_gravity="left"
-    android:layout_marginLeft="10dp"
-    android:layout_marginTop="480dp"
-    android:background="@drawable/search_bar_background"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:padding="8dp"
-    android:clickable="true"
-    android:focusable="true">
-
-    <ImageView
-        android:id="@+id/house_icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="8dp"
-    android:src="@drawable/baseline_bed_24" />
-
-    <TextView
-        android:id="@+id/house_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="4 Beds"
-        android:textSize="16dp"
-        android:textColor="@color/black"/>
-</LinearLayout>
-
-
-    <!-- BATH CONTAINER -->
-    <LinearLayout
-        android:id="@+id/bath_container"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="145dp"
-        android:layout_marginTop="480dp"
-        android:background="@drawable/search_bar_background"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:clickable="true"
-        android:focusable="true">
-
-        <ImageView
-            android:id="@+id/bath_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/baseline_bathtub_24" />
-
-        <TextView
-            android:id="@+id/bath_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="3 Bath"
-            android:textSize="16dp"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:id="@+id/garage_container"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="275dp"
-        android:layout_marginTop="480dp"
-        android:background="@drawable/search_bar_background"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:clickable="true"
-        android:focusable="true">
-
-        <ImageView
-            android:id="@+id/car_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/baseline_car_24" />
-
-        <TextView
-            android:id="@+id/garage_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="3 Parking"
-            android:textSize="16dp"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="20dp"
-    android:layout_marginTop="550dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Property Description"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        android:textSize="12dp"
-        android:lineSpacingExtra="4dp"
-        android:paddingTop="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="8dp" />
-    </LinearLayout>
-
-     <TextView
-         android:layout_width="400dp"
-         android:layout_height="30dp"
-         android:text="See maps"
-         android:textSize="20dp"
-         android:layout_marginLeft="20dp"
-         android:layout_marginTop="640dp"/>
-
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/baseline_arrow_forward_ios_24"
-        android:layout_marginTop="640dp"
-        android:layout_marginLeft="380dp"/>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="690dp"
-        android:layout_marginLeft="20dp">
-
-        <!-- Contact Agent TextView -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="Contact agent"
-            android:textSize="20dp"
-            android:layout_marginRight="20dp" />
-
-        <!-- Message Container LinearLayout -->
+    tools:context=".view.fragment.PropertyDetails"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:paddingBottom="10dp">
         <LinearLayout
-            android:id="@+id/message_container"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="120dp"
-            android:background="@drawable/search_bar_background"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true">
-
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <ImageView
-                android:id="@+id/message_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/baseline_message_24" />
+                android:id="@+id/property_image"
+                android:layout_width="410dp"
+                android:layout_height="400dp"
+                android:src="@drawable/narcary_house"
+                android:layout_marginTop="20dp"
+                android:scaleType="fitXY"/>
 
-            <TextView
-                android:id="@+id/message_text"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text=" Message"
-                android:textSize="14sp"
-                android:textColor="@color/black"/>
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="20dp">
+
+                <TextView
+                    android:id="@+id/property_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Nacary elite house"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter_bold"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/baseline_bookmark_border_24"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="20dp">
+                <TextView
+                    android:id="@+id/property_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="Nacary elite house"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/property_layout_container"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="20dp">
+
+                    <!-- RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/property_types_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="Property Description"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter_bold"
+                    />
+
+                <TextView
+                    android:id="@+id/property_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="12sp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/see_on_maps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="@string/see_on_maps"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/baseline_chevron_right_24"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="@string/contact_agent"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/inter"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:id="@+id/contact_agent"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:background="@drawable/edittext_background">
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/baseline_message_24"
+                        android:layout_marginEnd="5dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text="@string/message"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/inter"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".7"
+        android:gravity="end"
+        android:orientation="vertical"
+        android:background="@drawable/bottom_details_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="20dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="@string/contact_agent"
+                    android:fontFamily="@font/inter"
+                    android:layout_marginBottom="6dp"
+                    />
+
+                <TextView
+                    android:id="@+id/property_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="R6 000 000"
+                    android:fontFamily="@font/inter_semibold"
+                    />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/buy_now"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/black"
+                android:text="@string/buy_now"
+                android:textSize="13sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter"/>
 
         </LinearLayout>
-
-
     </LinearLayout>
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="740dp"
-        android:text="Price"
-        android:textSize="20dp" />
-
-    <TextView
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="770dp"
-    android:text="R6 000 000"
-    android:textSize="20dp"
-    android:textStyle="bold" />
-
-    <Button
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="280dp"
-        android:layout_marginTop="750dp"
-    android:backgroundTint="@color/black"
-    android:text="Buy Now" />
-
-
-</FrameLayout>
+</LinearLayout>

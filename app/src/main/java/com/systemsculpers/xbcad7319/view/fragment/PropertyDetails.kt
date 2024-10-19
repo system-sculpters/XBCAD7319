@@ -11,34 +11,50 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.systemsculpers.xbcad7319.data.model.PropertyType
+import com.systemsculpers.xbcad7319.databinding.FragmentPropertyDetailsBinding
+import com.systemsculpers.xbcad7319.databinding.FragmentPropertyListingsBinding
+import com.systemsculpers.xbcad7319.view.adapter.PropertyDetailsAdapter
+import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeFilterAdapter
 
 class PropertyDetails : Fragment() {
+//    val propertyTypes: MutableList<PropertyType> = mutableListOf(
+//        PropertyType(, R.drawable.baseline_home_filled_24),
+//        PropertyType(context.getString(R.string.rental), R.drawable.rental_icon),
+//        PropertyType(context.getString(R.string.land), R.drawable.land_icon)
+//    )
+
+    // View binding object for accessing views in the layout
+    private var _binding: FragmentPropertyDetailsBinding? = null
+
+    // Non-nullable binding property
+    private val binding get() = _binding!!
+
+
+    // Adapter for the RecyclerView to display goals
+    private lateinit var propertyDetailsAdapter: PropertyDetailsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_property_details, container, false)
+        _binding = FragmentPropertyDetailsBinding.inflate(inflater, container, false)
+
+        propertyDetailsAdapter = PropertyDetailsAdapter()
+
 
         // Find the message button (LinearLayout in your case)
-        val messageButton: View = view.findViewById(R.id.message_container)
-
-        // Set an OnClickListener for the message button
-        messageButton.setOnClickListener {
+        binding.contactAgent.setOnClickListener {
             showMessageDialog()
         }
 
-        return view
+        binding.seeOnMaps.setOnClickListener{
+
+        }
+
+        return binding.root
     }
-    companion object {
-        fun newInstance(param1: String, param2: String) =
-            PropertyDetails().apply {
-                arguments = Bundle().apply {
-                    putString("param1", param1)
-                    putString("param2", param2)
-                }
-            }
-    }
+
 
     private fun showMessageDialog() {
         // Inflate the custom dialog layout
@@ -79,7 +95,6 @@ class PropertyDetails : Fragment() {
         // Show the dialog
         dialog.show()
     }
-
 }
 
 

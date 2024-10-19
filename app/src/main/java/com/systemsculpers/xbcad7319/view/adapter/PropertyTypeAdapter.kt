@@ -21,11 +21,13 @@ class PropertyTypeAdapter(private val context: Context,
     private var selectedItemPosition = RecyclerView.NO_POSITION
     private var selectedPropertyType: PropertyType? = null
 
-    val propertyTypes: List<PropertyType> = listOf(
+    val propertyTypes: MutableList<PropertyType> = mutableListOf(
         PropertyType(context.getString(R.string.house), R.drawable.baseline_home_filled_24),
         PropertyType(context.getString(R.string.rental), R.drawable.rental_icon),
         PropertyType(context.getString(R.string.land), R.drawable.land_icon)
     )
+
+
 
     // ViewHolder class for holding the views for each icon item
     inner class PropertyTypeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

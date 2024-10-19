@@ -33,7 +33,7 @@
             android:id="@+id/property_type_icon"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/outline_location_on_24"
+            android:src="@drawable/search_icon_"
             android:layout_marginEnd="10dp"/>
 
 
@@ -47,13 +47,14 @@
             android:paddingVertical="4dp"
             android:fontFamily="@font/inter_medium"
             android:hint="@string/search"
+            android:background="@drawable/search_background"
             android:textSize="14sp"
             />
 
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/baseline_chevron_right_24"/>
+            android:src="@drawable/outline_location_on_24"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

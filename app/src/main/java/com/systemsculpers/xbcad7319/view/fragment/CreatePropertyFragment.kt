@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.systemsculpers.xbcad7319.R
+import com.systemsculpers.xbcad7319.data.preferences.TokenManager
+import com.systemsculpers.xbcad7319.data.preferences.UserManager
 import com.systemsculpers.xbcad7319.databinding.FragmentCreatePropertyBinding
 import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeAdapter
 
@@ -21,6 +23,10 @@ class CreatePropertyFragment : Fragment() {
 
     // Adapter for the RecyclerView to display goals
     private lateinit var propertyTypeAdapter: PropertyTypeAdapter
+
+    // User and token managers for managing user sessions and authentication
+    private lateinit var userManager: UserManager
+    private lateinit var tokenManager: TokenManager
 
 
     override fun onCreateView(

@@ -1,60 +1,74 @@
 package com.systemsculpers.xbcad7319.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import com.systemsculpers.xbcad7319.R
+import com.systemsculpers.xbcad7319.databinding.FragmentCreatePropertyBinding
+import com.systemsculpers.xbcad7319.databinding.FragmentPropertyListingsBinding
+import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeAdapter
+import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeFilterAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PropertyListings.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PropertyListings : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    // View binding object for accessing views in the layout
+    private var _binding: FragmentPropertyListingsBinding? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    // Non-nullable binding property
+    private val binding get() = _binding!!
+
+    // Adapter for the RecyclerView to display goals
+    private lateinit var propertyTypeAdapter: PropertyTypeFilterAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        // Inflate the layout for this fragment and initialize binding
+        _binding = FragmentPropertyListingsBinding.inflate(inflater, container, false)
+
+        setPropertyTypes()
+
+        binding.locationRedirect.setOnClickListener{
+
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_property_listings, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BuyingPropertyFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PropertyListings().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    // Sets up the color picker RecyclerView
+    private fun setPropertyTypes() {
+        binding.propertyTypesList.layoutManager = GridLayoutManager(requireContext(), 3) // 3 icons per row
+        //binding.properyTypesList.setHasFixedSize(false)
+
+        // Adapter to display available colors and handle color selection
+        propertyTypeAdapter = PropertyTypeFilterAdapter(requireContext()) { selectedPropertyType ->
+            Log.d("SelectedCategory", "Selected Property Type: $selectedPropertyType")
+
+            if(selectedPropertyType.name == getString(R.string.house) || selectedPropertyType.name == getString(R.string.rental)){
+
             }
+            else if(selectedPropertyType.name == getString(R.string.land)){
+
+            }
+            else if(selectedPropertyType.name == getString(R.string.rental)){
+
+            }
+        }
+
+        binding.propertyTypesList.adapter = propertyTypeAdapter
+    }
+
+
+
+    // Clean up binding object when the fragment is destroyed
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
