@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5"
+    android:padding="16dp">
+
+    <!-- Title Section -->
+    <TextView
+        android:id="@+id/about_us_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Us"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:textColor="#000000"/>
+
+    <!-- Container for the content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/search_bar_background"
+        android:layout_marginTop="160dp"
+        android:padding="16dp"
+      >
+
+        <!-- Company Name -->
+        <TextView
+            android:id="@+id/company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="F.G. Latto Property Group"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="#000000"/>
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/company_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Founded in 2018, F.G. Latto Property Group specializes in selling, designing, and constructing luxury properties in Waterfall Country Estate. Led by Noksie Khumalo and Fraser Gourlay, the company offers a comprehensive range of services, including its own building and architect divisions."
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp"/>
+
+        <!-- Success and Info Section -->
+        <TextView
+            android:id="@+id/company_stats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="With over 100 successful projects, F.G. Latto is the highest-selling independent agency in the area, prioritizing personalized client experiences. Turn your vision into a luxurious home with F.G. Latto Property Group."
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
