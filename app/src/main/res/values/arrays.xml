@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="questions1" />
+    <string-array name="sales_rental_options">sales_rental_options</string-array>
 </resources>

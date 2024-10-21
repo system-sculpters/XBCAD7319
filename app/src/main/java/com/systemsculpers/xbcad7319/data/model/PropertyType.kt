@@ -8,5 +8,7 @@ data class PropertyType(
     //Florina Muntenescu
     //https://medium.com/@florina.muntenescu
     var name: String,   // Unique ID for the color (could be a hex code or database ID)
-    var icon: Int
+    var icon: Int,
+    var count: Int // Add a count property
+
 )

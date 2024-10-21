@@ -65,5 +65,10 @@
     <string name="bed">Bed</string>
     <string name="parking">Parking</string>
     <string name="bath">Bath</string>
-    <string name="sqrf">Sqrf</string>
+    <item name="users_label" type="id">users_label</item>
+    <item name="users_value" type="id">users_value</item>
+    <item name="revenue_chart" type="id">revenue_chart</item>
+    <item name="availablePropertiesRecyclerView" type="id">availablePropertiesRecyclerView</item>
+    <item name="soldPropertiesRecyclerView" type="id">soldPropertiesRecyclerView</item>
+    <item name="sales_rental_spinner" type="id">sales_rental_spinner</item>
 </resources>
