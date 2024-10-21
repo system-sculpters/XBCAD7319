@@ -33,8 +33,7 @@
             android:id="@+id/property_type_icon"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/search_icon_"
-            android:layout_marginEnd="10dp"/>
+            android:src="@drawable/search_icon_"/>
 
 
         <androidx.appcompat.widget.AppCompatEditText

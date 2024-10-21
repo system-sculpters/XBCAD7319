@@ -1,60 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="25dp">
 
     <!-- Settings Title -->
     <TextView
         android:id="@+id/settings_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text="@string/settings"
         android:textSize="24sp"
         android:layout_marginTop="20dp"
-        android:paddingBottom="24dp"
         android:fontFamily="sans-serif-medium"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/profile"
+        android:textSize="18sp"
+        android:paddingBottom="8dp"
+        android:fontFamily="@font/inter_semibold"/>
     <!-- Grouped Profile and Change Password Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/search_bar_background"
-        android:padding="16dp"
+        android:background="@drawable/edittext_background"
         android:clickable="true"
         android:focusable="true">
 
         <!-- Profile Section -->
         <LinearLayout
+            android:id="@+id/edit_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp"
-            android:clickable="true"
-            android:focusable="true">
+            android:padding="10dp"
+            android:gravity="center_vertical">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/baseline_person_outline_24"
-                android:background="@drawable/search_bar_background"/>
+                android:background="@drawable/edittext_background"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/card_img"
+                    android:src="@drawable/baseline_person_outline_24"
+                    android:padding="8dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
+
+            </LinearLayout>
+
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:text="Edit Profile"
-                android:textSize="16dp"
-                android:gravity="center_vertical"/>
+                android:layout_marginStart="10dp"
+                android:text="@string/edit_profile"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:src="@drawable/baseline_arrow_forward_ios_24"/>
         </LinearLayout>
 
@@ -66,251 +90,322 @@
 
         <!-- Change Password Section -->
         <LinearLayout
+            android:id="@+id/change_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp"
-            android:clickable="true"
-            android:focusable="true">
+            android:padding="10dp"
+            android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="50dp"
+            <LinearLayout
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/baseline_vpn_key_24"
-                android:layout_marginLeft="4dp"
-                android:background="@drawable/search_bar_background"/>
+                android:background="@drawable/edittext_background"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/baseline_vpn_key_24"
+                    android:padding="8dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
+
+            </LinearLayout>
+
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:text="Change Password"
+                android:layout_marginStart="10dp"
+                android:text="@string/change_password"
                 android:textSize="16sp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:src="@drawable/baseline_arrow_forward_ios_24"/>
         </LinearLayout>
 
     </LinearLayout>
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/general"
+        android:textSize="18sp"
+        android:paddingBottom="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:background="@drawable/edittext_background">
 
-        <!-- Add any top content you have before the section -->
-
-        <!-- Example: Other layout elements -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="General"
-            android:textSize="18sp"
-            android:paddingBottom="8dp" />
-
+        <!-- Notifications Section -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/search_bar_background"
-            android:layout_marginTop="24dp"
-            android:padding="16dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <!-- Notifications Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/baseline_access_alarm_24"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/search_bar_background" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Notifications"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical" />
-
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:checked="false" />
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E0E0E0" />
-
-            <!-- Dark Mode Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/baseline_dark_mode_24"
-                    android:layout_marginLeft="4dp"
-                    android:background="@drawable/search_bar_background" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Dark Mode"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical" />
-
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:checked="true" />
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E0E0E0" />
-
-            <!-- Language Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/baseline_language_24"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/search_bar_background" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Language"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/baseline_arrow_forward_ios_24" />
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E0E0E0" />
-
-            <!-- About Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/baseline_question_mark_24"
-                    android:background="@drawable/search_bar_background" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:text="About"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/baseline_arrow_forward_ios_24" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/notifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@drawable/search_bar_background"
-            android:padding="16dp"
-            android:layout_marginTop="100dp"
-            android:clickable="true"
-            android:focusable="true">
+            android:padding="10dp"
+            android:gravity="center_vertical">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/baseline_exit_to_app_24"
-                android:background="@drawable/search_bar_background"/>
+                android:background="@drawable/edittext_background"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/baseline_notifications_none_24"
+                    android:padding="8dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
+
+            </LinearLayout>
+
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:text="Logout"
+                android:layout_marginStart="10dp"
+                android:text="@string/notifications"
                 android:textSize="16sp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/notificationsSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:checked="false" />
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0" />
+
+        <!-- Dark Mode Section -->
+        <LinearLayout
+            android:id="@+id/theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/edittext_background"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/baseline_dark_mode_24"
+                    android:padding="8dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/dark_mode"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/themeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:checked="true" />
+        </LinearLayout>
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0" />
+
+        <!-- Language Section -->
+        <LinearLayout
+            android:id="@+id/language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/edittext_background"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/baseline_language_24"
+                    android:padding="8dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/language"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/baseline_arrow_forward_ios_24"/>
+        </LinearLayout>
+
+        <!-- Divider (Optional for separation) -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"/>
+
+        <!-- Change Password Section -->
+        <LinearLayout
+            android:id="@+id/about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/edittext_background"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/baseline_question_mark_24"
+                    android:padding="8dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/about"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:src="@drawable/baseline_arrow_forward_ios_24"/>
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/edittext_background">
+
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/edittext_background"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_logout_24"
+                android:padding="8dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/logout"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/baseline_arrow_forward_ios_24"/>
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -1,36 +1,31 @@
 package com.systemsculpers.xbcad7319.view.fragment
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.PropertyController
-import com.systemsculpers.xbcad7319.data.model.Property
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
-import com.systemsculpers.xbcad7319.databinding.FragmentPropertyListingsBinding
+import com.systemsculpers.xbcad7319.databinding.FragmentAgentPropertiesBinding
+import com.systemsculpers.xbcad7319.databinding.FragmentSearchLocationBinding
 import com.systemsculpers.xbcad7319.view.adapter.PropertyAdapter
-import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeFilterAdapter
-import com.systemsculpers.xbcad7319.view.observer.PropertyListingObserver
+import com.systemsculpers.xbcad7319.view.observer.PropertyObserver
+import com.systemsculpers.xbcad7319.view.observer.ValuationsObserver
 
 
-class PropertyListings : Fragment() {
+class AgentPropertiesFragment : Fragment() {
+
     // View binding object for accessing views in the layout
-    private var _binding: FragmentPropertyListingsBinding? = null
+    private var _binding: FragmentAgentPropertiesBinding? = null
 
     // Non-nullable binding property
     private val binding get() = _binding!!
-
-    // Adapter for the RecyclerView to display goals
-    private lateinit var propertyTypeAdapter: PropertyTypeFilterAdapter
 
     private lateinit var adapter: PropertyAdapter
 
@@ -38,90 +33,39 @@ class PropertyListings : Fragment() {
 
     // User and token managers for managing user sessions and authentication
     private lateinit var userManager: UserManager
-
     private lateinit var tokenManager: TokenManager
-
-    private lateinit var filteredPropertyList: MutableList<Property>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment and initialize binding
-        _binding = FragmentPropertyListingsBinding.inflate(inflater, container, false)
+    ): View? {
+        _binding = FragmentAgentPropertiesBinding.inflate(inflater, container, false)
+
         propertyController = ViewModelProvider(this).get(PropertyController::class.java)
 
         // Get instances of user and token managers
         userManager = UserManager.getInstance(requireContext())
         tokenManager = TokenManager.getInstance(requireContext())
 
-        filteredPropertyList = mutableListOf<Property>()
-
         adapter = PropertyAdapter(requireContext()){
-                property ->
+            property ->
 
+            val propertyDetailsFragment = PropertyDetails.newInstance(property)
 
+            // Replace the current fragment with the MessagesFragment
+            changeCurrentFragment(propertyDetailsFragment)
         }
-
-        setPropertyTypes()
 
         setUpRecyclerView()
 
         getProperties()
 
-        searchProperties()
-        // Inflate the layout for this fragment
-        return binding.root
-    }
-
-    private fun searchProperties(){
-        binding.searchLocation.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!s.isNullOrEmpty()) {
-                    filterProperties(s.toString())
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-    }
-
-    private fun filterProperties(query: String) {
-        filteredPropertyList.clear() // Clear the current filtered list
-        // Filter properties based on the query
-        filteredPropertyList.addAll(filteredPropertyList.filter { property ->
-            property.title.contains(query, ignoreCase = true) // Assuming Property has a 'name' field
-        })
-
-        adapter.updateProperties(filteredPropertyList) // Update the adapter with filtered properties
-    }
-
-    // Sets up the color picker RecyclerView
-    private fun setPropertyTypes() {
-        binding.propertyTypesList.layoutManager = GridLayoutManager(requireContext(), 3) // 3 icons per row
-        //binding.properyTypesList.setHasFixedSize(false)
-
-        // Adapter to display available colors and handle color selection
-        propertyTypeAdapter = PropertyTypeFilterAdapter(requireContext()) { selectedPropertyType ->
-            Log.d("SelectedCategory", "Selected Property Type: $selectedPropertyType")
-
-            filterPropertiesByType(selectedPropertyType.name) // Filter based on selected type
-
+        binding.create.setOnClickListener {
+            changeCurrentFragment(CreatePropertyFragment())
         }
 
-        binding.propertyTypesList.adapter = propertyTypeAdapter
-    }
-
-    private fun filterPropertiesByType(selectedType: String) {
-        filteredPropertyList.clear() // Clear the filtered list before applying new filter
-        // Filter properties based on the selected type
-        filteredPropertyList.addAll(filteredPropertyList.filter { property ->
-            property.propertyType.equals(selectedType, ignoreCase = true) // Assuming Property has a 'type' field
-        })
-
-        adapter.updateProperties(filteredPropertyList) // Update the adapter with filtered properties
+        // Inflate the layout for this fragment
+        return binding.root
     }
 
     private fun setUpRecyclerView() {
@@ -197,16 +141,11 @@ class PropertyListings : Fragment() {
         // Kevin Robatel
         // https://stackoverflow.com/users/244702/kevin-robatel
         propertyController.propertyList.observe(viewLifecycleOwner,
-            PropertyListingObserver(adapter, this)
+            PropertyObserver(adapter)
         )
 
         // Initial call to fetch all transactions for the user
         propertyController.getProperties(token)
-    }
-
-    fun updateProperties(data: List<Property>) {
-        filteredPropertyList.clear() // Clear the existing transactions
-        filteredPropertyList.addAll(data) // Add new transactions to the list
     }
     // Helper function to change the current fragment in the activity.
     private fun changeCurrentFragment(fragment: Fragment) {
@@ -218,11 +157,5 @@ class PropertyListings : Fragment() {
             .replace(R.id.frame_layout, fragment)
             .addToBackStack(null)
             .commit()
-    }
-
-    // Clean up binding object when the fragment is destroyed
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

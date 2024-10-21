@@ -15,7 +15,7 @@ class MapController: ViewModel() {
     val message: MutableLiveData<String> = MutableLiveData()
 
     // MutableLiveData holding a list of categories fetched from the backend
-    val categoryList: MutableLiveData<List<LocationResult>> = MutableLiveData()
+    val locationList: MutableLiveData<List<LocationResult>?> = MutableLiveData()
 
     fun fetchSuggestions(query: String) {
         MapRetrofitClient.api.searchLocations(query).enqueue(object : retrofit2.Callback<List<LocationResult>> {
@@ -23,38 +23,29 @@ class MapController: ViewModel() {
                 if (response.isSuccessful) {
                     val locationResults = response.body()
                     if (!locationResults.isNullOrEmpty()) {
-                        val firstResult = locationResults[0]
-                        val address = firstResult.address
-                        //categoryList.postValue(locationResults)
-                        address?.let {
-                            val houseNumber = it.house_number ?: "No house number"
-                            val street = it.road ?: "Unknown street"
-                            val city = it.city ?: "Unknown city"
-                            val addressText = "$houseNumber $street, $city"
+                        // Post the list of locations to the LiveData
+                        locationList.postValue(locationResults)
 
-                            status.postValue(true)
-                            message.postValue("Categories retrieved")
-                            Log.d("suggestions", "suggestions: ${addressText} \nlat ${firstResult.lat}\nlong ${firstResult.lon}")
-                            // Use this data in your UI (e.g., show it in a TextView or Marker)
-
-                        }
+                        // Notify UI of success
+                        status.postValue(true)
+                        message.postValue("Suggestions retrieved successfully")
+                    } else {
+                        // Handle empty results
+                        locationList.postValue(null)
+                        status.postValue(false)
+                        message.postValue("No suggestions found")
                     }
-                }
-                if (response.isSuccessful) {
-                    response.body()?.let { results ->
-                        val suggestions = results.map { it.display_name }
-
-                    }
-                }else {
-                    // Handle the failure of the category deletion request
+                } else {
+                    // Handle non-successful responses
                     status.postValue(false)
                     message.postValue("Request failed with code: ${response.code()}")
-                    Log.e("MainActivity", "Request failed with code: ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<List<LocationResult>>, t: Throwable) {
-                // Handle error
+                // Handle failure due to network issues or other errors
+                status.postValue(false)
+                message.postValue("Request failed: ${t.localizedMessage}")
             }
         })
     }

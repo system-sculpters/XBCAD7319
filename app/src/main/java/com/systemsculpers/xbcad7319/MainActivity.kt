@@ -18,6 +18,7 @@ import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
 import com.systemsculpers.xbcad7319.databinding.ActivityMainBinding
 import com.systemsculpers.xbcad7319.view.activity.WelcomeActivity
+import com.systemsculpers.xbcad7319.view.fragment.AgentPropertiesFragment
 import com.systemsculpers.xbcad7319.view.fragment.AgentValuationsFragment
 import com.systemsculpers.xbcad7319.view.fragment.ChatsFragment
 import com.systemsculpers.xbcad7319.view.fragment.CreatePropertyFragment
@@ -26,6 +27,7 @@ import com.systemsculpers.xbcad7319.view.fragment.MessagesFragment
 import com.systemsculpers.xbcad7319.view.fragment.PropertyDetails
 import com.systemsculpers.xbcad7319.view.fragment.PropertyListings
 import com.systemsculpers.xbcad7319.view.fragment.SearchLocationFragment
+import com.systemsculpers.xbcad7319.view.fragment.SettingsFragment
 import com.systemsculpers.xbcad7319.view.fragment.UploadImagesFragment
 import com.systemsculpers.xbcad7319.view.fragment.ViewOnMapFragment
 import java.util.Locale
@@ -137,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                     changeCurrentFragment(PropertyListings())
                 }
                 R.id.settings ->{
-                    logOut()
+                   changeCurrentFragment(SettingsFragment())
                 }
                 R.id.agent_home ->{
 
@@ -151,8 +153,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.chat->{
                     changeCurrentFragment(ChatsFragment())
                 }
-                R.id.properties ->{
-                    changeCurrentFragment(UploadImagesFragment())
+                R.id.agent_properties ->{
+                    changeCurrentFragment(AgentPropertiesFragment())
                 }
             }
             true
@@ -180,14 +182,7 @@ class MainActivity : AppCompatActivity() {
         return token != null && !AppConstants.isTokenExpired(expirationTime) // Check if the token is valid
     }
 
-    // Logs the user out by clearing tokens and signing out
-    private fun logOut() {
-        tokenManager.clearToken() // Clear the stored token
-        userManager.clearUser() // Clear user details
-        Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show() // Show logout message
-        startActivity(Intent(this, MainActivity::class.java)) // Restart the MainActivity
-        finish() // Finish the current activity
-    }
+
 
     private fun setAppLocale(language: String) {
         // This method was adapted from stackoverflow

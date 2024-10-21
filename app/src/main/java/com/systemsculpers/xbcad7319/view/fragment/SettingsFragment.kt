@@ -1,60 +1,138 @@
 package com.systemsculpers.xbcad7319.view.fragment
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
+import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
+import com.systemsculpers.xbcad7319.data.preferences.TokenManager
+import com.systemsculpers.xbcad7319.data.preferences.UserManager
+import com.systemsculpers.xbcad7319.databinding.FragmentSearchLocationBinding
+import com.systemsculpers.xbcad7319.databinding.FragmentSettingsBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SettingsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    // View binding object for accessing views in the layout
+    private var _binding: FragmentSettingsBinding? = null
+
+    // Non-nullable binding property
+    private val binding get() = _binding!!
+
+    // User and token managers for managing user sessions and authentication
+    private lateinit var userManager: UserManager
+    private lateinit var tokenManager: TokenManager
+
+    private lateinit var sharedPreferences: SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+
+        sharedPreferences = requireActivity().getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+
+        // Get instances of user and token managers
+        userManager = UserManager.getInstance(requireContext())
+        tokenManager = TokenManager.getInstance(requireContext())
+
+        binding.editProfile.setOnClickListener{
+
+        }
+
+        binding.changePassword.setOnClickListener{
+
+        }
+
+        binding.language.setOnClickListener{
+            changeCurrentFragment(LanguageFragment())
+        }
+
+        binding.about.setOnClickListener{
+            changeCurrentFragment(AboutFragment())
+        }
+
+        binding.logout.setOnClickListener{
+            logout()
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun setupListeners() {
+        binding.notificationsSwitch.setOnCheckedChangeListener { _, isChecked ->
+            // Save preference for notification enabled state
+            // This method was adapted from stackoverflow
+            // https://stackoverflow.com/questions/3624280/how-to-use-sharedpreferences-in-android-to-store-fetch-and-edit-values
+            // Harneet Kaur
+            // https://stackoverflow.com/users/1444525/harneet-kaur
+            // Ziem
+            sharedPreferences.edit().putBoolean("notifications_enabled", isChecked).apply()
+        }
+
+        binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            // Save preference for notification enabled state
+            // This method was adapted from stackoverflow
+            // https://stackoverflow.com/questions/3624280/how-to-use-sharedpreferences-in-android-to-store-fetch-and-edit-values
+            // Harneet Kaur
+            // https://stackoverflow.com/users/1444525/harneet-kaur
+            // Ziem
+            sharedPreferences.edit().putBoolean("theme_preference", isChecked).apply()
+            applyTheme(isChecked)
+        }
+
+
+    }
+    private fun applyTheme(theme: Boolean) {
+        // This method was adapted from stackoverflow
+        // https://stackoverflow.com/questions/3624280/how-to-use-sharedpreferences-in-android-to-store-fetch-and-edit-values
+        // Harneet Kaur
+        // https://stackoverflow.com/users/1444525/harneet-kaur
+        // Ziem
+        // https://stackoverflow.com/posts/11027631/revisions
+        when (theme) {
+            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) // Set light mode
+            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES) // Set dark mode
+        }
+        // Restart the activity to apply the new theme settings
+        activity?.recreate()
+    }
+    // Logs the user out by clearing tokens and signing out
+    private fun logout() {
+        tokenManager.clearToken() // Clear the stored token
+        userManager.clearUser() // Clear user details
+        Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show() // Show logout message
+
+        // Restart the MainActivity
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK) // Clear previous activities
+        startActivity(intent)
+        requireActivity().finish() // Finish the current activity
+    }
+
+    // Helper function to change the current fragment in the activity.
+    private fun changeCurrentFragment(fragment: Fragment) {
+        // This method was adapted from stackoverflow
+        // https://stackoverflow.com/questions/52318195/how-to-change-fragment-kotlin
+        // Marcos Maliki
+        // https://stackoverflow.com/users/8108169/marcos-maliki
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Clear the binding reference to prevent memory leaks
     }
 }

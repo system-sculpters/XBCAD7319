@@ -44,7 +44,7 @@ class PropertyDetailsAdapter:
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyTypeViewHolder {
         // Inflate the layout for the icon item and create a ViewHolder instance
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.property_type_item_layout, parent, false)
+            .inflate(R.layout.property_details_item_layout, parent, false)
         return PropertyTypeViewHolder(itemView) // Return the newly created ViewHolder
     }
 

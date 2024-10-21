@@ -10,12 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.systemsculpers.xbcad7319.R
+import com.systemsculpers.xbcad7319.data.model.Property
 import com.systemsculpers.xbcad7319.databinding.FragmentCreatePropertyBinding
 import com.systemsculpers.xbcad7319.databinding.FragmentUploadImagesBinding
 import com.systemsculpers.xbcad7319.view.adapter.ImageAdapter
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
 
 class UploadImagesFragment : Fragment() {
     // View binding object for accessing views in the layout
@@ -28,17 +28,6 @@ class UploadImagesFragment : Fragment() {
     private lateinit var imageAdapter: ImageAdapter
     private val selectedImages: MutableList<Uri> = mutableListOf()
 
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,12 +37,16 @@ class UploadImagesFragment : Fragment() {
         _binding = FragmentUploadImagesBinding.inflate(inflater, container, false)
 
 
-// Initialize RecyclerView
+        // Initialize RecyclerView
         setupRecyclerView()
 
         // Set up click listener for the upload image button
         binding.uploadImage.setOnClickListener {
             openImagePicker()
+        }
+
+        binding.submitButton.setOnClickListener {
+            redirectBackToCreate()
         }
         // Inflate the layout for this fragment
         return binding.root
@@ -100,23 +93,35 @@ class UploadImagesFragment : Fragment() {
         imageAdapter.notifyDataSetChanged()
     }
 
+    private fun redirectBackToCreate(){
+        val bundle = Bundle().apply {
+            putParcelableArrayList("selected_images", ArrayList(selectedImages))
+            putParcelable("location", arguments?.getParcelable("location"))
+            putParcelable("property", arguments?.getParcelable<Property>("property"))
+        }
+        val createPropertyFragment = CreatePropertyFragment()
+        createPropertyFragment.arguments = bundle
+
+        changeCurrentFragment(createPropertyFragment)
+    }
+
+    private fun changeCurrentFragment(fragment: Fragment) {
+        // This method was adapted from stackoverflow
+        // https://stackoverflow.com/questions/52318195/how-to-change-fragment-kotlin
+        // Marcos Maliki
+        // https://stackoverflow.com/users/8108169/marcos-maliki
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-
-
     companion object {
         private const val REQUEST_IMAGE_PICK = 1001
-
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            UploadImagesFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//        }
     }
 }

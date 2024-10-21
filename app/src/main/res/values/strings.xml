@@ -45,4 +45,25 @@
     <string name="select_images">Select Images</string>
     <string name="choose_your_files_here">Choose your files here</string>
     <string name="image_size_label">20 MB max image size</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="language">Language</string>
+    <string name="notifications">Notifications</string>
+    <string name="profile">Profile</string>
+    <string name="general">General</string>
+    <string name="logout">Logout</string>
+    <string name="selected_language">Selected Language</string>
+    <string name="select_a_language">Select a language</string>
+    <string name="enter_size_in_sqf">Enter size in square feet</string>
+    <string name="property_price">Property Price</string>
+    <string name="property_description">Property Description</string>
+    <string name="property_size">Property Size (in square feet)</string>
+    <string name="no_of_parking">No. of parkings</string>
+    <string name="no_of_bathrooms">No. of bathrooms</string>
+    <string name="no_of_bedrooms">No. of bedrooms</string>
+    <string name="bed">Bed</string>
+    <string name="parking">Parking</string>
+    <string name="bath">Bath</string>
+    <string name="sqrf">Sqrf</string>
 </resources>

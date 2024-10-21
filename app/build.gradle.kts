@@ -55,5 +55,6 @@ dependencies {
     implementation("androidx.preference:preference:1.2.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation(libs.osmdroid.android) // Check for the latest version
-
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
 }

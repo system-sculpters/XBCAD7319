@@ -29,10 +29,18 @@
                 android:fontFamily="@font/inter_medium"
                 android:layout_marginBottom="20dp"/>
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/property_name"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_light"/>
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/goalName"
+                android:id="@+id/property_name"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:inputType="text"
                 android:layout_marginTop="8dp"
                 android:hint="@string/property_name"
@@ -85,6 +93,7 @@
                 android:background="@drawable/edittext_background"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="10dp"
+                android:layout_marginBottom="20dp"
                 >
                 <ImageView
                     android:id="@+id/property_type_icon"
@@ -93,31 +102,38 @@
                     android:src="@drawable/outline_location_on_24"
                     android:layout_marginEnd="10dp"/>
                 <TextView
-                    android:id="@+id/property_type_name"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/location"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/select_location"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:fontFamily="@font/inter_light"/>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:fontFamily="@font/inter_light"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
 
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/baseline_chevron_right_24"
-                    android:layout_marginEnd="10dp"/>
+                    android:src="@drawable/baseline_chevron_right_24"/>
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/property_price"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_light"
+                android:layout_marginBottom="10dp"/>
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/property_price"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:inputType="numberDecimal"
-                android:layout_marginTop="20dp"
+
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
                 android:background="@drawable/edittext_background"
@@ -162,13 +178,23 @@
                     android:layout_marginEnd="10dp"/>
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/no_of_bedrooms_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_of_bedrooms"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_light"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"/>
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/no_of_bedrooms"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:inputType="number"
-                android:layout_marginTop="20dp"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
                 android:background="@drawable/edittext_background"
@@ -178,12 +204,23 @@
                 android:visibility="gone"
                 />
 
+            <TextView
+                android:id="@+id/no_of_bathrooms_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_of_bathrooms"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_light"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"/>
+
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/no_of_bathrooms"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:inputType="number"
-                android:layout_marginTop="20dp"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
                 android:background="@drawable/edittext_background"
@@ -193,12 +230,23 @@
                 android:visibility="gone"
                 />
 
+            <TextView
+                android:id="@+id/no_of_parking_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_of_parking"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_light"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"/>
+
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/no_of_parking"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:inputType="number"
-                android:layout_marginTop="20dp"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
                 android:background="@drawable/edittext_background"
@@ -208,21 +256,56 @@
                 android:visibility="gone"
                 />
 
+            <TextView
+                android:id="@+id/sizeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/property_size"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_light"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/size"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:inputType="number"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/edittext_background"
+                android:fontFamily="@font/inter_medium"
+                android:hint="@string/enter_size_in_sqf"
+                android:textSize="14sp"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/property_description"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_light"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"/>
+
             <EditText
-                android:id="@+id/task_description_edittext"
+                android:id="@+id/property_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:gravity="top|start"
-                android:layout_marginTop="20dp"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
                 android:background="@drawable/edittext_background"
+                android:textSize="14dp"
                 android:minLines="4"
                 android:maxLines="10"
                 android:scrollbars="vertical"
-                android:hint="@string/enter_description"
-                />
+                android:hint="@string/enter_description" />
 
         </LinearLayout>
     </ScrollView>

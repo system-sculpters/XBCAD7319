@@ -67,7 +67,7 @@ class PropertyTypeAdapter(private val context: Context,
     }
 
     // Function to set the selected category
-    fun setSelectedCategory(propertyType: PropertyType) {
+    fun setSelectedItem(propertyType: PropertyType) {
         // Keep track of the previous selected position
         val previousSelectedPosition = selectedItemPosition
         selectedPropertyType = propertyType // Set the new selected category

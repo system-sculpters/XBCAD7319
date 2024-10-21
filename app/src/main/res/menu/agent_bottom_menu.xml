@@ -6,7 +6,7 @@
         android:title="@string/home"/>
 
     <item
-        android:id="@+id/properties"
+        android:id="@+id/agent_properties"
         android:icon="@drawable/rental_icon"
         android:title="@string/properties"/>
 

@@ -38,9 +38,9 @@ class PropertyController: ViewModel() {
     // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
     // Megha Verma
     // https://medium.com/@meghaverma12
-    fun getProperties(userToken: String, id: String) {
+    fun getProperties(userToken: String) {
         val token = "Bearer $userToken"
-        val call = api.getCategories(token, id)
+        val call = api.getProperties(token)
 
         // Logging the request URL for debugging purposes
         val url = call.request().url.toString()
@@ -56,7 +56,7 @@ class PropertyController: ViewModel() {
                     categories?.let {
                         propertyList.postValue(it)
                         status.postValue(true)
-                        message.postValue("Categories retrieved")
+                        message.postValue("properties retrieved")
                         //Log.d("MainActivity", "Categories: $it")
                     }
                 } else {
@@ -86,34 +86,30 @@ class PropertyController: ViewModel() {
     // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
     // Megha Verma
     // https://medium.com/@meghaverma12
-    fun createProperty(userToken: String, property: Property, imageFile: File) {
-        val propertyJson = Gson().toJson(property)
-        val propertyRequestBody = RequestBody.create("application/json".toMediaType(), propertyJson)
 
-        // Prepare the image file for upload
-        val requestFile = RequestBody.create("image/jpeg".toMediaType(), imageFile) // Adjust the MIME type as needed
-        val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
+    fun createProperty(userToken: String, property: Property, imageParts: List<MultipartBody.Part>) {
+        val propertyJson = Gson().toJson(property)
+        val propertyRequestBody = RequestBody.create("application/json".toMediaTypeOrNull(), propertyJson)
 
         val token = "Bearer $userToken"
-        api.createProperty(token, property, imagePart).enqueue(object : Callback<Property> {
+
+        // Create multipart request
+        api.createProperty(token, propertyRequestBody, imageParts).enqueue(object : Callback<Property> {
             override fun onResponse(call: Call<Property>, response: Response<Property>) {
                 if (response.isSuccessful) {
-                    // On successful category creation, update the status and message
-                    val createdCategory = response.body()
-                    createdCategory?.let {
+                    val createdProperty = response.body()
+                    createdProperty?.let {
                         status.postValue(true)
-                        message.postValue("Category created: $it")
-                        Log.d("MainActivity", "Category created: $it")
+                        message.postValue("Property created: $it")
+                        Log.d("MainActivity", "Property created: $it")
                     }
                 } else {
-                    // Handle the failure of the category creation
                     status.postValue(false)
                     message.postValue("Request failed with code: ${response.code()}")
                     Log.e("MainActivity", "Request failed with code: ${response.code()}")
                 }
             }
 
-            // Handles network or other request failures
             override fun onFailure(call: Call<Property>, t: Throwable) {
                 Log.e("MainActivity", "Error: ${t.message}")
                 status.postValue(false)
@@ -121,6 +117,8 @@ class PropertyController: ViewModel() {
             }
         })
     }
+
+
 
     // Sends a request to update an existing category identified by `id`.
     // Takes a user token, category ID, and the updated Category object.
