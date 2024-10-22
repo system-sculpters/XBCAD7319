@@ -20,6 +20,7 @@ import com.systemsculpers.xbcad7319.databinding.ActivityMainBinding
 import com.systemsculpers.xbcad7319.view.activity.WelcomeActivity
 import com.systemsculpers.xbcad7319.view.fragment.AgentPropertiesFragment
 import com.systemsculpers.xbcad7319.view.fragment.AgentValuationsFragment
+import com.systemsculpers.xbcad7319.view.fragment.AnalyticsFragment
 import com.systemsculpers.xbcad7319.view.fragment.ChatsFragment
 import com.systemsculpers.xbcad7319.view.fragment.CreatePropertyFragment
 import com.systemsculpers.xbcad7319.view.fragment.CreateValuationFragment
@@ -120,7 +121,7 @@ class MainActivity : AppCompatActivity() {
             "user" -> {
                 binding.bottomNavigation.menu.clear()
                 binding.bottomNavigation.inflateMenu(R.menu.user_bottom_menu) // Load user-specific menu
-                changeCurrentFragment(PropertyListings())
+                changeCurrentFragment(AnalyticsFragment())
             }
             else -> {
                 Log.e("MainActivity", "Invalid user role")

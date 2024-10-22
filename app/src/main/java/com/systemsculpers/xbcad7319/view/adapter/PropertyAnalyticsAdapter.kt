@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.systemsculpers.xbcad7319.R
+import com.systemsculpers.xbcad7319.data.model.PropertyCount
 import com.systemsculpers.xbcad7319.data.model.PropertyType
 
-class PropertyAnalyticsAdapter(private val propertyList: List<PropertyType>) : RecyclerView.Adapter<PropertyAnalyticsAdapter.PropertyViewHolder>() {
+class PropertyAnalyticsAdapter(private val propertyList: List<PropertyCount>) : RecyclerView.Adapter<PropertyAnalyticsAdapter.PropertyViewHolder>() {
 
     class PropertyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val propertyType: TextView = itemView.findViewById(R.id.property_type)

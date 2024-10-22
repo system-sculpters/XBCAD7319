@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.systemsculpers.xbcad7319.R
+import com.systemsculpers.xbcad7319.data.model.PropertyCount
 import com.systemsculpers.xbcad7319.data.model.PropertyType
 import com.systemsculpers.xbcad7319.data.model.PropertyCounts
 import com.systemsculpers.xbcad7319.view.adapter.PropertyAnalyticsAdapter
@@ -18,8 +19,8 @@ class AnalyticsFragment : Fragment() {
     private lateinit var availableRecyclerView: RecyclerView
     private lateinit var soldRecyclerView: RecyclerView
     private lateinit var propertyAdapter: PropertyAnalyticsAdapter
-    private lateinit var availableList: List<PropertyType>
-    private lateinit var soldList: List<PropertyType>
+    private lateinit var availableList: List<PropertyCount>
+    private lateinit var soldList: List<PropertyCount>
     private lateinit var usersValueTextView: TextView // TextView for user count
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,15 +44,15 @@ class AnalyticsFragment : Fragment() {
 
         // Populate the lists with data
         availableList = listOf(
-            PropertyType("Available Land", availableCounts.availableLand),
-            PropertyType("Available Rental", availableCounts.availableRental),
-            PropertyType("Available Sale", availableCounts.availableSale)
+            PropertyCount("Available Land", availableCounts.availableLand),
+            PropertyCount("Available Rental", availableCounts.availableRental),
+            PropertyCount("Available Sale", availableCounts.availableSale)
         )
 
         soldList = listOf(
-            PropertyType("Sold Land", soldCounts.soldLand),
-            PropertyType("Sold Rental", soldCounts.soldRental),
-            PropertyType("Sold Sale", soldCounts.soldSale)
+            PropertyCount("Sold Land", soldCounts.soldLand),
+            PropertyCount("Sold Rental", soldCounts.soldRental),
+            PropertyCount("Sold Sale", soldCounts.soldSale)
         )
 
         // Set up RecyclerViews with adapters

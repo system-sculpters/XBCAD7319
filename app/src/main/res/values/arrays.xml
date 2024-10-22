@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="questions1" />
-    <string-array name="sales_rental_options">sales_rental_options</string-array>
+    <string-array name="sales_rental_options">
+        <item>Sale</item>
+        <item>Rent</item>
+        <!-- Add more options if necessary -->
+    </string-array>
 </resources>
