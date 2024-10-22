@@ -120,18 +120,22 @@ class MainActivity : AppCompatActivity() {
             "user" -> {
                 binding.bottomNavigation.menu.clear()
                 binding.bottomNavigation.inflateMenu(R.menu.user_bottom_menu) // Load user-specific menu
+                changeCurrentFragment(PropertyListings())
             }
             else -> {
                 Log.e("MainActivity", "Invalid user role")
             }
         }
         //changeCurrentFragment(CreatePropertyFragment())
-        changeCurrentFragment(SearchLocationFragment())
+        //changeCurrentFragment(SearchLocationFragment())
 
         // Code for when a different button is pressed on the navigation menu
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.user_home ->{
+                    changeCurrentFragment(PropertyListings())
+                }
                 R.id.home -> {
                     changeCurrentFragment(MessagesFragment())
                 }

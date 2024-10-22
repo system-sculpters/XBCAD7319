@@ -84,6 +84,7 @@ class SearchLocationFragment : Fragment() {
         val bundle = Bundle().apply {
             putParcelableArrayList("selected_images", arguments?.getParcelableArrayList<Uri>("selected_images"))
             putParcelable("location", location)
+            putParcelable("user", arguments?.getParcelable("user"))
             putParcelable("property", arguments?.getParcelable<Property>("property"))
         }
         val createPropertyFragment = CreatePropertyFragment()

@@ -38,7 +38,6 @@
                     android:text="Nacary elite house"
                     android:layout_gravity="center_horizontal"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
                     android:fontFamily="@font/inter_bold"/>
 
                 <View
@@ -47,6 +46,7 @@
                     android:layout_weight="1"/>
 
                 <ImageView
+                    android:id="@+id/bookmark"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/baseline_bookmark_border_24"/>
@@ -67,8 +67,9 @@
                     android:text="123 Main St, Nacary"
                     android:layout_gravity="center_horizontal"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/inter"/>
+                    android:fontFamily="@font/inter"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
             </LinearLayout>
 
             <LinearLayout
@@ -111,11 +112,11 @@
                 <TextView
                     android:id="@+id/property_description"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="80dp"
                     android:layout_marginTop="10dp"
                     android:textSize="12sp"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                    android:textColor="@color/black"
                     android:fontFamily="@font/inter"/>
             </LinearLayout>
 
@@ -157,12 +158,12 @@
                 android:gravity="center_vertical">
 
                 <TextView
+                    android:id="@+id/contact_agent_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:text="@string/contact_agent"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
                     android:fontFamily="@font/inter"/>
 
                 <View
@@ -178,12 +179,14 @@
                     android:gravity="center"
                     android:background="@drawable/edittext_background">
                     <ImageView
+                        android:id="@+id/message_logo"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:src="@drawable/baseline_message_24"
                         android:layout_marginEnd="5dp"/>
 
                     <TextView
+                        android:id="@+id/messae_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="10sp"
@@ -200,25 +203,30 @@
         android:layout_height="0dp"
         android:layout_weight="0.7"
         android:gravity="end"
-        android:orientation="vertical"
-        android:background="@drawable/bottom_details_background">
-
+        android:orientation="vertical">
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/ItemBorder"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginHorizontal="20dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
                 <TextView
+                    android:id="@+id/price_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="@string/contact_agent"
+                    android:text="@string/price"
                     android:fontFamily="@font/inter"
                     android:layout_marginBottom="6dp"/>
 

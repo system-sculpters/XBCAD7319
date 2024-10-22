@@ -42,7 +42,6 @@ class PropertyAdapter (private val context: Context,
         val noOfBathrooms: TextView  = itemView.findViewById(R.id.no_of_bathrooms);
         val noOfParking: TextView  = itemView.findViewById(R.id.no_of_parkings);
         val propertyPrice: TextView  = itemView.findViewById(R.id.property_price);
-
     }
 
 
@@ -71,8 +70,6 @@ class PropertyAdapter (private val context: Context,
             .placeholder(R.drawable.house_image) // Placeholder image
             .transform(RoundedCornersTransformation(17f)) // Apply rounded corners
             .into(holder.propertyImage)
-
-
 
         holder.itemView.setOnClickListener {
             onItemClick(property)

@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.PropertyListings"
     android:orientation="vertical"
-    android:paddingVertical="10dp"
-    android:paddingHorizontal="25dp">
+    android:paddingVertical="10dp">
 
     <LinearLayout
         android:id="@+id/location_redirect"
@@ -18,6 +17,7 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/edittext_background"
         android:gravity="center_vertical"
+        android:layout_marginHorizontal="25dp"
         >
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/search_location"
@@ -31,13 +31,13 @@
             android:hint="@string/search"
             android:background="@drawable/search_background"
             android:textSize="14sp"
-            android:drawableStart="@drawable/search_icon_"
-            android:drawableEnd="@drawable/filter_icon"/>
+            android:drawableStart="@drawable/search_icon_"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/property_types_list"
             android:layout_width="match_parent"
@@ -48,7 +48,8 @@
     <LinearLayout
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/propertyRecyclerView"
             android:layout_width="match_parent"

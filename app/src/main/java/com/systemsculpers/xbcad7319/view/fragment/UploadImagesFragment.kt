@@ -97,6 +97,7 @@ class UploadImagesFragment : Fragment() {
         val bundle = Bundle().apply {
             putParcelableArrayList("selected_images", ArrayList(selectedImages))
             putParcelable("location", arguments?.getParcelable("location"))
+            putParcelable("user", arguments?.getParcelable("user"))
             putParcelable("property", arguments?.getParcelable<Property>("property"))
         }
         val createPropertyFragment = CreatePropertyFragment()

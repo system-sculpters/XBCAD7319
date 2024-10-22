@@ -66,4 +66,23 @@
     <string name="parking">Parking</string>
     <string name="bath">Bath</string>
     <string name="sqrf">Sqrf</string>
+    <string name="nameOnCard">Name on card</string>
+    <string name="cardNo">Card no.</string>
+    <string name="cvv">CVV</string>
+    <string name="expiryDate">Expiry date</string>
+    <string name="users">Users</string>
+    <string name="select_users">Select users</string>
+    <string name="select_property_owner">Select property owner</string>
+    <string name="price">Price</string>
+    <string name="enter_valid_property">Select a property</string>
+    <string name="enter_name_on_card">Enter name on card</string>
+    <string name="enter_card_number">Enter a card number</string>
+    <string name="invalid_card_number">Card no. must be 16 digits</string>
+    <string name="enter_cvv">Enter a cvv</string>
+    <string name="invalid_cvv">cvv must be 3 digits</string>
+    <string name="enter_expiry_date">Enter an expiry date</string>
+    <string name="invalid_expiry_date_format">Expiry date format: mm/yy</string>
+    <string name="enter_message">Enter a message</string>
+    <string name="done">Done</string>
+    <string name="successful_purchase">Property purchase successful</string>
 </resources>

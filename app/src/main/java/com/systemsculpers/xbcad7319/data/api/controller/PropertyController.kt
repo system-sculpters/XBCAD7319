@@ -38,9 +38,9 @@ class PropertyController: ViewModel() {
     // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
     // Megha Verma
     // https://medium.com/@meghaverma12
-    fun getProperties(userToken: String) {
+    fun getProperties(userToken: String, userId: String) {
         val token = "Bearer $userToken"
-        val call = api.getProperties(token)
+        val call = api.getProperties(token, userId)
 
         // Logging the request URL for debugging purposes
         val url = call.request().url.toString()

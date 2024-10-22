@@ -1,5 +1,6 @@
 package com.systemsculpers.xbcad7319.view.fragment
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,12 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.PropertyController
 import com.systemsculpers.xbcad7319.data.model.Location
 import com.systemsculpers.xbcad7319.data.model.LocationResult
 import com.systemsculpers.xbcad7319.data.model.Property
 import com.systemsculpers.xbcad7319.data.model.PropertyType
+import com.systemsculpers.xbcad7319.data.model.User
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
 import com.systemsculpers.xbcad7319.databinding.FragmentCreatePropertyBinding
@@ -58,6 +61,11 @@ class CreatePropertyFragment : Fragment() {
 
         setPropertyTypes()
 
+        val selectedUser = arguments?.getParcelable<User>("user")
+        if (selectedUser != null) {
+            // Update UI (e.g., show the number of images selected)
+            binding.owner.text = selectedUser.fullName
+        }
         // Check if images are passed back
         val selectedImages = arguments?.getParcelableArrayList<Uri>("selected_images")
         if (selectedImages != null) {
@@ -98,6 +106,10 @@ class CreatePropertyFragment : Fragment() {
             }
         }
 
+        binding.ownerRedirect.setOnClickListener {
+            redirectSelectUser()
+        }
+
         binding.locationRedirect.setOnClickListener{
             redirectToLocation()
         }
@@ -109,6 +121,8 @@ class CreatePropertyFragment : Fragment() {
         binding.submitButton.setOnClickListener {
             createProperty()
         }
+
+
 
         // Inflate the layout for this fragment
         return binding.root
@@ -153,12 +167,25 @@ class CreatePropertyFragment : Fragment() {
 
         }
     }
+    private fun redirectSelectUser(){
+        val bundle = Bundle().apply {
+            putParcelable("location", arguments?.getParcelable("location"))
+            putParcelableArrayList("selected_images", arguments?.getParcelableArrayList<Uri>("selected_images"))
+            putParcelable("property", getPropertyData())
+            putParcelable("user", arguments?.getParcelable("user"))
+        }
+        val selectedImages = SelectUserFragment()
+        selectedImages.arguments = bundle
+
+        changeCurrentFragment(selectedImages)
+    }
 
     private fun redirectUpload(){
         val bundle = Bundle().apply {
             putParcelable("location", arguments?.getParcelable("location"))
             putParcelableArrayList("selected_images", arguments?.getParcelableArrayList<Uri>("selected_images"))
             putParcelable("property", getPropertyData())
+            putParcelable("user", arguments?.getParcelable("user"))
         }
         val uploadImagesFragment = UploadImagesFragment()
         uploadImagesFragment.arguments = bundle
@@ -171,6 +198,7 @@ class CreatePropertyFragment : Fragment() {
             putParcelable("location", arguments?.getParcelable("location"))
             putParcelableArrayList("selected_images", arguments?.getParcelableArrayList<Uri>("selected_images"))
             putParcelable("property", getPropertyData())
+            putParcelable("user", arguments?.getParcelable("user"))
         }
         val searchLocationFragment = SearchLocationFragment()
         searchLocationFragment.arguments = bundle
@@ -254,6 +282,7 @@ class CreatePropertyFragment : Fragment() {
             // Observe the view model to get transactions based on the user ID
             observeViewModel(token, user.id)
         } else {
+            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
             // Handle case when the token is not available (e.g., show error or redirect)
         }
     }
@@ -266,8 +295,10 @@ class CreatePropertyFragment : Fragment() {
         // Retrieve selected images
         val selectedImages = arguments?.getParcelableArrayList<Uri>("selected_images")
 
+        val owner = arguments?.getParcelable<User>("user")
+
         // Validate user input before sending data to the server
-        if (!validateProperty(getPropertyData(), selectedImages)) {
+        if (!validateProperty(getPropertyData(), selectedImages, owner)) {
             return
         }
 
@@ -298,12 +329,17 @@ class CreatePropertyFragment : Fragment() {
             newProperty.location = location
         }
 
+        if(owner != null){
+            newProperty.ownerId = owner.id
+        }
+
 
         // Observe the status of the transaction fetching operation
         controller.status.observe(viewLifecycleOwner) { status ->
             if (status) {
                 Log.d("status", "successful")
                 // Optionally dismiss progress dialog here
+                changeCurrentFragment(AgentPropertiesFragment())
             } else {
                 Log.d("status", "fail")
                 // Optionally handle failure case (e.g., show an error message)
@@ -346,7 +382,7 @@ class CreatePropertyFragment : Fragment() {
         }
     }
 
-    private fun validateProperty(property: Property, selectedImages: List<Uri>?): Boolean {
+    private fun validateProperty(property: Property, selectedImages: List<Uri>?, owner: User?): Boolean {
         var errors = 0
 
         val locationResult = arguments?.getParcelable<LocationResult>("location")
@@ -354,6 +390,11 @@ class CreatePropertyFragment : Fragment() {
         // Check required fields
         if (property.title.isEmpty()) {
             Log.d("propertyName", "propertyName is empty")
+            errors++
+        }
+
+        if(owner == null){
+            Log.d("owner", "owner is empty")
             errors++
         }
 
@@ -383,24 +424,10 @@ class CreatePropertyFragment : Fragment() {
             errors++
         }
 
-        // Validate selected images
-//        if (selectedImages.isNullOrEmpty()) {
-//            Log.d("image", "No images selected")
-//            errors++
-//        } else {
-//            selectedImages.forEach { uri ->
-//                uri.path?.let { path ->
-//                    val file = File(path)
-//                    if (!file.exists()) {
-//                        Log.d("image", "Image file does not exist: $path")
-//                        errors++
-//                    }
-//                } ?: run {
-//                    Log.d("image", "Invalid URI: $uri")
-//                    errors++
-//                }
-//            }
-//        }
+        if (selectedImages.isNullOrEmpty()) {
+            Log.d("image", "No images selected")
+            errors++
+        }
 
         // Additional validations based on property type
         when (property.propertyType.lowercase()) {

@@ -17,7 +17,9 @@ data class Property(
     val createdAt: Long? = null,         // Timestamp of property creation (nullable)
     val images: List<String>? = null,    // Optional list of image URLs
     var agentId: String = "",
+    var ownerId: String = "",
     var status: String = "",
+    var isBookmarked: Boolean = false
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readString() ?: "",
@@ -33,7 +35,9 @@ data class Property(
         createdAt = parcel.readValue(Long::class.java.classLoader) as? Long,
         images = parcel.createStringArrayList(), // Creates a list of strings from the parcel
         agentId = parcel.readString() ?: "",
+        ownerId = parcel.readString() ?: "",
         status = parcel.readString() ?: "",
+        isBookmarked = parcel.readByte() != 0.toByte()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -50,7 +54,9 @@ data class Property(
         parcel.writeValue(createdAt)
         parcel.writeStringList(images) // Writes the list of strings to the parcel
         parcel.writeString(agentId)
+        parcel.writeString(ownerId)
         parcel.writeString(status)
+        parcel.writeByte(if (isBookmarked) 1 else 0)
     }
 
     override fun describeContents(): Int {

@@ -1,5 +1,6 @@
 package com.systemsculpers.xbcad7319.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.PropertyController
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
@@ -82,6 +84,7 @@ class AgentPropertiesFragment : Fragment() {
             // Observe the view model to get transactions based on the user ID
             observeViewModel(token, user.id)
         } else {
+            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
             // Handle case when the token is not available (e.g., show error or redirect)
         }
     }
@@ -129,7 +132,7 @@ class AgentPropertiesFragment : Fragment() {
                 // Show a timeout dialog and attempt to reconnect
                 Log.d("failed retrieval", "Retry...")
 
-                propertyController.getProperties(token)
+                propertyController.getProperties(token, userId)
 
             }
         }
@@ -145,7 +148,7 @@ class AgentPropertiesFragment : Fragment() {
         )
 
         // Initial call to fetch all transactions for the user
-        propertyController.getProperties(token)
+        propertyController.getProperties(token, userId)
     }
     // Helper function to change the current fragment in the activity.
     private fun changeCurrentFragment(fragment: Fragment) {

@@ -1,5 +1,6 @@
 package com.systemsculpers.xbcad7319.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.PropertyController
 import com.systemsculpers.xbcad7319.data.model.Property
@@ -43,6 +45,8 @@ class PropertyListings : Fragment() {
 
     private lateinit var filteredPropertyList: MutableList<Property>
 
+    private lateinit var propertyList: MutableList<Property>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,10 +61,13 @@ class PropertyListings : Fragment() {
 
         filteredPropertyList = mutableListOf<Property>()
 
+        propertyList = mutableListOf<Property>()
+
         adapter = PropertyAdapter(requireContext()){
                 property ->
-
-
+            val propertyDetailsFragment = PropertyDetails.newInstance(property)
+            // Replace the current fragment with the MessagesFragment
+            changeCurrentFragment(propertyDetailsFragment)
         }
 
         setPropertyTypes()
@@ -91,7 +98,7 @@ class PropertyListings : Fragment() {
     private fun filterProperties(query: String) {
         filteredPropertyList.clear() // Clear the current filtered list
         // Filter properties based on the query
-        filteredPropertyList.addAll(filteredPropertyList.filter { property ->
+        filteredPropertyList.addAll(propertyList.filter { property ->
             property.title.contains(query, ignoreCase = true) // Assuming Property has a 'name' field
         })
 
@@ -117,7 +124,7 @@ class PropertyListings : Fragment() {
     private fun filterPropertiesByType(selectedType: String) {
         filteredPropertyList.clear() // Clear the filtered list before applying new filter
         // Filter properties based on the selected type
-        filteredPropertyList.addAll(filteredPropertyList.filter { property ->
+        filteredPropertyList.addAll(propertyList.filter { property ->
             property.propertyType.equals(selectedType, ignoreCase = true) // Assuming Property has a 'type' field
         })
 
@@ -138,6 +145,7 @@ class PropertyListings : Fragment() {
             // Observe the view model to get transactions based on the user ID
             observeViewModel(token, user.id)
         } else {
+            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
             // Handle case when the token is not available (e.g., show error or redirect)
         }
     }
@@ -185,7 +193,7 @@ class PropertyListings : Fragment() {
                 // Show a timeout dialog and attempt to reconnect
                 Log.d("failed retrieval", "Retry...")
 
-                propertyController.getProperties(token)
+                propertyController.getProperties(token, userId)
 
             }
         }
@@ -201,12 +209,12 @@ class PropertyListings : Fragment() {
         )
 
         // Initial call to fetch all transactions for the user
-        propertyController.getProperties(token)
+        propertyController.getProperties(token, userId)
     }
 
     fun updateProperties(data: List<Property>) {
-        filteredPropertyList.clear() // Clear the existing transactions
-        filteredPropertyList.addAll(data) // Add new transactions to the list
+        propertyList.clear() // Clear the existing transactions
+        propertyList.addAll(data) // Add new transactions to the list
     }
     // Helper function to change the current fragment in the activity.
     private fun changeCurrentFragment(fragment: Fragment) {

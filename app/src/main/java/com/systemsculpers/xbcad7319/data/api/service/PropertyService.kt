@@ -13,6 +13,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface PropertyService {
     // This interface was adapted from medium
@@ -25,8 +26,11 @@ interface PropertyService {
     // This function sends a GET request to the "category/{id}" endpoint.
     // It requires an authorization token in the header and the user ID in the path.
     // The response will be a Call object containing a list of Category objects.
-    @GET("property/")
-    fun getProperties(@Header("Authorization") token: String): Call<List<Property>>
+    @GET("property")
+    fun getProperties(
+        @Header("Authorization") token: String,
+        @Query("userId") userId: String
+    ): Call<List<Property>>
 
 
     // Creates a new category based on the provided category details.

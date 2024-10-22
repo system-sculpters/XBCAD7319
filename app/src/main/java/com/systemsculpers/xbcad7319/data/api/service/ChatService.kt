@@ -41,5 +41,11 @@ interface ChatService {
     @POST("chat/send")
     fun sendMessage(@Header("Authorization") token: String, @Body sendMessage: SendMessage): Call<MessageResponse>
 
+    // Creates a new category based on the provided category details.
+    // This function sends a POST request to the "category/create" endpoint.
+    // An authorization token is required in the header.
+    // It takes a Category object as the request body and returns a Call object containing the created Category.
+    @POST("chat/send-new-message")
+    fun sendNewMessage(@Header("Authorization") token: String, @Body sendMessage: SendMessage): Call<MessageResponse>
 
 }

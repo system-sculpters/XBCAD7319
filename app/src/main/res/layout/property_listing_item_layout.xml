@@ -5,15 +5,23 @@
     android:layout_height="110dp"
     android:background="@drawable/edittext_background"
     android:padding="10dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_marginBottom="15dp">
 
-    <ImageView
-        android:id="@+id/property_image"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:src="@drawable/house_image"
-        android:scaleType="centerCrop"
-        android:background="@drawable/image_curve"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/image_border">
+        <ImageView
+            android:id="@+id/property_image"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/baseline_image_search"
+            android:scaleType="centerCrop"
+            android:background="@drawable/image_curve"/>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_marginStart="20dp"
@@ -37,7 +45,9 @@
             android:text="House"
             android:textSize="14sp"
             android:fontFamily="@font/inter_bold"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/property_address"
@@ -46,7 +56,9 @@
             android:text="House"
             android:textSize="10sp"
             android:fontFamily="@font/inter_light"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
