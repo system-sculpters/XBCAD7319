@@ -1,0 +1,125 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Users Count with background -->
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:background="@drawable/search_bar_background"
+        android:padding="16dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/users_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Users"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/users_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading..."
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <!-- Available and Sold Properties Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:weightSum="2"
+        android:gravity="center">
+
+        <!-- Available Properties -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/search_bar_background"
+            android:padding="16dp"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Available Properties"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <!-- RecyclerView for Available Properties -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/availablePropertiesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <!-- Sold Properties -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/search_bar_background"
+            android:padding="16dp"
+            android:layout_marginStart="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sold Properties"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <!-- RecyclerView for Sold Properties -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/soldPropertiesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Container for BarChart and Spinner -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <!-- Dropdown for Sales/Rental -->
+        <Spinner
+            android:id="@+id/sales_rental_spinner"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:entries="@array/sales_rental_options" />
+
+        <!-- Sales/Rental Chart -->
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/revenue_chart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+</LinearLayout>
