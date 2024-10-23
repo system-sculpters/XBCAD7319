@@ -6,9 +6,12 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,19 +24,23 @@ import com.systemsculpers.xbcad7319.view.activity.WelcomeActivity
 import com.systemsculpers.xbcad7319.view.fragment.AgentPropertiesFragment
 import com.systemsculpers.xbcad7319.view.fragment.AgentValuationsFragment
 import com.systemsculpers.xbcad7319.view.fragment.AnalyticsFragment
+import com.systemsculpers.xbcad7319.view.fragment.BookmarksFragment
 import com.systemsculpers.xbcad7319.view.fragment.ChatsFragment
 import com.systemsculpers.xbcad7319.view.fragment.CreatePropertyFragment
 import com.systemsculpers.xbcad7319.view.fragment.CreateValuationFragment
 import com.systemsculpers.xbcad7319.view.fragment.MessagesFragment
 import com.systemsculpers.xbcad7319.view.fragment.PropertyDetails
 import com.systemsculpers.xbcad7319.view.fragment.PropertyListings
+import com.systemsculpers.xbcad7319.view.fragment.PurchasesFragment
 import com.systemsculpers.xbcad7319.view.fragment.SearchLocationFragment
 import com.systemsculpers.xbcad7319.view.fragment.SettingsFragment
 import com.systemsculpers.xbcad7319.view.fragment.UploadImagesFragment
+import com.systemsculpers.xbcad7319.view.fragment.UsersFragment
+import com.systemsculpers.xbcad7319.view.fragment.ValuationsFragment
 import com.systemsculpers.xbcad7319.view.fragment.ViewOnMapFragment
 import java.util.Locale
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     // Binding object for activity_main layout to access UI elements
     private lateinit var binding: ActivityMainBinding
 
@@ -60,6 +67,12 @@ class MainActivity : AppCompatActivity() {
         //super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Load the selected theme before setting the content view
+        loadAndApplyTheme()
+
+        // Set the app theme
+        setTheme(R.style.Theme_XBCAD7319)
+
         // Retrieve the saved language from SharedPreferences
         val sharedPreferences = getSharedPreferences("LanguagePreferences", Context.MODE_PRIVATE)
         val savedLanguage = sharedPreferences.getString("selectedLanguage", "English")
@@ -81,12 +94,10 @@ class MainActivity : AppCompatActivity() {
         // https://medium.com/@nitinberwal89
         // This dark mode implementation was adapted from mdeium
         val isDarkMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-        //tintIconForDarkMode(findViewById(R.id.back_button), isDarkMode)
-        //tintIconForDarkMode(findViewById(R.id.nav_drawer_opener), isDarkMode)
 
         // Initialize the DrawerLayout and NavigationView
         drawerLayout = findViewById<DrawerLayout>(R.id.main)
-        //navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView = findViewById<NavigationView>(R.id.nav_view)
 
         // Initialize managers for token and user management
         tokenManager = TokenManager.getInstance(this)
@@ -103,6 +114,29 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNavigation()
     }
+
+    // Loads the theme preference from SharedPreferences and applies it
+    private fun loadAndApplyTheme() {
+        // This method was adapted from stackoverflow
+        // https://stackoverflow.com/questions/3624280/how-to-use-sharedpreferences-in-android-to-store-fetch-and-edit-values
+        // Harneet Kaur
+        // https://stackoverflow.com/users/1444525/harneet-kaur
+        // Ziem
+        // https://stackoverflow.com/posts/11027631/revisions
+
+        // Initialize SharedPreferences
+        sharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(this)
+
+        // Fetch the saved theme preference, default to "Light" if not found
+        val savedTheme = sharedPreferences.getBoolean("theme_preference", false) ?: false
+
+        // Apply the saved theme based on user preference
+        when (savedTheme) {
+            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+    }
+
     private fun setupBottomNavigation() {
         val userRole = userManager.getUser().role // Retrieve the user's role (admin, agent, user)
 
@@ -112,6 +146,7 @@ class MainActivity : AppCompatActivity() {
             "admin" -> {
                 binding.bottomNavigation.menu.clear() // Clear any previous menu
                 binding.bottomNavigation.inflateMenu(R.menu.admin_bottom_menu) // Load admin-specific menu
+                changeCurrentFragment(AnalyticsFragment())
             }
             "agent" -> {
                 binding.bottomNavigation.menu.clear()
@@ -121,7 +156,10 @@ class MainActivity : AppCompatActivity() {
             "user" -> {
                 binding.bottomNavigation.menu.clear()
                 binding.bottomNavigation.inflateMenu(R.menu.user_bottom_menu) // Load user-specific menu
-                changeCurrentFragment(AnalyticsFragment())
+                navigationView.menu.clear()
+                navigationView.inflateMenu(R.menu.user_drawer_menu)
+                setupNavigationView()
+                changeCurrentFragment(PropertyListings())
             }
             else -> {
                 Log.e("MainActivity", "Invalid user role")
@@ -140,8 +178,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.home -> {
                     changeCurrentFragment(MessagesFragment())
                 }
+
+                R.id.admin_home ->{
+                    changeCurrentFragment(AnalyticsFragment())
+                }
                 R.id.transactions -> {
-                    changeCurrentFragment(PropertyListings())
+                    changeCurrentFragment(PurchasesFragment())
                 }
                 R.id.settings ->{
                    changeCurrentFragment(SettingsFragment())
@@ -161,10 +203,32 @@ class MainActivity : AppCompatActivity() {
                 R.id.agent_properties ->{
                     changeCurrentFragment(AgentPropertiesFragment())
                 }
+
+                R.id.bookmark ->{
+                    changeCurrentFragment(BookmarksFragment())
+                }
+                R.id.users ->{
+                    changeCurrentFragment(UsersFragment())
+                }
             }
             true
         }
     }
+
+    // Initializes the navigation view and sets up its listener
+    private fun setupNavigationView() {
+        navigationView.setNavigationItemSelectedListener(this)
+    }
+
+    // Handles navigation item selections from the navigation drawer
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.user_valuations -> changeCurrentFragment(ValuationsFragment())
+        }
+        drawerLayout.closeDrawer(GravityCompat.END) // Close the drawer after selection
+        return true
+    }
+
     private fun changeCurrentFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.frame_layout, fragment)

@@ -10,20 +10,41 @@
     <color name="yellow">#B6B600</color>
     <color name="light_grey">#ACACAC</color>
     <color name="red">#FF8B8A</color>
+    <color name="gold">#FFD700</color>
 
 
-    <color name="colorPrimary">#343A40</color>
-    <color name="colorPrimaryVariant">#1E1E1E</color>
-    <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorPrimary">#007BFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#6C757D</color>
     <color name="backgroundColor">#FFFFFF</color>
-    <color name="windowBackground">#FFFFFF</color>
-    <color name="colorOnPrimary">#343A40</color>
-
-    <color name="darkPrimaryDark">#1E1E1E</color>
-    <color name="darkAccent">#03DAC5</color>
-    <color name="darkBackgroundColor">#1E1E1E</color>
 
 
-    <color name="card_background_light">#FFFFFF</color>
-    <color name="card_background_dark">#1E1E1E</color>
+    <color name="darkPrimary">#007BFF</color>
+    <color name="darkPrimaryDark">#343A40</color>
+    <color name="darkAccent">#6C757D</color>
+    <color name="darkBackgroundColor">#343A40</color>
+
+    <!-- text color -->
+    <color name="textPrimary">#343A40</color> <!-- Black or dark color for light mode -->
+    <color name="textSecondary">#6C757D</color>
+
+    <!-- general item layout-->
+    <color name="itemPrimary">#FFFFFF</color> <!-- Black or dark color for light mode -->
+    <color name="itemOnPrimary">#6C757D</color>
+
+    <!--INPUT COLORS -->
+    <color name="inputBgStroke">#6C757D</color>
+
+
+    <!-- THEME BACKGROUND -->
+    <color name="themeBg">#343A40</color>
+
+    <color name="darkerTitle">#1E1E1E</color>
+
+    <color name="userHomeImg">#007BFF</color>
+
+
+
+    <color name="temp">#141424</color>
 </resources>

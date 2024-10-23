@@ -132,8 +132,6 @@ class UsersFragment : Fragment() {
 
             } else {
                 Log.d("status", "fail")
-// Failure: Dismiss the progress dialog
-                //progressDialog.dismiss()
                 // Optionally handle failure case (e.g., show an error message)
             }
         }
@@ -154,7 +152,7 @@ class UsersFragment : Fragment() {
                 // Show a timeout dialog and attempt to reconnect
                 Log.d("failed retrieval", "Retry...")
 
-                userController.getUsersByRole(token)
+                userController.getAllUsers(token)
 
             }
         }
@@ -170,6 +168,6 @@ class UsersFragment : Fragment() {
         )
 
         // Initial call to fetch all transactions for the user
-        userController.getUsersByRole(token)
+        userController.getAllUsers(token)
     }
 }

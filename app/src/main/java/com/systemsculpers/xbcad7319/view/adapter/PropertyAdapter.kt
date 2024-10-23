@@ -74,6 +74,18 @@ class PropertyAdapter (private val context: Context,
         holder.itemView.setOnClickListener {
             onItemClick(property)
         }
+
+        val propTypeColor = if(property.propertyType == "Land"){
+            R.color.green
+        } else if(property.propertyType == "House"){
+            R.color.blue
+        } else{
+            R.color.red
+        }
+
+        val originalColor = ContextCompat.getColor(holder.itemView.context, propTypeColor) // Get the color
+
+        holder.propertyType.setTextColor(originalColor)
     }
 
     // Returns the total number of categories in the list

@@ -118,7 +118,7 @@ class PropertyDetails : Fragment() {
     private fun hideCta(){
         val user = userManager.getUser() // Get the current user details
 
-        if(user.role == "admin" || user.role == "agent"){
+        if(user.role == "admin" || user.role == "agent" || property!!.status == "Sold"){
             binding.bookmark.visibility = View.GONE
             binding.divider.visibility =  View.GONE
             binding.priceLabel.visibility = View.GONE
@@ -140,6 +140,18 @@ class PropertyDetails : Fragment() {
             binding.contactAgent.visibility = View.VISIBLE
             binding.messageLogo.visibility = View.VISIBLE
             binding.messaeLabel.visibility = View.VISIBLE
+
+            binding.soldLabel.visibility = View.GONE
+            binding.soldLabelView.visibility =View.GONE
+            binding.soldLabelInnerConteainer.visibility = View.GONE
+            binding.soldLabelView.visibility =View.GONE
+        }
+
+        if(property!!.status == "Sold"){
+            binding.soldLabel.visibility = View.VISIBLE
+            binding.soldLabelView.visibility =View.VISIBLE
+            binding.soldLabelInnerConteainer.visibility = View.VISIBLE
+            binding.soldLabelView.visibility =View.VISIBLE
         }
     }
 
@@ -160,7 +172,7 @@ class PropertyDetails : Fragment() {
         val propertyDetails: MutableList<PropertyType> = mutableListOf()
 
         // Check if the property type is "land"
-        if (property?.propertyType == getString(R.string.land)) {
+        if (property?.propertyType == "Land") {
             // Only add size detail for land
             propertyDetails.add(PropertyType("${property?.size} ${getString(R.string.sqrf)}", R.drawable.baseline_square_foot_24))
         } else {

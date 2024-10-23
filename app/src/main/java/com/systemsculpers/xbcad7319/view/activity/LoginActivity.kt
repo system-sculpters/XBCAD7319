@@ -46,6 +46,13 @@ class LoginActivity : AppCompatActivity() {
         // Set up click listener for the Sign In button
         binding.btnSignIn.setOnClickListener { loginUser() }
 
+        binding.tvSignUpPrompt.setOnClickListener {
+            // Start the LoginActivity when the button is clicked
+            startActivity(Intent(this, RegisterActivity::class.java))
+            // Close the WelcomeActivity so it cannot be returned to
+            finish()
+        }
+
     }
 
     // Function to handle user login process
@@ -54,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
         //val progressDialog = timeOutDialog.showProgressDialog(this)
 
         // Get email and password input from the respective EditText fields
-        val email = binding.etUsername.text.toString()
+        val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
 
         // Log the email and password for debugging purposes
@@ -82,14 +89,14 @@ class LoginActivity : AppCompatActivity() {
                 // Update the progress dialog to indicate success
                 //timeOutDialog.updateProgressDialog(this, progressDialog, "Login successful!", hideProgressBar = true)
                 Log.d("login success", "success")
+                startActivity(Intent(this, MainActivity::class.java))
 
                 // Dismiss the dialog after a 2-second delay
-                Handler(Looper.getMainLooper()).postDelayed({
-                    //progressDialog.dismiss() // Dismiss the progress dialog
-                    // Navigate to MainActivity after login success
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish() // Finish the current activity
-                }, 2000)
+//                Handler(Looper.getMainLooper()).postDelayed({
+//                    //progressDialog.dismiss() // Dismiss the progress dialog
+//                    // Navigate to MainActivity after login success
+//                    finish() // Finish the current activity
+//                }, 2000)
             } else {
                 // Update the progress dialog to indicate failure
                 //timeOutDialog.updateProgressDialog(this, progressDialog, "Login unsuccessful!", hideProgressBar = true)

@@ -64,6 +64,8 @@ class SettingsFragment : Fragment() {
         binding.logout.setOnClickListener{
             logout()
         }
+
+        setupListeners()
         // Inflate the layout for this fragment
         return binding.root
     }

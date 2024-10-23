@@ -255,4 +255,32 @@
                 android:fontFamily="@font/inter"/>
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sold_label_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
+        android:orientation="vertical">
+        <View
+            android:id="@+id/sold_label_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/ItemBorder"/>
+        <LinearLayout
+            android:id="@+id/sold_label_inner_conteainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/sold_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text="@string/sold"
+                android:fontFamily="@font/inter_semibold"
+                android:layout_gravity="center"
+                android:textColor="@color/red"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

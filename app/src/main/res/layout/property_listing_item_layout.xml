@@ -152,6 +152,7 @@
                 android:background="@drawable/for_sale" />
 
             <TextView
+                android:id="@+id/isSold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/for_sale"

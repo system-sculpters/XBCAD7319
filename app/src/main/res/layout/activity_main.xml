@@ -6,13 +6,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/nav_toolbar"
             android:layout_width="match_parent"
@@ -20,8 +20,17 @@
             android:background="?attr/colorItemLayoutBg"
             android:elevation="4dp"
             android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+            <ImageButton
+                android:id="@+id/nav_drawer_opener"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Menu"
+                android:src="@drawable/baseline_menu_24" />
 
+        </androidx.appcompat.widget.Toolbar>
         <FrameLayout
             android:id="@+id/frame_layout"
             android:layout_width="match_parent"
@@ -46,4 +55,15 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="?attr/colorSurface"
+        app:itemIconTint="@drawable/nav_item_color"
+        app:itemTextColor="@drawable/nav_item_color"
+        app:headerLayout="@layout/nav_header"
+        />
 </androidx.drawerlayout.widget.DrawerLayout>

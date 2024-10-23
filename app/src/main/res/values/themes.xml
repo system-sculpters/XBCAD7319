@@ -1,22 +1,36 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.XBCAD7319" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="android:statusBarColor">@color/blue</item>
+        <item name="colorPrimary">@color/textPrimary</item>
+        <item name="colorPrimaryVariant">@color/secondary</item>
+        <item name="android:statusBarColor">@color/textPrimary</item>
 
         <!-- PRIMARY-->
-        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:windowBackground">@color/white</item>
 
         <!-- TEXT-->
-        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorOnPrimary">@color/primary</item>
 
         <!-- -->
-        <item name="ItemBorder">@color/colorPrimary</item>
+        <item name="ItemBorder">@color/secondary</item>
 
-        <item name="colorItemLayoutBg">@color/windowBackground</item>
+        <item name="colorItemLayoutBg">@color/white</item>
 
+        <item name="colorItemBorder">@color/itemOnPrimary</item>
 
+        <!-- INPUT STROKE -->
+        <item name="whiteItemBorder">@color/inputBgStroke</item>
+
+        <!-- THEME BACKGROUND -->
+        <item name="themeBgBorder">@color/themeBg</item>
+
+        <item name="darkerTitle">@color/darkerTitle</item>
+
+        <item name="userHomeImg">@color/userHomeImg</item>
+
+        <item name="thumbTint">@color/textPrimary</item>
+
+        <item name="trackTint">@color/textPrimary</item>
     </style>
 
     <style name="Theme.XBCAD7319" parent="Base.Theme.XBCAD7319" />

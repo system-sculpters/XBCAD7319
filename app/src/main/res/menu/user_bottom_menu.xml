@@ -11,12 +11,12 @@
         android:title="@string/transactions"/>
 
     <item
-        android:id="@+id/user_valuations"
-        android:icon="@drawable/baseline_calculate_24"
-        android:title="@string/valuations"/>
+        android:id="@+id/chat"
+        android:icon="@drawable/baseline_chat_24"
+        android:title="@string/chat"/>
 
     <item
-        android:id="@+id/chat"
+        android:id="@+id/bookmark"
         android:icon="@drawable/baseline_bookmark_24"
         android:title="@string/bookmark"/>
 

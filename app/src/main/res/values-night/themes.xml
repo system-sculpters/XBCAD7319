@@ -3,5 +3,34 @@
     <style name="Base.Theme.XBCAD7319" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/light_grey</item>
+        <item name="android:statusBarColor">@color/white</item>
+
+        <!-- PRIMARY-->
+        <item name="android:windowBackground">?attr/colorSurface</item>
+
+        <!-- TEXT-->
+        <item name="colorOnPrimary">@color/textPrimary</item> <!-- Text color on primary background -->
+
+
+        <!-- ITEM LAYOUT -->
+        <item name="colorItemLayoutBg">@color/itemPrimary</item>
+        <item name="colorItemBorder">@color/itemOnPrimary</item>
+
+        <!-- INPUT STROKE -->
+        <item name="whiteItemBorder">@color/inputBgStroke</item>
+
+        <!-- THEME BACKGROUND -->
+        <item name="themeBgBorder">@color/themeBg</item>
+
+        <item name="darkerTitle">@color/darkerTitle</item>
+
+        <item name="userHomeImg">@color/userHomeImg</item>
+
+        <item name="ItemBorder">@color/white</item>
+
+        <item name="thumbTint">@color/textPrimary</item>
+        <item name="trackTint">@color/textPrimary</item>
     </style>
 </resources>

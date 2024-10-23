@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="corner_radius" >8dp</dimen>
+    <dimen name="circle_corner_radius">800dp</dimen>
+    <dimen name="corner_radius_main" >10dp</dimen>
+    <dimen name="border_width">1dp</dimen>
+</resources>
