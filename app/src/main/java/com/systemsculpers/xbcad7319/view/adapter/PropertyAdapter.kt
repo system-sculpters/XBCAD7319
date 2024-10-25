@@ -65,7 +65,7 @@ class PropertyAdapter (private val context: Context,
         holder.noOfRooms.text = property.rooms.toString()
         holder.noOfBathrooms.text = property.bathrooms.toString()
         holder.noOfParking.text = property.parking.toString()
-        holder.propertyPrice.text = AppConstants.formatAmount(property.price)
+        holder.propertyPrice.text =  "R${AppConstants.formatAmount(property.price)}"
 
         // Load the image using Glide
         Glide.with(context)
