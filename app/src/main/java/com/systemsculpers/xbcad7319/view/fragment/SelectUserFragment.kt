@@ -14,17 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
-import com.systemsculpers.xbcad7319.data.api.controller.ChatController
 import com.systemsculpers.xbcad7319.data.api.controller.UserController
-import com.systemsculpers.xbcad7319.data.model.LocationResult
 import com.systemsculpers.xbcad7319.data.model.Property
 import com.systemsculpers.xbcad7319.data.model.User
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
 import com.systemsculpers.xbcad7319.databinding.FragmentSelectUserBinding
-import com.systemsculpers.xbcad7319.databinding.FragmentUsersBinding
 import com.systemsculpers.xbcad7319.view.adapter.UsersAdapter
-import com.systemsculpers.xbcad7319.view.observer.ChatsObserver
 import com.systemsculpers.xbcad7319.view.observer.UsersObserver
 
 
@@ -43,7 +39,7 @@ class SelectUserFragment : Fragment() {
     private lateinit var adapter: UsersAdapter
 
     private lateinit var filteredUserList: MutableList<User>
-
+    private lateinit var userList: MutableList<User>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +58,7 @@ class SelectUserFragment : Fragment() {
         tokenManager = TokenManager.getInstance(requireContext())
 
         filteredUserList = mutableListOf<User>()
+        userList = mutableListOf<User>()
         setUpRecyclerView()
 
         setUpUserDetails()
@@ -88,7 +85,7 @@ class SelectUserFragment : Fragment() {
     private fun filterUsers(query: String) {
         filteredUserList.clear() // Clear the current filtered list
         // Filter properties based on the query
-        filteredUserList.addAll(filteredUserList.filter { user ->
+        filteredUserList.addAll(userList.filter { user ->
             user.email.contains(query, ignoreCase = true) // Assuming Property has a 'name' field
         })
 
@@ -171,7 +168,7 @@ class SelectUserFragment : Fragment() {
         // Kevin Robatel
         // https://stackoverflow.com/users/244702/kevin-robatel
         userController.userList.observe(viewLifecycleOwner,
-            UsersObserver(adapter)
+            UsersObserver(adapter, null, this)
         )
 
         // Initial call to fetch all transactions for the user
@@ -203,5 +200,10 @@ class SelectUserFragment : Fragment() {
             .replace(R.id.frame_layout, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    fun updateUsers(value: List<User>) {
+        userList.clear()
+        userList.addAll(value)
     }
 }

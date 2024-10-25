@@ -57,4 +57,7 @@ dependencies {
     implementation(libs.osmdroid.android) // Check for the latest version
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("androidx.viewpager2:viewpager2:1.1.0")
+    testImplementation("org.mockito:mockito-core:4.0.0")
+    testImplementation("junit:junit:4.13.2")
+
 }

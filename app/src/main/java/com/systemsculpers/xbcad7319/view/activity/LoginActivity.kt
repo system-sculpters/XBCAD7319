@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
                 //timeOutDialog.updateProgressDialog(this, progressDialog, "Login successful!", hideProgressBar = true)
                 Log.d("login success", "success")
                 startActivity(Intent(this, MainActivity::class.java))
-
+                finish()
                 // Dismiss the dialog after a 2-second delay
 //                Handler(Looper.getMainLooper()).postDelayed({
 //                    //progressDialog.dismiss() // Dismiss the progress dialog

@@ -66,6 +66,8 @@
             android:textSize="12sp"
             android:textStyle="bold"
             android:fontFamily="@font/inter"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@id/cat_img_container"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
