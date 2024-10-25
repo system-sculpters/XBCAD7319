@@ -1,37 +1,34 @@
 package com.systemsculpers.xbcad7319.view.fragment
 
-import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
-import com.systemsculpers.xbcad7319.R
-
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.systemsculpers.xbcad7319.MainActivity
+import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.BookmarkController
 import com.systemsculpers.xbcad7319.data.api.controller.ChatController
+import com.systemsculpers.xbcad7319.data.api.controller.PropertyController
 import com.systemsculpers.xbcad7319.data.model.Bookmark
 import com.systemsculpers.xbcad7319.data.model.Property
 import com.systemsculpers.xbcad7319.data.model.PropertyType
-import com.systemsculpers.xbcad7319.data.model.SendMessage
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
-import com.systemsculpers.xbcad7319.databinding.FragmentPropertyDetailsBinding
+import com.systemsculpers.xbcad7319.databinding.FragmentAgentPropertyDetailsBinding
 import com.systemsculpers.xbcad7319.view.adapter.PropertyDetailsAdapter
 import com.systemsculpers.xbcad7319.view.adapter.PropertyDetailsImageAdapter
-import com.systemsculpers.xbcad7319.view.custom.Dialogs
 
-class PropertyDetails : Fragment() {
+
+class AgentPropertyDetailsFragment : Fragment() {
     // View binding object for accessing views in the layout
-    private var _binding: FragmentPropertyDetailsBinding? = null
+    private var _binding: FragmentAgentPropertyDetailsBinding? = null
 
     // Non-nullable binding property
     private val binding get() = _binding!!
@@ -46,10 +43,11 @@ class PropertyDetails : Fragment() {
     private lateinit var chatController: ChatController
 
     private lateinit var bookmarkController: BookmarkController
-    // User and token managers for managing user sessions and authentication
+
+    private lateinit var propertyController: PropertyController
+
     private lateinit var userManager: UserManager
     private lateinit var tokenManager: TokenManager
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +60,7 @@ class PropertyDetails : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentPropertyDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentAgentPropertyDetailsBinding.inflate(inflater, container, false)
 
         propertyDetailsAdapter = PropertyDetailsAdapter()
 
@@ -70,16 +68,14 @@ class PropertyDetails : Fragment() {
 
         bookmarkController = ViewModelProvider(this).get(BookmarkController::class.java)
 
+        propertyController = ViewModelProvider(this).get(PropertyController::class.java)
         // Get instances of user and token managers
         userManager = UserManager.getInstance(requireContext())
         tokenManager = TokenManager.getInstance(requireContext())
 
         setupPropertyDetails()
         setPropertyTypes()
-        // Find the message button (LinearLayout in your case)
-        binding.contactAgent.setOnClickListener {
-            showMessageDialog()
-        }
+
 
         property?.let { setBookmarked(it.isBookmarked) }
 
@@ -96,58 +92,47 @@ class PropertyDetails : Fragment() {
             bookmarkAction()
         }
 
-
-        binding.buyNow.setOnClickListener {
-            val paymentFragment = property?.let { it1 -> PaymentFragment.newInstance(it1) }
-            // Replace the current fragment with the MessagesFragment
-            if (paymentFragment != null) {
-                changeCurrentFragment(paymentFragment)
-            }
+        binding.delete.setOnClickListener {
+            deleteDialog()
         }
+
+//        binding.update.setOnClickListener {
+//            val bundle = Bundle().apply {
+//                putParcelable("property", property)
+//            }
+//            val createPropertyFragment = UpdatePropertyFragment()
+//            createPropertyFragment.arguments = bundle
+//
+//            changeCurrentFragment(createPropertyFragment)
+//        }
+
         return binding.root
     }
 
-//    private fun hideCta(){
-//        val user = userManager.getUser() // Get the current user details
-//
-//        if(user.role == "admin" || user.role == "agent" || property!!.status == "Sold"){
-//            binding.bookmark.visibility = View.GONE
-//            binding.divider.visibility =  View.GONE
-//            binding.priceLabel.visibility = View.GONE
-//            binding.propertyPrice.visibility = View.GONE
-//            binding.buyNow.visibility = View.GONE
-//
-//            binding.contactAgentLabel.visibility = View.GONE
-//            binding.contactAgent.visibility = View.GONE
-//            binding.messageLogo.visibility = View.GONE
-//            binding.messaeLabel.visibility = View.GONE
-//        } else{
-//            binding.bookmark.visibility = View.VISIBLE
-//            binding.divider.visibility =  View.VISIBLE
-//            binding.priceLabel.visibility = View.VISIBLE
-//            binding.propertyPrice.visibility = View.VISIBLE
-//            binding.buyNow.visibility = View.VISIBLE
-//
-//            binding.contactAgentLabel.visibility = View.VISIBLE
-//            binding.contactAgent.visibility = View.VISIBLE
-//            binding.messageLogo.visibility = View.VISIBLE
-//            binding.messaeLabel.visibility = View.VISIBLE
-//
-//
-//            binding.soldLabel.visibility = View.GONE
-//            binding.soldLabelView.visibility =View.GONE
-//            binding.soldLabelInnerConteainer.visibility = View.GONE
-//            binding.soldLabelView.visibility =View.GONE
-//        }
-//
-//        if(property!!.status == "Sold"){
-//            binding.soldLabel.visibility = View.VISIBLE
-//            binding.soldLabelView.visibility =View.VISIBLE
-//            binding.soldLabelInnerConteainer.visibility = View.VISIBLE
-//            binding.soldLabelView.visibility =View.VISIBLE
-//        }
-//    }
+    private fun deleteDialog() {
+        val token = tokenManager.getToken() // Retrieve the authentication token
 
+
+        val builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+        builder.setTitle("Confirm Delete")
+        builder.setMessage("Are you sure you want to delete this property?")
+        builder.setPositiveButton("Yes") { dialog, _ ->
+            // Handle the delete action here
+
+            if (token != null) {
+                deleteProperty(token, property?.id, dialog)
+            } else {
+                dialog.dismiss()
+                startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
+                // Handle case when the token is not available (e.g., show error or redirect)
+            }
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
 
     private fun setBookmarked(isBookmarked: Boolean){
         if(isBookmarked){
@@ -195,52 +180,6 @@ class PropertyDetails : Fragment() {
         binding.propertyAddress.text = property!!.location.address
 
         binding.propertyDescription.text = property!!.description
-    }
-
-
-    private fun showMessageDialog() {
-        // Inflate the custom dialog layout
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_message, null)
-
-        // Initialize dialog elements
-        val etMessage = dialogView.findViewById<EditText>(R.id.messageEditTextView)
-        val btnSend = dialogView.findViewById<Button>(R.id.btnSubmit)
-        val btnClose = dialogView.findViewById<ImageView>(R.id.btnClose) // Add this line to find the close button
-
-        // Build the dialog
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-            .create()
-
-        // Close button action
-        btnClose.setOnClickListener {
-            dialog.dismiss() // Dismiss the dialog when close button is clicked
-        }
-
-        // Send button action
-        btnSend.setOnClickListener {
-            val message = etMessage.text.toString()
-            if(message.isNotEmpty()){
-                sendMessage(message)
-            } else {
-                Dialogs().showAlertDialog(requireContext(),  getString(R.string.enter_message))
-            }
-            dialog.dismiss()
-        }
-        // Show the dialog
-        dialog.show()
-    }
-
-    private fun sendMessage(message: String){
-        val user = userManager.getUser() // Get the current user details
-        val token = tokenManager.getToken() // Retrieve the authentication token
-
-        if (token != null) {
-            observeViewModel(token, user.id, message)
-        } else {
-            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
-            // Handle case when the token is not available (e.g., show error or redirect)
-        }
     }
 
     private fun bookmarkAction(){
@@ -375,14 +314,10 @@ class PropertyDetails : Fragment() {
             .commit()
     }
 
-    // Method to observe the ViewModel for transaction-related data and status updates
-    private fun observeViewModel(token: String, userId: String, messageText: String) {
-        Log.d("token", "token: ${token}")
+    private fun deleteProperty(token: String, propertyId: String?, dialog: DialogInterface) {
 
-        val mess = "Property: ${property!!.title}\n-$messageText"
-        val newMessage = SendMessage(userId = userId, agentId = property!!.agentId, senderId = userId, text = mess)
         // Observe the status of the transaction fetching operation
-        chatController.status.observe(viewLifecycleOwner) { status ->
+        propertyController.status.observe(viewLifecycleOwner) { status ->
             // Handle changes in the status (indicates success or failure)
 
             // Check for timeout or inability to resolve host
@@ -393,15 +328,19 @@ class PropertyDetails : Fragment() {
             if (status) {
                 // Success: Dismiss the progress dialog
                 //progressDialog.dismiss()
-                Log.d("status", "successful")
+                Toast.makeText(requireContext(), "Property deleted", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+                changeCurrentFragment(AgentPropertiesFragment())
 
             } else {
                 Log.d("status", "fail")
+                //progressDialog.dismiss()
+                // Optionally handle failure case (e.g., show an error message)
             }
         }
 
         // Observe any messages from the ViewModel
-        chatController.message.observe(viewLifecycleOwner) { message ->
+        propertyController.message.observe(viewLifecycleOwner) { message ->
             // Check for timeout or inability to resolve host
             // This observer implementation was adapted from stackoverflow
             // https://stackoverflow.com/questions/47025233/android-lifecycle-library-cannot-add-the-same-observer-with-different-lifecycle
@@ -416,13 +355,15 @@ class PropertyDetails : Fragment() {
                 // Show a timeout dialog and attempt to reconnect
                 Log.d("failed retrieval", "Retry...")
 
-                chatController.sendNewMessage(token, newMessage)
+                propertyController.deleteProperty(token, propertyId!!)
 
             }
         }
+
         // Initial call to fetch all transactions for the user
-        chatController.sendNewMessage(token, newMessage)
+        propertyController.deleteProperty(token, propertyId!!)
     }
+
 
     companion object {
         const val PROPERTY_DETAILS_ARG = "propertyDetails"
@@ -430,13 +371,10 @@ class PropertyDetails : Fragment() {
         // Factory method to create a new instance of this fragment with a list of messages and chatId
         @JvmStatic
         fun newInstance(property: Property) =
-            PropertyDetails().apply {
+            AgentPropertyDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(PROPERTY_DETAILS_ARG, property)
                 }
             }
     }
 }
-
-
-

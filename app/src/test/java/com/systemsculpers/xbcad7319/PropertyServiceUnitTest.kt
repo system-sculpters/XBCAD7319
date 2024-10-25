@@ -2,7 +2,6 @@ package com.systemsculpers.xbcad7319
 
 import com.systemsculpers.xbcad7319.data.api.service.PropertyService
 import com.systemsculpers.xbcad7319.data.model.Property
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -118,11 +117,14 @@ class PropertyServiceUnitTest {
         val propertyId = "123"
         val updatedProperty = Property(id = propertyId, title = "Updated Property")
 
-        `when`(propertyService.updateProperty(token, propertyId, updatedProperty)).thenReturn(updatePropertyCallMock)
+        val propertyBody = RequestBody.create("application/json".toMediaTypeOrNull(), "Test Property")
+        val images = listOf<MultipartBody.Part>()
+
+        `when`(propertyService.updateProperty(token, propertyId, propertyBody ,images)).thenReturn(updatePropertyCallMock)
         `when`(updatePropertyCallMock.execute()).thenReturn(Response.success(updatedProperty))
 
         // Act
-        val response = propertyService.updateProperty(token, propertyId, updatedProperty).execute()
+        val response = propertyService.updateProperty(token, propertyId, propertyBody, images).execute()
 
         // Assert
         assertTrue(response.isSuccessful)
@@ -137,11 +139,15 @@ class PropertyServiceUnitTest {
         val updatedProperty = Property(id = propertyId, title = "Updated Property")
         val errorBody = ResponseBody.create("application/json".toMediaTypeOrNull(), "Not Found")
 
-        `when`(propertyService.updateProperty(token, propertyId, updatedProperty)).thenReturn(updatePropertyCallMock)
+        val propertyBody = RequestBody.create("application/json".toMediaTypeOrNull(), "Test Property")
+        val images = listOf<MultipartBody.Part>()
+
+
+        `when`(propertyService.updateProperty(token, propertyId, propertyBody,images)).thenReturn(updatePropertyCallMock)
         `when`(updatePropertyCallMock.execute()).thenReturn(Response.error(404, errorBody))
 
         // Act
-        val response = propertyService.updateProperty(token, propertyId, updatedProperty).execute()
+        val response = propertyService.updateProperty(token, propertyId, propertyBody, images).execute()
 
         // Assert
         assertEquals(404, response.code())

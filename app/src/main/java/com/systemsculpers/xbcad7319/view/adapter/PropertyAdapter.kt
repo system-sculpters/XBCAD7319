@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.systemsculpers.xbcad7319.AppConstants
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.model.LocationResult
 import com.systemsculpers.xbcad7319.data.model.Property
@@ -42,6 +43,8 @@ class PropertyAdapter (private val context: Context,
         val noOfBathrooms: TextView  = itemView.findViewById(R.id.no_of_bathrooms);
         val noOfParking: TextView  = itemView.findViewById(R.id.no_of_parkings);
         val propertyPrice: TextView  = itemView.findViewById(R.id.property_price);
+        val isSoldImage: ImageView = itemView.findViewById(R.id.is_sold_image)
+        val isSold: TextView = itemView.findViewById(R.id.isSold)
     }
 
 
@@ -62,7 +65,7 @@ class PropertyAdapter (private val context: Context,
         holder.noOfRooms.text = property.rooms.toString()
         holder.noOfBathrooms.text = property.bathrooms.toString()
         holder.noOfParking.text = property.parking.toString()
-        holder.propertyPrice.text = property.price.toString()
+        holder.propertyPrice.text = AppConstants.formatAmount(property.price)
 
         // Load the image using Glide
         Glide.with(context)
@@ -86,6 +89,16 @@ class PropertyAdapter (private val context: Context,
         val originalColor = ContextCompat.getColor(holder.itemView.context, propTypeColor) // Get the color
 
         holder.propertyType.setTextColor(originalColor)
+
+        val isSoldImg = if(property.status == "Sold"){
+            R.drawable.sold
+        } else {
+            R.drawable.for_sale
+        }
+
+        holder.isSoldImage.setImageResource(isSoldImg)
+
+        holder.isSold.text = property.status
     }
 
     // Returns the total number of categories in the list

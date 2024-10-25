@@ -53,7 +53,7 @@ class PurchasesFragment : Fragment() {
 
         adapter = PurchasesAdapter(requireContext()){
                 purchase ->
-            val propertyDetailsFragment = PropertyDetails.newInstance(purchase)
+            val propertyDetailsFragment = SoldPropertyDetailsFragment.newInstance(purchase)
             // Replace the current fragment with the MessagesFragment
             changeCurrentFragment(propertyDetailsFragment)
         }

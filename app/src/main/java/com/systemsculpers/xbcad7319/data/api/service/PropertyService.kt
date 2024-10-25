@@ -49,8 +49,13 @@ interface PropertyService {
     // This function sends a PUT request to the "category/{id}" endpoint.
     // It requires an authorization token in the header, the category ID in the path, and a Category object in the request body.
     // Returns a Call object containing the updated Category.
+    @Multipart
     @PUT("property/{id}")
-    fun updateProperty(@Header("Authorization") token: String, @Path("id") id: String, @Body property: Property): Call<Property>
+    fun updateProperty(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Part("property") property: RequestBody,
+        @Part images: List<MultipartBody.Part?>?): Call<Property>
 
     // Deletes a category identified by its ID.
     // This function sends a DELETE request to the "category/{id}" endpoint.

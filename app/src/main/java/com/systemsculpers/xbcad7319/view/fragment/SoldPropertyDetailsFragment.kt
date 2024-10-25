@@ -2,20 +2,19 @@ package com.systemsculpers.xbcad7319.view.fragment
 
 import android.app.AlertDialog
 import android.content.Intent
-import com.systemsculpers.xbcad7319.R
-
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.systemsculpers.xbcad7319.MainActivity
+import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.BookmarkController
 import com.systemsculpers.xbcad7319.data.api.controller.ChatController
 import com.systemsculpers.xbcad7319.data.model.Bookmark
@@ -24,14 +23,15 @@ import com.systemsculpers.xbcad7319.data.model.PropertyType
 import com.systemsculpers.xbcad7319.data.model.SendMessage
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
-import com.systemsculpers.xbcad7319.databinding.FragmentPropertyDetailsBinding
+import com.systemsculpers.xbcad7319.databinding.FragmentSoldPropertyDetailsBinding
 import com.systemsculpers.xbcad7319.view.adapter.PropertyDetailsAdapter
 import com.systemsculpers.xbcad7319.view.adapter.PropertyDetailsImageAdapter
 import com.systemsculpers.xbcad7319.view.custom.Dialogs
 
-class PropertyDetails : Fragment() {
+
+class SoldPropertyDetailsFragment : Fragment() {
     // View binding object for accessing views in the layout
-    private var _binding: FragmentPropertyDetailsBinding? = null
+    private var _binding: FragmentSoldPropertyDetailsBinding? = null
 
     // Non-nullable binding property
     private val binding get() = _binding!!
@@ -50,7 +50,6 @@ class PropertyDetails : Fragment() {
     private lateinit var userManager: UserManager
     private lateinit var tokenManager: TokenManager
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -62,7 +61,7 @@ class PropertyDetails : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentPropertyDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentSoldPropertyDetailsBinding.inflate(inflater, container, false)
 
         propertyDetailsAdapter = PropertyDetailsAdapter()
 
@@ -96,57 +95,8 @@ class PropertyDetails : Fragment() {
             bookmarkAction()
         }
 
-
-        binding.buyNow.setOnClickListener {
-            val paymentFragment = property?.let { it1 -> PaymentFragment.newInstance(it1) }
-            // Replace the current fragment with the MessagesFragment
-            if (paymentFragment != null) {
-                changeCurrentFragment(paymentFragment)
-            }
-        }
         return binding.root
     }
-
-//    private fun hideCta(){
-//        val user = userManager.getUser() // Get the current user details
-//
-//        if(user.role == "admin" || user.role == "agent" || property!!.status == "Sold"){
-//            binding.bookmark.visibility = View.GONE
-//            binding.divider.visibility =  View.GONE
-//            binding.priceLabel.visibility = View.GONE
-//            binding.propertyPrice.visibility = View.GONE
-//            binding.buyNow.visibility = View.GONE
-//
-//            binding.contactAgentLabel.visibility = View.GONE
-//            binding.contactAgent.visibility = View.GONE
-//            binding.messageLogo.visibility = View.GONE
-//            binding.messaeLabel.visibility = View.GONE
-//        } else{
-//            binding.bookmark.visibility = View.VISIBLE
-//            binding.divider.visibility =  View.VISIBLE
-//            binding.priceLabel.visibility = View.VISIBLE
-//            binding.propertyPrice.visibility = View.VISIBLE
-//            binding.buyNow.visibility = View.VISIBLE
-//
-//            binding.contactAgentLabel.visibility = View.VISIBLE
-//            binding.contactAgent.visibility = View.VISIBLE
-//            binding.messageLogo.visibility = View.VISIBLE
-//            binding.messaeLabel.visibility = View.VISIBLE
-//
-//
-//            binding.soldLabel.visibility = View.GONE
-//            binding.soldLabelView.visibility =View.GONE
-//            binding.soldLabelInnerConteainer.visibility = View.GONE
-//            binding.soldLabelView.visibility =View.GONE
-//        }
-//
-//        if(property!!.status == "Sold"){
-//            binding.soldLabel.visibility = View.VISIBLE
-//            binding.soldLabelView.visibility =View.VISIBLE
-//            binding.soldLabelInnerConteainer.visibility = View.VISIBLE
-//            binding.soldLabelView.visibility =View.VISIBLE
-//        }
-//    }
 
 
     private fun setBookmarked(isBookmarked: Boolean){
@@ -430,13 +380,10 @@ class PropertyDetails : Fragment() {
         // Factory method to create a new instance of this fragment with a list of messages and chatId
         @JvmStatic
         fun newInstance(property: Property) =
-            PropertyDetails().apply {
+            SoldPropertyDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(PROPERTY_DETAILS_ARG, property)
                 }
             }
     }
 }
-
-
-

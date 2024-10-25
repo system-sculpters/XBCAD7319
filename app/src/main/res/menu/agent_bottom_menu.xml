@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/agent_home"
-        android:icon="@drawable/baseline_home_filled_24"
-        android:title="@string/home"/>
-
-    <item
         android:id="@+id/agent_properties"
         android:icon="@drawable/rental_icon"
         android:title="@string/properties"/>

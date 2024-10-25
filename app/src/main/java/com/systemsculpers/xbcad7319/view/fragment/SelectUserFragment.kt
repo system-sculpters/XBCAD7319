@@ -168,7 +168,7 @@ class SelectUserFragment : Fragment() {
         // Kevin Robatel
         // https://stackoverflow.com/users/244702/kevin-robatel
         userController.userList.observe(viewLifecycleOwner,
-            UsersObserver(adapter, null, this)
+            UsersObserver(adapter, null, this, null)
         )
 
         // Initial call to fetch all transactions for the user

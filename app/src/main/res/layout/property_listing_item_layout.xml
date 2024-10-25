@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/property_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="House"
             android:textSize="14sp"
@@ -146,6 +146,7 @@
             android:gravity="center_vertical">
 
             <ImageView
+                android:id="@+id/is_sold_image"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_gravity="center_vertical"

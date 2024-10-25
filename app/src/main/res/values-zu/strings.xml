@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">F.G. LATTO</string>
+    <string name="home">Ikhaya</string>
+    <string name="transactions">Izinhlelo Zokusebenza</string>
+    <string name="bookmark">Ibhukhimakhi</string>
+    <string name="settings">Izilungiselelo</string>
+    <string name="hello_blank_fragment">Sawubona ifreyimu engenalutho</string>
+    <string name="close_button">vula inkinobho</string>
+    <string name="submit_text">Thumela</string>
+    <string name="create_property">Dala Impahla</string>
+    <string name="property_name">Igama Lempahla</string>
+    <string name="property_type">Uhlobo Lempahla</string>
+    <string name="house">Indlu</string>
+    <string name="rental">Irenti</string>
+    <string name="land">Umhlaba</string>
+    <string name="select_location">Khetha Indawo</string>
+    <string name="enter_amount">Faka Inani</string>
+    <string name="enter_no_of_bedrooms">Faka Inombolo Yamagumbi Okulala</string>
+    <string name="enter_no_of_bathrooms">Faka Inombolo Yamagumbi Okugeza</string>
+    <string name="enter_no_of_parking">Faka Inombolo Yezindawo Zokupaka</string>
+    <string name="enter_description">Faka Incazelo</string>
+    <string name="find_property_location">Thola Indawo Yempahla</string>
+    <string name="search">Sesha</string>
+    <string name="slogan">Inkampani yezindlu ehamba phambili ezinze eWaterfall Country Estate</string>
+    <string name="discover_a_home_of_your_dreams">Thola ikhaya lamaphupho akho</string>
+    <string name="sign_up">Bhalisa</string>
+    <string name="login_redirect">
+    <font>Unayo i-akhawunti vele? </font>
+    <b><font>ngena</font></b>
+</string>
+    <string name="for_sale">Iyathengiswa</string>
+    <string name="contact_agent">Xhumana nomthengisi</string>
+    <string name="see_on_maps">Bona Kumamephu</string>
+    <string name="message">Umlayezo</string>
+    <string name="buy_now">Thenga manje</string>
+    <string name="email">I-imeyili</string>
+    <string name="password">Iphasiwedi</string>
+    <string name="properties">Izimpahla</string>
+    <string name="chat">Xoxa</string>
+    <string name="valuations">Ukuhlola Inani</string>
+    <string name="valuation_description">Ufuna ukuthengisa impahla yakho? Sicela ugcwalise imininingwane ethile ngezansi sizokuthinta ngokushesha ukuze senze ukuhlola inani kwamahhala.</string>
+    <string name="free_valuation">Ukuhlola Inani Mahhala</string>
+    <string name="chats">Izingxoxo</string>
+    <string name="select_images">Khetha Izithombe</string>
+    <string name="choose_your_files_here">Khetha amafayela akho lapha</string>
+    <string name="image_size_label">20 MB usayizi omkhulu wesithombe</string>
+    <string name="edit_profile">Hlela Iphrofayela</string>
+    <string name="change_password">Shintsha Iphasiwedi</string>
+    <string name="dark_mode">Imodi Emnyama</string>
+    <string name="language">Ulimi</string>
+    <string name="notifications">Izaziso</string>
+    <string name="profile">Iphrofayela</string>
+    <string name="general">Okuvamile</string>
+    <string name="logout">Phuma</string>
+    <string name="selected_language">Ulimi Olukhethiwe</string>
+    <string name="select_a_language">Khetha ulimi</string>
+    <string name="enter_size_in_sqf">Faka usayizi nge- "square feet"</string>
+    <string name="property_price">Intengo Yempahla</string>
+    <string name="property_description">Incazelo Yempahla</string>
+    <string name="property_size">Usayizi Wempahla (nge "square feet")</string>
+    <string name="no_of_parking">Inani lezindawo zokupaka</string>
+    <string name="no_of_bathrooms">Inani lamagumbi okugeza</string>
+    <string name="no_of_bedrooms">Inani lamagumbi okulala</string>
+    <string name="bed">Umbhede</string>
+    <string name="parking">Ukupaka</string>
+    <string name="bath">Ukugeza</string>
+    <string name="sqrf">Isikwele (sqrf)</string>
+    <string name="nameOnCard">Igama elisekhadini</string>
+    <string name="cardNo">Inombolo yekhadi</string>
+    <string name="cvv">CVV</string>
+    <string name="expiryDate">Usuku Lokuphelelwa</string>
+    <string name="users">Abasebenzisi</string>
+    <string name="select_users">Khetha abasebenzisi</string>
+    <string name="select_property_owner">Khetha umnikazi wempahla</string>
+    <string name="price">Intengo</string>
+    <string name="enter_valid_property">Khetha impahla esebenzayo</string>
+    <string name="enter_name_on_card">Faka igama elisekhadini</string>
+    <string name="enter_card_number">Faka inombolo yekhadi</string>
+    <string name="invalid_card_number">Inombolo yekhadi kumele ibe nezinombolo eziyi-16</string>
+    <string name="enter_cvv">Faka i-CVV</string>
+    <string name="invalid_cvv">CVV kumele ibe nezinombolo ezi-3</string>
+    <string name="enter_expiry_date">Faka usuku lokuphelelwa</string>
+    <string name="invalid_expiry_date_format">Ifomethi yosuku lokuphelelwa: MM/YY</string>
+    <string name="enter_message">Faka umlayezo</string>
+    <string name="done">Kuqediwe</string>
+    <string name="successful_purchase">Ukuthengwa kwepropati kuphumelele</string>
+    <string name="sold">Kuthengisiwe</string>
+    <string name="bookmarks">Amabhukhimakhi</string>
+    <string name="purchased_properties">Izimpahla Ezithengiwe</string>
+    <string name="create_a_new_account">Dala i-akhawunti entsha</string>
+
+    <string name="welcome">
+    <font>Siyakwamukela ku </font>
+    <font color="#FFD700">F.G. Latto</font>
+</string>
+    <string name="fullName">Igama eliphelele</string>
+    <string name="phone_number">Inombolo yocingo</string>
+    <string name="welcome_back">Siyakwamukela Emuva</string>
+    <string name="signin_to_account">Ngena ku-akhawunti yakho</string>
+
+    <string name="signup_redirect">
+    <font>Awunayo i-akhawunti? </font>
+    <font color="#FFD700">bhalisa</font>
+</string>
+
+    <string name="signin_redirect">
+    <font>Unayo i-akhawunti vele? </font>
+    <font color="#FFD700">ngena</font>
+</string>
+    <string name="sign_in">Ngena</string>
+    <string name="revenue">Inzuzo</string>
+    <string name="update">Buyekeza</string>
+    <string name="delete">Susa</string>
+    <string name="update_property">Buyekeza Impahla</string>
+    <string name="request_valuation_text">Cela Ukuhlola Inani</string> <!-- Zulu -->
+
+
+</resources>

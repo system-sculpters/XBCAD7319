@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">F.G. LATTO</string>
+    <string name="home">Tuis</string>
+    <string name="transactions">Transaksies</string>
+    <string name="bookmark">Boekmerk</string>
+    <string name="settings">Instellings</string>
+    <string name="hello_blank_fragment">Hallo leë fragment</string>
+    <string name="close_button">sluit knoppie</string>
+    <string name="submit_text">Indien</string>
+    <string name="create_property">Skep Eiendom</string>
+    <string name="property_name">Eiendomsnaam</string>
+    <string name="property_type">Eiendomstipe</string>
+    <string name="house">Huis</string>
+    <string name="rental">Huur</string>
+    <string name="land">Grond</string>
+    <string name="select_location">Kies Ligging</string>
+    <string name="enter_amount">Voer Bedrag in</string>
+    <string name="enter_no_of_bedrooms">Voer Aantal Slaapkamers in</string>
+    <string name="enter_no_of_bathrooms">Voer Aantal Badkamers in</string>
+    <string name="enter_no_of_parking">Voer Aantal Parkeerplekke in</string>
+    <string name="enter_description">Voer Beskrywing in</string>
+    <string name="find_property_location">Vind Eiendomsligging</string>
+    <string name="search">Soek</string>
+    <string name="slogan">Toonaangewende eiendomsmaatskappy gebaseer in die gesogte Waterfall Country Estate</string>
+    <string name="discover_a_home_of_your_dreams">Ontdek n huis van jou drome</string>
+    <string name="sign_up">Registreer</string>
+    <string name="login_redirect">
+        <font>Reeds n rekening? </font>
+        <b><font>meld aan</font></b>
+    </string>
+    <string name="for_sale">Te Koop</string>
+    <string name="contact_agent">Kontak agent</string>
+    <string name="see_on_maps">Kyk op kaarte</string>
+    <string name="message">Boodskap</string>
+    <string name="buy_now">Koop nou</string>
+    <string name="email">E-pos</string>
+    <string name="password">Wagwoord</string>
+    <string name="properties">Eiendomme</string>
+    <string name="chat">Klets</string>
+    <string name="valuations">Waardasies</string>
+    <string name="valuation_description">Wil jy jou eiendom verkoop? Vul asseblief sommige inligting hieronder in, en ons sal jou onmiddellik kontak vir n Gratis waardasie.</string>
+    <string name="free_valuation">Gratis Waardasie</string>
+    <string name="chats">Kletse</string>
+    <string name="select_images">Kies Beelde</string>
+    <string name="choose_your_files_here">Kies jou lêers hier</string>
+    <string name="image_size_label">20 MB maksimum beeldgrootte</string>
+    <string name="edit_profile">Wysig Profiel</string>
+    <string name="change_password">Verander Wagwoord</string>
+    <string name="dark_mode">Donker Modus</string>
+    <string name="language">Taal</string>
+    <string name="notifications">Kennisgewings</string>
+    <string name="profile">Profiel</string>
+    <string name="general">Algemeen</string>
+    <string name="logout">Teken Uit</string>
+    <string name="selected_language">Gekose Taal</string>
+    <string name="select_a_language">Kies n taal</string>
+    <string name="enter_size_in_sqf">Voer grootte in vierkante voet in</string>
+    <string name="property_price">Eiendomsprys</string>
+    <string name="property_description">Eiendomsbeskrywing</string>
+    <string name="property_size">Eiendomsgrootte (in vierkante voet)</string>
+    <string name="no_of_parking">Aantal parkeerplekke</string>
+    <string name="no_of_bathrooms">Aantal badkamers</string>
+    <string name="no_of_bedrooms">Aantal slaapkamers</string>
+    <string name="bed">Bed</string>
+    <string name="parking">Parkering</string>
+    <string name="bath">Bad</string>
+    <string name="sqrf">Vkv</string>
+    <string name="nameOnCard">Naam op kaart</string>
+    <string name="cardNo">Kaart nr.</string>
+    <string name="cvv">CVV</string>
+    <string name="expiryDate">Vervaldatum</string>
+    <string name="users">Gebruikers</string>
+    <string name="select_users">Kies gebruikers</string>
+    <string name="select_property_owner">Kies eiendomseienaar</string>
+    <string name="price">Prys</string>
+    <string name="enter_valid_property">Kies n eiendom</string>
+    <string name="enter_name_on_card">Voer naam op kaart in</string>
+    <string name="enter_card_number">Voer n kaartnommer in</string>
+    <string name="invalid_card_number">Kaartnommer moet 16 syfers wees</string>
+    <string name="enter_cvv">Voer n CVV in</string>
+    <string name="invalid_cvv">CVV moet 3 syfers wees</string>
+    <string name="enter_expiry_date">Voer n vervaldatum in</string>
+    <string name="invalid_expiry_date_format">Vervaldatumformaat: MM/JJ</string>
+    <string name="enter_message">Voer n boodskap in</string>
+    <string name="done">Klaar</string>
+    <string name="successful_purchase">Eiendom aankoop suksesvol</string>
+    <string name="sold">Verkoop</string>
+    <string name="bookmarks">Boekmerke</string>
+    <string name="purchased_properties">Gekoopte Eiendomme</string>
+    <string name="create_a_new_account">Skep nuwe rekening</string>
+
+    <string name="welcome">
+    <font>Welkom by </font>
+    <font color="#FFD700">F.G. Latto</font>
+</string>
+    <string name="fullName">Volle naam</string>
+    <string name="phone_number">Telefoonnommer</string>
+    <string name="welcome_back">Welkom terug</string>
+    <string name="signin_to_account">Meld aan by jou rekening</string>
+
+    <string name="signup_redirect">
+    <font>Het jy nie n rekening nie? </font>
+    <font color="#FFD700">registreer</font>
+</string>
+
+    <string name="signin_redirect">
+    <font>Reeds n rekening? </font>
+    <font color="#FFD700">meld aan</font>
+</string>
+    <string name="sign_in">Meld aan</string>
+    <string name="revenue">Inkomste</string>
+    <string name="update">Opdateer</string>
+    <string name="delete">Vee uit</string>
+    <string name="update_property">Opdateer Eiendom</string>
+    <string name="request_valuation_text">Versoek Waardering</string> <!-- Afrikaans -->
+
+</resources>

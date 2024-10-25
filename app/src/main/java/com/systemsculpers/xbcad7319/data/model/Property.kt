@@ -19,7 +19,8 @@ data class Property(
     var agentId: String = "",
     var ownerId: String = "",
     var status: String = "",
-    var isBookmarked: Boolean = false
+    var isBookmarked: Boolean = false,
+    var user: User? = User()
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readString() ?: "",
@@ -37,7 +38,8 @@ data class Property(
         agentId = parcel.readString() ?: "",
         ownerId = parcel.readString() ?: "",
         status = parcel.readString() ?: "",
-        isBookmarked = parcel.readByte() != 0.toByte()
+        isBookmarked = parcel.readByte() != 0.toByte(),
+        user = parcel.readParcelable(User::class.java.classLoader) ?: User()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -57,6 +59,7 @@ data class Property(
         parcel.writeString(ownerId)
         parcel.writeString(status)
         parcel.writeByte(if (isBookmarked) 1 else 0)
+        parcel.writeParcelable(user, flags)
     }
 
     override fun describeContents(): Int {

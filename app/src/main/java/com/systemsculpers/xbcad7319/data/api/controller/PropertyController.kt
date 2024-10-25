@@ -14,6 +14,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Part
 import java.io.File
 
 class PropertyController: ViewModel() {
@@ -128,9 +129,12 @@ class PropertyController: ViewModel() {
     // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
     // Megha Verma
     // https://medium.com/@meghaverma12
-    fun updateProperty(userToken: String, id: String, property: Property) {
+    fun updateProperty(userToken: String, id: String, property: Property, images: List<MultipartBody.Part?>?) {
+        val propertyJson = Gson().toJson(property)
+        val propertyRequestBody = RequestBody.create("application/json".toMediaTypeOrNull(), propertyJson)
+
         val token = "Bearer $userToken"
-        api.updateProperty(token, id, property).enqueue(object : Callback<Property> {
+        api.updateProperty(token, id, propertyRequestBody, images).enqueue(object : Callback<Property> {
             override fun onResponse(call: Call<Property>, response: Response<Property>) {
                 if (response.isSuccessful) {
                     // On successful category update, update the status and message

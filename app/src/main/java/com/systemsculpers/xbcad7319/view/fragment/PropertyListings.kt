@@ -65,9 +65,14 @@ class PropertyListings : Fragment() {
 
         adapter = PropertyAdapter(requireContext()){
                 property ->
-            val propertyDetailsFragment = PropertyDetails.newInstance(property)
-            // Replace the current fragment with the MessagesFragment
-            changeCurrentFragment(propertyDetailsFragment)
+
+            if(property.status == "Sold"){
+                val propertyDetailsFragment = SoldPropertyDetailsFragment.newInstance(property)
+                changeCurrentFragment(propertyDetailsFragment)
+            } else if( property.status == "For sale"){
+                val propertyDetailsFragment = PropertyDetails.newInstance(property)
+                changeCurrentFragment(propertyDetailsFragment)
+            }
         }
 
         setPropertyTypes()

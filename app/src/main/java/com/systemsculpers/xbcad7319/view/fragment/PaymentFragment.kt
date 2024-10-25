@@ -11,17 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.PurchaseController
-import com.systemsculpers.xbcad7319.data.api.controller.ValuationController
-import com.systemsculpers.xbcad7319.data.model.Bookmark
 import com.systemsculpers.xbcad7319.data.model.Property
 import com.systemsculpers.xbcad7319.data.model.Purchase
-import com.systemsculpers.xbcad7319.data.model.Valuation
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
-import com.systemsculpers.xbcad7319.databinding.FragmentMessagesBinding
 import com.systemsculpers.xbcad7319.databinding.FragmentPaymentBinding
 import com.systemsculpers.xbcad7319.view.custom.Dialogs
-import com.systemsculpers.xbcad7319.view.fragment.MessagesFragment.Companion.MESSAGES_ARG
 
 
 class PaymentFragment : Fragment() {

@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -104,6 +105,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         userManager = UserManager.getInstance(this)
         auth = ViewModelProvider(this).get(AuthController::class.java)
 
+
+        findViewById<ImageButton>(R.id.nav_drawer_opener).setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.END) // Open the navigation drawer
+        }
         // Check if the user is logged in and set up navigation accordingly
         if (isLoggedIn()) {
             setupBottomNavigation()  // Initialize bottom navigation
@@ -152,6 +157,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 binding.bottomNavigation.menu.clear()
                 binding.bottomNavigation.inflateMenu(R.menu.agent_bottom_menu) // Load agent-specific menu
                 //binding.bottomNavigation.menu.
+                changeCurrentFragment(AgentPropertiesFragment())
             }
             "user" -> {
                 binding.bottomNavigation.menu.clear()
@@ -187,9 +193,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 R.id.settings ->{
                    changeCurrentFragment(SettingsFragment())
-                }
-                R.id.agent_home ->{
-
                 }
                 R.id.agent_valuations ->{
                     changeCurrentFragment(AgentValuationsFragment())
