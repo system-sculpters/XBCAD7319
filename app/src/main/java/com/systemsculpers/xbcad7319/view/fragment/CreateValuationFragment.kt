@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.systemsculpers.xbcad7319.MainActivity
@@ -150,11 +151,16 @@ class CreateValuationFragment : Fragment() {
                 dialog.updateProgressDialog(requireContext(), progressDialog, getString(R.string.create_valuation_successful), hideProgressBar = true)
 
                 progressDialog.dismiss()
+
+                Toast.makeText(requireContext(), "valuation request created", Toast.LENGTH_LONG).show()
+
+                changeCurrentFragment(ValuationsFragment())
                 Log.d("status", "successful")
 
             } else {
                 Log.d("status", "fail")
                 dialog.updateProgressDialog(requireContext(), progressDialog, getString(R.string.create_valuation_failed), hideProgressBar = true)
+                Toast.makeText(requireContext(), "valuation request failed", Toast.LENGTH_LONG).show()
 
                 // Failure: Dismiss the progress dialog
                 progressDialog.dismiss()
