@@ -110,7 +110,7 @@ class AnalyticsFragment : Fragment() {
     // Method to observe the ViewModel for transaction-related data and status updates
     private fun observeViewModel(token: String) {
         // Show a progress dialog to indicate loading state
-        val progressDialog = dialog.showProgressDialog(requireContext())
+        //val progressDialog = dialog.showProgressDialog(requireContext())
 
         // Observe the status of the transaction fetching operation
         analyticsController.status.observe(viewLifecycleOwner) { status ->
@@ -123,13 +123,13 @@ class AnalyticsFragment : Fragment() {
             // https://stackoverflow.com/users/244702/kevin-robatel
             if (status) {
                 // Success: Dismiss the progress dialog
-                progressDialog.dismiss()
+                //progressDialog.dismiss()
                 Log.d("status", "successful")
 
             } else {
                 Log.d("status", "fail")
                 // Failure: Dismiss the progress dialog
-                progressDialog.dismiss()
+                //progressDialog.dismiss()
                 // Optionally handle failure case (e.g., show an error message)
             }
         }
@@ -150,9 +150,9 @@ class AnalyticsFragment : Fragment() {
                 // Show a timeout dialog and attempt to reconnect
                 Log.d("failed retrieval", "Retry...")
 
-                progressDialog.dismiss()
+                //progressDialog.dismiss()
                 dialog.showTimeoutDialog(requireContext()) {
-                    dialog.showProgressDialog(requireContext())
+                    //dialog.showProgressDialog(requireContext())
                     analyticsController.getAnalytics(token)
                 }
             }
