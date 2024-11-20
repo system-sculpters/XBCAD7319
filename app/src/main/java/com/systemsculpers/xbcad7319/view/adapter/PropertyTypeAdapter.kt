@@ -3,6 +3,7 @@ package com.systemsculpers.xbcad7319.view.adapter
 import android.content.Context
 import android.graphics.PorterDuff
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.model.PropertyType
+import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeFilterAdapter.PropertyTypeViewHolder
 
 class PropertyTypeAdapter(private val context: Context,
                           private val onItemClick: (PropertyType) -> Unit) :
@@ -110,18 +112,18 @@ class PropertyTypeAdapter(private val context: Context,
         if (position == selectedItemPosition) {
             holder.propertyTypeContainer.setBackgroundResource(R.drawable.selected_property_type_bg)
 
-            holder.propertyTypeNameText.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
+            holder.propertyTypeNameText.setTextColor( getTextColor(holder, R.attr.colorItemLayoutBg))
 
-            holder.propertyTypeImageView.setColorFilter(ContextCompat.getColor(context, R.color.white), PorterDuff.Mode.SRC_IN)
+            holder.propertyTypeImageView.setColorFilter(getTextColor(holder, R.attr.colorItemLayoutBg))
 
 
         } else {
             // holder.propertyTypeContainer.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
             holder.propertyTypeContainer.setBackgroundResource(R.drawable.edittext_background)
 
-            holder.propertyTypeNameText.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.secondary))
+            holder.propertyTypeNameText.setTextColor(getTextColor(holder, R.attr.ItemBorder))
 
-            holder.propertyTypeImageView.setColorFilter(ContextCompat.getColor(context, R.color.secondary), PorterDuff.Mode.SRC_IN)
+            holder.propertyTypeImageView.setColorFilter(getTextColor(holder, R.attr.ItemBorder), PorterDuff.Mode.SRC_IN)
 
         }
     }
@@ -129,5 +131,13 @@ class PropertyTypeAdapter(private val context: Context,
     // Returns the total number of categories in the list
     override fun getItemCount(): Int {
         return propertyTypes.size // Return the size of the categories list
+    }
+
+    // Fetches the theme-based text color for uncategorized transactions
+    private fun getTextColor(holder: PropertyTypeViewHolder, attr: Int): Int {
+        val typedValue = TypedValue()
+        val theme = holder.itemView.context.theme
+        theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
     }
 }
