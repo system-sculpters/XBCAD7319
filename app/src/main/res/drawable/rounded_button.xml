@@ -1,6 +1,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Solid color for the background -->
-    <solid android:color="?attr/colorItemBorder"/>
+    <solid android:color="?attr/ItemBorder"/>
 
     <!-- Border stroke -->
     <stroke

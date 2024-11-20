@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,18 +17,26 @@ import com.systemsculpers.xbcad7319.data.api.controller.AuthController
 import com.systemsculpers.xbcad7319.data.model.User
 import com.systemsculpers.xbcad7319.databinding.ActivityRegisterBinding
 import com.systemsculpers.xbcad7319.databinding.ActivityWelcomeBinding
+import com.systemsculpers.xbcad7319.view.custom.Dialogs
 
 class RegisterActivity : AppCompatActivity() {
     // View binding for the activity layout, ensuring type-safe access to views
     private lateinit var binding: ActivityRegisterBinding
 
     private lateinit var auth: AuthController
+
+    private lateinit var dialogs: Dialogs
+
+    private var errorMessage = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        dialogs = Dialogs()
 
         // Initialize ViewModel for authentication operations
         auth = ViewModelProvider(this).get(AuthController::class.java)
@@ -49,6 +58,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun registerUser() {
         // Show a progress dialog to indicate loading state
         //val progressDialog = timeOutDialog.showProgressDialog(this)
+        val progressDialog = dialogs.showProgressDialog(this)
 
         // Get email and password input from the respective EditText fields
         val fullName = binding.etFullName.text.toString()
@@ -61,8 +71,10 @@ class RegisterActivity : AppCompatActivity() {
 
         // Validate input; if not valid, dismiss the progress dialog and show an alert
         if (!validateInput(fullName, email, phoneNumber, password)) {
-            //progressDialog.dismiss() // Dismiss the progress dialog
+            progressDialog.dismiss() // Dismiss the progress dialog
 
+            dialogs.showAlertDialog(this, errorMessage) // Show error message
+            errorMessage = "" // Reset error message
             return // Exit the function if input is invalid
         }
 
@@ -101,9 +113,19 @@ class RegisterActivity : AppCompatActivity() {
 
             // Check for timeout or inability to connect
 
-            if (message == "timeout" || message.contains("Unable to resolve host")) {
-                auth.register(user) // Attempt to login again
+            // Check for timeout or inability to connect
+            if(message.contains("401")){
+                Toast.makeText(this, "User already exists", Toast.LENGTH_SHORT).show()
 
+            }
+            else if (message == "timeout" || message.contains("Unable to resolve host")) {
+                progressDialog.dismiss() // Dismiss the current dialog
+                // Show a timeout dialog and attempt to reconnect
+                dialogs.showTimeoutDialog(this) {
+                    // Restart the progress dialog
+                    dialogs.showProgressDialog(this)
+                    auth.register(user) // Attempt to login again
+                }
             }
         }
 
@@ -112,38 +134,40 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun validateInput(fullName: String, email: String, phoneNumber: String, password: String): Boolean {
-        var errorMessage = 0
 
         // Email validation
         if (fullName.isEmpty()) {
             Log.d("invalid", "FullName is empty")
-            errorMessage += 1
+            errorMessage += "${getString(R.string.empty_full_name)}\n"
+
         }
         // Email validation
         if (email.isEmpty()) {
             Log.d("invalid", "email is empty")
-            errorMessage += 1
+            errorMessage += "${getString(R.string.empty_email)}\n"
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Log.d("invalid", "invalid email")
-            errorMessage += 1
+            errorMessage += "${getString(R.string.invalid_email_format)}\n"
         }
 
         // Phone number validation
         if (phoneNumber.isBlank()) {
             Log.d("invalid", "phone number is empty")
-            errorMessage += 1
+            errorMessage += "${getString(R.string.empty_phone_number)}\n"
+
         } else if (!phoneNumber.matches(Regex("^0[0-9]{9}\$"))) {
             Log.d("invalid", "invalid phone number")
-            errorMessage += 1
+            errorMessage += "${getString(R.string.invalid_phone_number_format)}\n"
+
         }
 
         // Password validation
         if (password.isBlank()) {
+            errorMessage += "${getString(R.string.blank_password)}\n"
             Log.d("invalid", "password is empty")
-            errorMessage += 1
         }
 
-        return errorMessage == 0
+        return errorMessage.isBlank()
     }
 
 }
