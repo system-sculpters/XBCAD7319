@@ -8,13 +8,6 @@
     android:paddingHorizontal="25dp"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/chats"
-        android:fontFamily="@font/inter_semibold"
-        android:textSize="24sp"
-        android:layout_marginBottom="20dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

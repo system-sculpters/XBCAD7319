@@ -9,9 +9,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Switch
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.skydoves.powerspinner.PowerSpinnerView
 import com.systemsculpers.xbcad7319.MainActivity
+import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.UserController
 import com.systemsculpers.xbcad7319.data.model.User
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
@@ -38,16 +44,18 @@ class UsersFragment : Fragment() {
     private lateinit var filteredUserList: MutableList<User>
     private lateinit var userList: MutableList<User>
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUsersBinding.inflate(inflater, container, false)
 
         userController = ViewModelProvider(this).get(UserController::class.java)
 
         adapter = UsersAdapter{
-                user ->
+                user -> showDialog(user)
         }
 
         // Get instances of user and token managers
@@ -65,6 +73,12 @@ class UsersFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
 
+    }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.users))
     }
 
 
@@ -175,5 +189,95 @@ class UsersFragment : Fragment() {
     fun updateUsers(value: List<User>) {
         userList.clear()
         userList.addAll(value)
+    }
+
+    private fun showDialog(user: User) {
+        val context = requireContext()
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.update_role_item, null)
+        val roleSpinner = dialogView.findViewById<PowerSpinnerView>(R.id.roleSpinner)
+        val updateBtn =  dialogView.findViewById<Button>(R.id.btnUpdate)
+        val email = dialogView.findViewById<TextView>(R.id.email)
+
+        email.text = user.email
+
+        var role = ""
+
+        val roles = listOf("user", "agent")
+
+        roleSpinner.setItems(roles)
+
+        roleSpinner.selectItemByIndex(roles.indexOf(user.role))
+
+        roleSpinner.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newItem ->
+            // newItem is the selected language
+            role = newItem
+        }
+
+        if(role == user.role){
+            return
+        }
+
+        updateBtn.setOnClickListener {
+            val token = tokenManager.getToken() // Retrieve the authentication token
+
+            if (token != null) {
+                updateUserRole(token, user.id, role)
+            } else {
+                startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
+                // Handle case when the token is not available (e.g., show error or redirect)
+            }
+        }
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+            .create()
+
+        dialog.show()
+    }
+
+    private fun updateUserRole(token: String, id: String, newRole: String) {
+        // Observe the status of the transaction fetching operation
+        userController.status.observe(viewLifecycleOwner) { status ->
+            // Handle changes in the status (indicates success or failure)
+
+            // Check for timeout or inability to resolve host
+            // This observer implementation was adapted from stackoverflow
+            // https://stackoverflow.com/questions/47025233/android-lifecycle-library-cannot-add-the-same-observer-with-different-lifecycle
+            // Kevin Robatel
+            // https://stackoverflow.com/users/244702/kevin-robatel
+            if (status) {
+                // Success: Dismiss the progress dialog
+                //progressDialog.dismiss()
+                Log.d("status", "successful")
+
+            } else {
+                Log.d("status", "fail")
+                // Optionally handle failure case (e.g., show an error message)
+            }
+        }
+
+        // Observe any messages from the ViewModel
+        userController.message.observe(viewLifecycleOwner) { message ->
+            // Check for timeout or inability to resolve host
+            // This observer implementation was adapted from stackoverflow
+            // https://stackoverflow.com/questions/47025233/android-lifecycle-library-cannot-add-the-same-observer-with-different-lifecycle
+            // Kevin Robatel
+            // https://stackoverflow.com/users/244702/kevin-robatel
+
+            // Log the message for debugging purposes
+            Log.d("Valuations message", message)
+
+            // Check for specific messages that indicate a timeout or network issue
+            if (message == "timeout" || message.contains("Unable to resolve host")) {
+                // Show a timeout dialog and attempt to reconnect
+                Log.d("failed retrieval", "Retry...")
+
+                userController.updateUserRole(token, id, newRole)
+
+            }
+        }
+        // Initial call to fetch all transactions for the user
+        userController.updateUserRole(token, id, newRole)
     }
 }

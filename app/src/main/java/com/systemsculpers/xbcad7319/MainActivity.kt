@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -67,12 +68,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         //super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        // Load the selected theme before setting the content view
+// Load the selected theme before setting the content view
         loadAndApplyTheme()
-
         // Set the app theme
         setTheme(R.style.Theme_XBCAD7319)
+
+
 
         // Retrieve the saved language from SharedPreferences
         val sharedPreferences = getSharedPreferences("LanguagePreferences", Context.MODE_PRIVATE)
@@ -95,6 +96,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // https://medium.com/@nitinberwal89
         // This dark mode implementation was adapted from mdeium
         val isDarkMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+        Log.d("isDarkMode", "isDarkMode: $isDarkMode")
+
+        val currentMode = AppCompatDelegate.getDefaultNightMode()
+        Log.d("CurrentMode", "Night Mode: $currentMode")
+
+        tintIconForDarkMode(findViewById(R.id.nav_drawer_opener), isDarkMode)
 
         // Initialize the DrawerLayout and NavigationView
         drawerLayout = findViewById<DrawerLayout>(R.id.main)
@@ -133,13 +140,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         sharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(this)
 
         // Fetch the saved theme preference, default to "Light" if not found
-        val savedTheme = sharedPreferences.getBoolean("theme_preference", false) ?: false
+        val savedTheme = sharedPreferences.getString("preference_theme", "Light") ?: "Light"
 
+        Log.d("savedTheme", "savedTheme: $savedTheme")
         // Apply the saved theme based on user preference
         when (savedTheme) {
-            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            "Light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            "Dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
+
     }
 
     private fun setupBottomNavigation() {
@@ -152,12 +161,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 binding.bottomNavigation.menu.clear() // Clear any previous menu
                 binding.bottomNavigation.inflateMenu(R.menu.admin_bottom_menu) // Load admin-specific menu
                 changeCurrentFragment(AnalyticsFragment())
+                binding.navDrawerOpener.visibility = View.GONE
             }
             "agent" -> {
                 binding.bottomNavigation.menu.clear()
                 binding.bottomNavigation.inflateMenu(R.menu.agent_bottom_menu) // Load agent-specific menu
                 //binding.bottomNavigation.menu.
                 changeCurrentFragment(AgentPropertiesFragment())
+                binding.navDrawerOpener.visibility = View.GONE
+
             }
             "user" -> {
                 binding.bottomNavigation.menu.clear()
@@ -166,13 +178,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 navigationView.inflateMenu(R.menu.user_drawer_menu)
                 setupNavigationView()
                 changeCurrentFragment(PropertyListings())
+                binding.navDrawerOpener.visibility = View.VISIBLE
+
             }
             else -> {
                 Log.e("MainActivity", "Invalid user role")
             }
         }
-        //changeCurrentFragment(CreatePropertyFragment())
-        //changeCurrentFragment(SearchLocationFragment())
 
         // Code for when a different button is pressed on the navigation menu
 
@@ -216,6 +228,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             true
         }
+    }
+
+    // Sets the title of the toolbar
+    fun setToolbarTitle(title: String) {
+        binding.toolbarTitle.text = title
     }
 
     // Initializes the navigation view and sets up its listener
@@ -278,4 +295,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
+    // Tints the icon based on the current theme (dark/light mode)
+    private fun tintIconForDarkMode(imageButton: ImageButton, isDarkMode: Boolean) {
+        // Determine the appropriate color based on the current mode
+        val color = if (isDarkMode) {
+            getColor(R.color.white)  // Use white for dark mode
+        } else {
+            getColor(R.color.primary)  // Use dark grey for light mode
+        }
+        imageButton.setColorFilter(color) // Apply the color filter to the icon
+    }
 }

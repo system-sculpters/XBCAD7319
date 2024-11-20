@@ -8,13 +8,6 @@
     android:orientation="vertical"
     android:paddingVertical="10dp"
     android:paddingHorizontal="25dp">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bookmarks"
-        android:fontFamily="@font/inter_semibold"
-        android:textSize="24sp"
-        android:layout_marginBottom="20dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

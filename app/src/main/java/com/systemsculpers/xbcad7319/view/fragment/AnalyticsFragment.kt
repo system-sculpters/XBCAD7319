@@ -31,6 +31,7 @@ import com.systemsculpers.xbcad7319.view.adapter.AnalyticsAdapter
 import com.systemsculpers.xbcad7319.view.adapter.GraphAdapter
 import com.systemsculpers.xbcad7319.view.adapter.PropertyAdapter
 import com.systemsculpers.xbcad7319.view.adapter.PropertyAnalyticsAdapter
+import com.systemsculpers.xbcad7319.view.custom.Dialogs
 import com.systemsculpers.xbcad7319.view.observer.AnalyticsObserver
 import com.systemsculpers.xbcad7319.view.observer.BookmarksObserver
 
@@ -52,6 +53,9 @@ class AnalyticsFragment : Fragment() {
     // User and token managers for managing user sessions and authentication
     private lateinit var tokenManager: TokenManager
 
+    private lateinit var dialog: Dialogs
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,11 +74,18 @@ class AnalyticsFragment : Fragment() {
 
         graphAdapter = GraphAdapter(requireContext(), binding.revenueChart, textColor())
 
+        dialog = Dialogs()
         setUpRecyclerView()
 
         getAnalytics()
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.analytics))
     }
 
     private fun setUpRecyclerView() {
@@ -99,6 +110,7 @@ class AnalyticsFragment : Fragment() {
     // Method to observe the ViewModel for transaction-related data and status updates
     private fun observeViewModel(token: String) {
         // Show a progress dialog to indicate loading state
+        val progressDialog = dialog.showProgressDialog(requireContext())
 
         // Observe the status of the transaction fetching operation
         analyticsController.status.observe(viewLifecycleOwner) { status ->
@@ -111,13 +123,13 @@ class AnalyticsFragment : Fragment() {
             // https://stackoverflow.com/users/244702/kevin-robatel
             if (status) {
                 // Success: Dismiss the progress dialog
-                //progressDialog.dismiss()
+                progressDialog.dismiss()
                 Log.d("status", "successful")
 
             } else {
                 Log.d("status", "fail")
                 // Failure: Dismiss the progress dialog
-                //progressDialog.dismiss()
+                progressDialog.dismiss()
                 // Optionally handle failure case (e.g., show an error message)
             }
         }
@@ -138,8 +150,11 @@ class AnalyticsFragment : Fragment() {
                 // Show a timeout dialog and attempt to reconnect
                 Log.d("failed retrieval", "Retry...")
 
-                analyticsController.getAnalytics(token)
-
+                progressDialog.dismiss()
+                dialog.showTimeoutDialog(requireContext()) {
+                    dialog.showProgressDialog(requireContext())
+                    analyticsController.getAnalytics(token)
+                }
             }
         }
 

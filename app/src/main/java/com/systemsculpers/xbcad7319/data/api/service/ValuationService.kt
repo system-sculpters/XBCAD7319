@@ -46,8 +46,8 @@ interface ValuationService {
     // This function sends a PUT request to the "category/{id}" endpoint.
     // It requires an authorization token in the header, the category ID in the path, and a Category object in the request body.
     // Returns a Call object containing the updated Category.
-    @PUT("valuation/{valuationId}/status")
-    fun updateValuation(@Header("Authorization") token: String, @Path("valuationId") id: String, @Body valuation: Valuation): Call<Valuation>
+    @PUT("valuation/{id}/status")
+    fun updateValuation(@Header("Authorization") token: String, @Path("id") id: String, @Body valuation: Valuation): Call<Valuation>
 
 
 }

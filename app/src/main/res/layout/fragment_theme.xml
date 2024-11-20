@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.ThemeFragment"
+    android:orientation="vertical"
+    android:paddingVertical="25dp"
+    android:paddingHorizontal="20dp">
+
+
+
+    <com.systemsculpers.xbcad7319.view.custom.CheckableLinearLayout
+        android:id="@+id/lightMode"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="6dp"
+        android:background="@drawable/settings_background">
+
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="1dp"
+            android:background="@drawable/theme_icon_background">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:background="@drawable/edittext_background">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/light_theme_right_background"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/light_theme_background"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/rounded_corner_blue_bar"
+                android:layout_marginBottom="5dp"
+                android:layout_marginHorizontal="10dp"
+
+                />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/light"
+                android:textSize="20sp"
+                android:fontFamily="@font/inter"/>
+        </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            />
+
+        <LinearLayout
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="5dp"
+            android:background="@drawable/theme_checked_background">
+            <ImageView
+                android:id="@+id/isCheckedLight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_check_24"
+                app:tint="?attr/whiteItemBorder" />
+        </LinearLayout>
+
+    </com.systemsculpers.xbcad7319.view.custom.CheckableLinearLayout>
+
+
+
+
+
+
+
+
+    <com.systemsculpers.xbcad7319.view.custom.CheckableLinearLayout
+        android:id="@+id/darkMode"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="6dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/settings_background">
+
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding=".5dp"
+            android:background="@drawable/theme_icon_background"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:background="@drawable/edittext_background">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@drawable/theme_background"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@drawable/dark_theme_right_background"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/rounded_corner_white_bar"
+                android:layout_marginBottom="5dp"
+                android:layout_marginHorizontal="10dp"
+
+                />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dark"
+                android:textSize="20sp"
+                android:fontFamily="@font/inter"/>
+        </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            />
+
+        <LinearLayout
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="5dp"
+            android:background="@drawable/theme_checked_background">
+            <ImageView
+                android:id="@+id/isCheckedDark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_check_24"
+                app:tint="?attr/whiteItemBorder"/>
+        </LinearLayout>
+
+    </com.systemsculpers.xbcad7319.view.custom.CheckableLinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

@@ -42,7 +42,7 @@ class PurchasesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPurchasesBinding.inflate(inflater, container, false)
 
         purchaseController = ViewModelProvider(this).get(PurchaseController::class.java)
@@ -63,6 +63,12 @@ class PurchasesFragment : Fragment() {
         getProperties()
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.purchased_properties))
     }
 
     private fun setUpRecyclerView() {

@@ -20,6 +20,7 @@ import com.systemsculpers.xbcad7319.databinding.FragmentBookmarksBinding
 import com.systemsculpers.xbcad7319.databinding.FragmentPropertyListingsBinding
 import com.systemsculpers.xbcad7319.view.adapter.PropertyAdapter
 import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeFilterAdapter
+import com.systemsculpers.xbcad7319.view.custom.Dialogs
 import com.systemsculpers.xbcad7319.view.observer.BookmarksObserver
 import com.systemsculpers.xbcad7319.view.observer.PropertyListingObserver
 
@@ -41,6 +42,8 @@ class BookmarksFragment : Fragment() {
 
     private lateinit var tokenManager: TokenManager
 
+    private lateinit var dialog: Dialogs
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +54,7 @@ class BookmarksFragment : Fragment() {
 
         // Get instances of user and token managers
         userManager = UserManager.getInstance(requireContext())
+
         tokenManager = TokenManager.getInstance(requireContext())
 
         adapter = PropertyAdapter(requireContext()){
@@ -60,12 +64,21 @@ class BookmarksFragment : Fragment() {
             changeCurrentFragment(propertyDetailsFragment)
         }
 
+        dialog = Dialogs()
+
         setUpRecyclerView()
 
         getProperties()
         // Inflate the layout for this fragment
         return binding.root
     }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.bookmarks))
+    }
+
     private fun setUpRecyclerView() {
         binding.propertyRecyclerView.layoutManager = LinearLayoutManager(requireContext()) // Use LinearLayout for layout
         binding.propertyRecyclerView.setHasFixedSize(true) // Improve performance with fixed size
@@ -89,6 +102,7 @@ class BookmarksFragment : Fragment() {
     // Method to observe the ViewModel for transaction-related data and status updates
     private fun observeViewModel(token: String, userId: String) {
         // Show a progress dialog to indicate loading state
+        val progressDialog = dialog.showProgressDialog(requireContext())
 
         // Observe the status of the transaction fetching operation
         propertyController.status.observe(viewLifecycleOwner) { status ->
@@ -101,13 +115,13 @@ class BookmarksFragment : Fragment() {
             // https://stackoverflow.com/users/244702/kevin-robatel
             if (status) {
                 // Success: Dismiss the progress dialog
-                //progressDialog.dismiss()
+                progressDialog.dismiss()
                 Log.d("status", "successful")
 
             } else {
                 Log.d("status", "fail")
                 // Failure: Dismiss the progress dialog
-                //progressDialog.dismiss()
+                progressDialog.dismiss()
                 // Optionally handle failure case (e.g., show an error message)
             }
         }
@@ -128,8 +142,12 @@ class BookmarksFragment : Fragment() {
                 // Show a timeout dialog and attempt to reconnect
                 Log.d("failed retrieval", "Retry...")
 
-                propertyController.getProperties(token, userId)
 
+                progressDialog.dismiss()
+                dialog.showTimeoutDialog(requireContext()) {
+                    dialog.showProgressDialog(requireContext())
+                    propertyController.getProperties(token, userId)
+                }
             }
         }
 

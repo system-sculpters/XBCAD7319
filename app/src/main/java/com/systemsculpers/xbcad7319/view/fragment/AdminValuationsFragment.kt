@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.databinding.FragmentAdminValuationsBinding
 import com.systemsculpers.xbcad7319.databinding.FragmentAgentValuationsBinding
@@ -34,5 +35,10 @@ class AdminValuationsFragment : Fragment() {
         return binding.root
     }
 
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.valuations))
+    }
 
 }

@@ -24,6 +24,7 @@ import com.systemsculpers.xbcad7319.data.preferences.UserManager
 import com.systemsculpers.xbcad7319.databinding.FragmentCreatePropertyBinding
 import com.systemsculpers.xbcad7319.databinding.FragmentUpdatePropertyBinding
 import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeAdapter
+import com.systemsculpers.xbcad7319.view.custom.Dialogs
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -49,6 +50,10 @@ class UpdatePropertyFragment : Fragment() {
 
     private var propertyId= ""
 
+    private var errorMessage = ""
+
+    private lateinit var dialog: Dialogs
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +65,8 @@ class UpdatePropertyFragment : Fragment() {
         // Get instances of user and token managers
         userManager = UserManager.getInstance(requireContext())
         tokenManager = TokenManager.getInstance(requireContext())
+
+        dialog = Dialogs()
 
         setPropertyTypes()
 
@@ -73,6 +80,12 @@ class UpdatePropertyFragment : Fragment() {
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.update_property))
     }
 
     // Handle incoming arguments

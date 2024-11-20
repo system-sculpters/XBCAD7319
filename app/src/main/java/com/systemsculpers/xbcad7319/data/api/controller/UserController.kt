@@ -122,8 +122,9 @@ class UserController: ViewModel() {
         })
     }
 
-    fun updateUserRole(userToken: String, id: String, user: User) {
+    fun updateUserRole(userToken: String, id: String, newRole: String) {
         val token = "Bearer $userToken"
+        val user = User(role = newRole)
         val call = api.updateUserRole(token, id, user)
 
         // Logging the request URL for debugging purposes
@@ -222,6 +223,47 @@ class UserController: ViewModel() {
 
             // Called when the API call fails, e.g., due to network issues
             override fun onFailure(call: Call<Void>, t: Throwable) {
+                //Log.e("MainActivity", "Error: ${t.message}")
+                status.postValue(false)
+                message.postValue(t.message)
+            }
+        })
+    }
+
+    // This method was adapted from medium
+    // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
+    // Megha Verma
+    // https://medium.com/@meghaverma12
+    fun deleteUser(userToken: String, id: String) {
+        val token = "Bearer $userToken"
+        val call = api.deleteUser(token, id)
+
+        // Logging the request URL for debugging purposes
+        val url = call.request().url.toString()
+        Log.d("MainActivity", "Request URL: $url")
+
+        // Asynchronously executes the API call to retrieve categories
+        call.enqueue(object : Callback<Void> {
+            // Called when the server responds to the request
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    // If the response is successful, update the category list and status
+                    status.postValue(true)
+                    message.postValue("User deleted")
+
+
+                } else {
+                    // Handle unsuccessful responses, e.g., a 4xx or 5xx status code
+                    userList.postValue(listOf())
+                    //Log.e("MainActivity", "Request failed with code: ${response.code()}")
+                    status.postValue(false)
+                    message.postValue("Request failed with code: ${response.code()}")
+                }
+            }
+
+            // Called when the API call fails, e.g., due to network issues
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                userList.postValue(listOf())
                 //Log.e("MainActivity", "Error: ${t.message}")
                 status.postValue(false)
                 message.postValue(t.message)

@@ -98,6 +98,12 @@ class SoldPropertyDetailsFragment : Fragment() {
         return binding.root
     }
 
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.property_details))
+    }
+
 
     private fun setBookmarked(isBookmarked: Boolean){
         if(isBookmarked){

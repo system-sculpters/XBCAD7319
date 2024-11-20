@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.ChatController
+import com.systemsculpers.xbcad7319.data.model.Chat
 import com.systemsculpers.xbcad7319.data.model.Message
 import com.systemsculpers.xbcad7319.data.model.SendMessage
 import com.systemsculpers.xbcad7319.data.model.Valuation
@@ -42,13 +43,13 @@ class MessagesFragment : Fragment() {
     private lateinit var chatController: ChatController
 
     // Declare chatId
-    private var chatId: String? = null
+    private var chat: Chat? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             messages = it.getParcelableArrayList(MESSAGES_ARG)
-            chatId = it.getString(CHAT_ID_ARG) // Extract chatId from arguments
+            chat = it.getParcelable(CHAT_ARG) // Extract chatId from arguments
         }
     }
 
@@ -71,6 +72,12 @@ class MessagesFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(chat?.participantsDetails?.email!!)
     }
 
     // Function to set up user details and observe the view model for transaction updates
@@ -120,11 +127,11 @@ class MessagesFragment : Fragment() {
 
 
         // Validate user input before sending data to the server
-        if (messageText.isEmpty() || chatId.isNullOrEmpty()) {
+        if (messageText.isEmpty() || chat?.id.isNullOrEmpty()) {
             return
         }
 
-        val newMessage = SendMessage(chatId = chatId!!, senderId = userId, text = messageText)
+        val newMessage = SendMessage(chatId = chat!!.id, senderId = userId, text = messageText)
         // Observe the status of the transaction fetching operation
         chatController.status.observe(viewLifecycleOwner) { status ->
             // Handle changes in the status (indicates success or failure)
@@ -138,11 +145,13 @@ class MessagesFragment : Fragment() {
                 // Success: Dismiss the progress dialog
                 //progressDialog.dismiss()
                 Log.d("status", "successful")
+//                val updateMessage = Message(chatId = chat!!.id, senderId = userId, text = messageText)
+//                messageAdapter.addMessage(updateMessage)
 
                 binding.message.setText("")
             } else {
                 Log.d("status", "fail")
-// Failure: Dismiss the progress dialog
+                // Failure: Dismiss the progress dialog
                 //progressDialog.dismiss()
                 // Optionally handle failure case (e.g., show an error message)
             }
@@ -169,8 +178,10 @@ class MessagesFragment : Fragment() {
             }
         }
 
-        // Set up the message RecyclerView
         getUpdatedMessages(userId)
+
+        // Set up the message RecyclerView
+        //getUpdatedMessages(userId)
         // Initial call to fetch all transactions for the user
         chatController.sendMessage(token, newMessage)
     }
@@ -187,7 +198,7 @@ class MessagesFragment : Fragment() {
         }
 
         // Update messages in adapter with the latest data
-        messages?.let { messageAdapter.updateMessages(it) }
+        //messages?.let { messageAdapter.updateMessages(it) }
 
         // Observe new incoming messages from the ViewModel
         chatController.messageList.observe(viewLifecycleOwner) { newMessage ->
@@ -203,6 +214,8 @@ class MessagesFragment : Fragment() {
                 // Add the sorted messages to the list
                 messages?.addAll(sortedMessages)
 
+                newMessage.messages.let { it1 -> messageAdapter.updateMessages(it1) }
+
                 //messages?.addAll(it.messages) // Add new message to the list
                 messageAdapter.notifyItemInserted(messages!!.size - 1) // Notify adapter
                 binding.messages.smoothScrollToPosition(messages!!.size - 1) // Scroll to the latest message
@@ -213,15 +226,15 @@ class MessagesFragment : Fragment() {
 
     companion object {
         const val MESSAGES_ARG = "messages"
-        const val CHAT_ID_ARG = "chatId" // New constant for chatId argument
+        const val CHAT_ARG = "chat" // New constant for chatId argument
 
         // Factory method to create a new instance of this fragment with a list of messages and chatId
         @JvmStatic
-        fun newInstance(messages: List<Message>, chatId: String) =
+        fun newInstance(messages: List<Message>, chat: Chat) =
             MessagesFragment().apply {
                 arguments = Bundle().apply {
                     putParcelableArrayList(MESSAGES_ARG, ArrayList(messages))
-                    putString(CHAT_ID_ARG, chatId) // Pass chatId to the fragment
+                    putParcelable(CHAT_ARG, chat) // Pass chatId to the fragment
                 }
             }
     }

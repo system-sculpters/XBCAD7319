@@ -25,6 +25,8 @@ class UserManager private constructor(context: Context) {
         editor.putString("userid", user.id)
         editor.putString("role", user.role)
         editor.putString("email", user.email)
+        editor.putString("fullName", user.fullName)
+        editor.putString("phoneNumber", user.phoneNumber)
 
         // Apply changes asynchronously
         editor.apply()
@@ -43,11 +45,14 @@ class UserManager private constructor(context: Context) {
         val userid = sharedPreferences.getString("userid", null)
         val email = sharedPreferences.getString("email", null)
         val role = sharedPreferences.getString("role", null)
+        val fullName = sharedPreferences.getString("fullName", null)
+        val phoneNumber = sharedPreferences.getString("phoneNumber", null)
+
 
         // Create a User object; if any value is missing, return an empty User
         var user: User = User()
-        if (userid != null && email != null && role != null) {
-            user = User(id = userid, email = email, role = role)
+        if (userid != null && email != null && role != null && fullName != null && phoneNumber != null) {
+            user = User(id = userid, email = email, role = role, fullName = fullName, phoneNumber = phoneNumber)
         }
         return user
     }
@@ -68,6 +73,8 @@ class UserManager private constructor(context: Context) {
         editor.remove("userid")
         editor.remove("role")
         editor.remove("email")
+        editor.remove("fullName")
+        editor.remove("phoneNumber")
 
         // Apply changes asynchronously
         editor.apply()

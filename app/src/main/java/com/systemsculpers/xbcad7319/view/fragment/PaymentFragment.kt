@@ -63,6 +63,12 @@ class PaymentFragment : Fragment() {
         return binding.root
     }
 
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.payment))
+    }
+
     // Function to set up user details and observe the view model for transaction updates
     private fun pay() {
         val user = userManager.getUser() // Get the current user details

@@ -7,20 +7,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.skydoves.powerspinner.PowerSpinnerView
 import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.ValuationController
 import com.systemsculpers.xbcad7319.data.model.Valuation
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
-import com.systemsculpers.xbcad7319.databinding.FragmentAgentValuationsBinding
 import com.systemsculpers.xbcad7319.databinding.FragmentValuationsBinding
 import com.systemsculpers.xbcad7319.view.adapter.UserValuationsAdapter
-import com.systemsculpers.xbcad7319.view.adapter.ValuationsAdapter
+import com.systemsculpers.xbcad7319.view.custom.Dialogs
 import com.systemsculpers.xbcad7319.view.observer.UserValuationsObserver
-import com.systemsculpers.xbcad7319.view.observer.ValuationsObserver
 
 
 class ValuationsFragment : Fragment() {
@@ -39,6 +41,7 @@ class ValuationsFragment : Fragment() {
 
     // ViewModel for managing transaction-related data
     private lateinit var valuationController: ValuationController
+    private lateinit var dialog: Dialogs
 
 
     override fun onCreateView(
@@ -57,6 +60,8 @@ class ValuationsFragment : Fragment() {
         userManager = UserManager.getInstance(requireContext())
         tokenManager = TokenManager.getInstance(requireContext())
 
+        dialog = Dialogs()
+
         // Set up the RecyclerView to display transactions
         setUpRecyclerView()
 
@@ -69,6 +74,12 @@ class ValuationsFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.valuations))
     }
 
     // Function to set up the RecyclerView for displaying transactions
@@ -107,6 +118,7 @@ class ValuationsFragment : Fragment() {
     // Method to observe the ViewModel for transaction-related data and status updates
     private fun observeViewModel(token: String, userId: String) {
         // Show a progress dialog to indicate loading state
+        val progressDialog = dialog.showProgressDialog(requireContext())
 
         // Observe the status of the transaction fetching operation
         valuationController.status.observe(viewLifecycleOwner) { status ->
@@ -119,13 +131,13 @@ class ValuationsFragment : Fragment() {
             // https://stackoverflow.com/users/244702/kevin-robatel
             if (status) {
                 // Success: Dismiss the progress dialog
-                //progressDialog.dismiss()
+                progressDialog.dismiss()
                 Log.d("status", "successful")
 
             } else {
                 Log.d("status", "fail")
 // Failure: Dismiss the progress dialog
-                //progressDialog.dismiss()
+                progressDialog.dismiss()
                 // Optionally handle failure case (e.g., show an error message)
             }
         }
@@ -164,6 +176,8 @@ class ValuationsFragment : Fragment() {
         // Initial call to fetch all transactions for the user
         valuationController.getUserValuations(token, userId)
     }
+
+
 
     // Method to change the current fragment displayed in the UI
     private fun changeCurrentFragment(fragment: Fragment) {

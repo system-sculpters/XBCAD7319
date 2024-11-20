@@ -65,7 +65,7 @@ class PurchasesAdapter (private val context: Context,
         // Load the image using Glide
         Glide.with(context)
             .load(property.images?.get(0)) // Use image URL or resource ID
-            .placeholder(R.drawable.house_image) // Placeholder image
+            .placeholder(R.drawable.image_search) // Placeholder image
             .transform(RoundedCornersTransformation(17f)) // Apply rounded corners
             .into(holder.propertyImage)
 

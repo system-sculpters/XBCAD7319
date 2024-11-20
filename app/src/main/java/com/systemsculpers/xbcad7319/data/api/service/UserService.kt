@@ -3,6 +3,7 @@ package com.systemsculpers.xbcad7319.data.api.service
 import com.systemsculpers.xbcad7319.data.model.User
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PUT
@@ -24,6 +25,11 @@ interface UserService {
     // Route to update user details (e.g., fullName, email, phoneNumber)
     @PUT("user/update-user-details/{id}")
     fun updateUserDetails(@Header("Authorization") token: String, @Path("id") id: String, @Body user: User): Call<Void>
+
+    // Route to update user details (e.g., fullName, email, phoneNumber)
+    @DELETE("user/delete-user/{id}")
+    fun deleteUser(@Header("Authorization") token: String, @Path("id") id: String): Call<Void>
+
 
     // Route to update password
     @PUT("user/update-password/{id}")

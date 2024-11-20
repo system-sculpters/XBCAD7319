@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
@@ -17,6 +16,7 @@ import com.systemsculpers.xbcad7319.data.model.User
 import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
 import com.systemsculpers.xbcad7319.databinding.ActivityLoginBinding
+import com.systemsculpers.xbcad7319.view.custom.Dialogs
 
 class LoginActivity : AppCompatActivity() {
     // View binding for the layout associated with this activity
@@ -27,7 +27,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var tokenManager: TokenManager
     private lateinit var userManager: UserManager
 
+    private lateinit var dialogs: Dialogs
 
+    private var errorMessage = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -43,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
         tokenManager = TokenManager.getInstance(this)
         userManager = UserManager.getInstance(this)
 
+        dialogs = Dialogs()
         // Set up click listener for the Sign In button
         binding.btnSignIn.setOnClickListener { loginUser() }
 
@@ -58,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
     // Function to handle user login process
     private fun loginUser() {
         // Show a progress dialog to indicate loading state
-        //val progressDialog = timeOutDialog.showProgressDialog(this)
+        val progressDialog = dialogs.showProgressDialog(this)
 
         // Get email and password input from the respective EditText fields
         val email = binding.etEmail.text.toString()
@@ -69,8 +72,10 @@ class LoginActivity : AppCompatActivity() {
 
         // Validate input; if not valid, dismiss the progress dialog and show an alert
         if (!validateInput(email, password)) {
-            //progressDialog.dismiss() // Dismiss the progress dialog
+            progressDialog.dismiss() // Dismiss the progress dialog
 
+            dialogs.showAlertDialog(this, errorMessage) // Show error message
+            errorMessage = "" // Reset error message
             return // Exit the function if input is invalid
         }
 
@@ -88,7 +93,9 @@ class LoginActivity : AppCompatActivity() {
             if (status) {
                 // Update the progress dialog to indicate success
                 //timeOutDialog.updateProgressDialog(this, progressDialog, "Login successful!", hideProgressBar = true)
+                progressDialog.dismiss() // Dismiss the current dialog
                 Log.d("login success", "success")
+                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
                 // Dismiss the dialog after a 2-second delay
@@ -100,12 +107,11 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 // Update the progress dialog to indicate failure
                 //timeOutDialog.updateProgressDialog(this, progressDialog, "Login unsuccessful!", hideProgressBar = true)
+                progressDialog.dismiss() // Dismiss the current dialog
                 Log.d("login fail", "fail")
+                Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
 
                 // Dismiss the dialog after a 2-second delay
-                Handler(Looper.getMainLooper()).postDelayed({
-                    //progressDialog.dismiss() // Dismiss the progress dialog
-                }, 2000)
             }
         }
 
@@ -118,24 +124,22 @@ class LoginActivity : AppCompatActivity() {
             Log.d("login fail", "fail: $message")
 
             // Check for timeout or inability to connect
-
-//            if (message == "timeout" || message.contains("Unable to resolve host")) {
-//                progressDialog.dismiss() // Dismiss the current dialog
-//                // Show a timeout dialog and attempt to reconnect
-//                timeOutDialog.showTimeoutDialog(this) {
-//                    // Restart the progress dialog
-//                    timeOutDialog.showProgressDialog(this)
-//                    timeOutDialog.updateProgressDialog(this, progressDialog, getString(R.string.connecting), hideProgressBar = false)
-//                    auth.login(user) // Attempt to login again
-//                }
-//            }
+            if(message == "timeout" || message.contains("Unable to resolve host")) {
+                progressDialog.dismiss() // Dismiss the current dialog
+                // Show a timeout dialog and attempt to reconnect
+                dialogs.showTimeoutDialog(this) {
+                    // Restart the progress dialog
+                    dialogs.showProgressDialog(this)
+                    auth.login(user) // Attempt to login again
+                }
+            }
         }
 
         // Observe user data after successful authentication
-        auth.userData.observe(this) { user_data ->
+        auth.userData.observe(this) { userData ->
             // Save the token and user data using the TokenManager and UserManager
-            tokenManager.saveToken(user_data.token)
-            userManager.saveUser(user_data)
+            tokenManager.saveToken(userData.token)
+            userManager.saveUser(userData)
             userManager.savePassword(password) // Save the user's password (presumably hashed)
         }
 
@@ -144,24 +148,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validateInput( email: String, password: String): Boolean {
-        var errorMessage = 0
+
+        // Email validation
         if (email.isEmpty()) {
-            //errorMessage += "${getString(R.string.empty_email)}\n"
             Log.d("invalid", "email is empty")
-            errorMessage += 1
-
+            errorMessage += "${getString(R.string.empty_email)}\n"
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            //errorMessage += "${getString(R.string.invalid_email_format)}\n"
             Log.d("invalid", "invalid email")
-            errorMessage += 1
+            errorMessage += "${getString(R.string.invalid_email_format)}\n"
         }
 
-        if (password.isBlank()){
-            //errorMessage += "${getString(R.string.blank_password)}\n"
+        // Password validation
+        if (password.isBlank()) {
+            errorMessage += "${getString(R.string.blank_password)}\n"
             Log.d("invalid", "password is empty")
-            errorMessage += 1
         }
 
-        return errorMessage == 0
+        return errorMessage.isBlank()
     }
 }

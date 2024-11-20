@@ -18,6 +18,104 @@ class Dialogs {
     // and a custom alert dialog for error messages. The dialogs help provide feedback to the user
     // about the application's state during network operations.
 
+    fun showTimeoutDialog(context: Context, onRetry: () -> Unit) {
+        // Build the alert dialog using the provided context.
+
+        // This method was adapted from geeksforgeeks
+        // https://www.geeksforgeeks.org/how-to-create-an-alert-dialog-box-in-android/
+        // naved_alam
+        // https://www.geeksforgeeks.org/user/naved_alam/contributions/?itm_source=geeksforgeeks&itm_medium=article_author&itm_campaign=auth_user
+        val dialogBuilder = AlertDialog.Builder(context)
+
+        // Set the message and configure the buttons for the dialog.
+        dialogBuilder.setMessage(context.getString(R.string.connection_timeout))
+            .setCancelable(false) // Prevent dialog from being canceled by tapping outside.
+            .setPositiveButton(context.getString(R.string.retry)) { dialog, id ->
+                // When "Retry" is clicked, invoke the onRetry callback and dismiss the dialog.
+                dialog.dismiss()
+                onRetry()
+
+            }
+            .setNegativeButton(context.getString(R.string.cancel_text)) { dialog, id ->
+                // When "Cancel" is clicked, simply dismiss the dialog without any action.
+                dialog.dismiss()
+            }
+
+        // Create the alert dialog instance and set its title.
+        val alert = dialogBuilder.create()
+        alert.setTitle(context.getString(R.string.connection_timeout_lbl))
+        // Show the dialog to the user.
+        alert.show()
+    }
+
+    // Shows a custom progress dialog that displays a loading indicator.
+    // Returns the created AlertDialog instance for further manipulation if needed.
+    fun showProgressDialog(context: Context): AlertDialog {
+        // Inflate a custom layout for the progress dialog, which includes a progress bar.
+
+        // This method was adapted from eeksforgeeks
+        // https://www.geeksforgeeks.org/how-to-create-an-alert-dialog-box-in-android/
+        // naved_alam
+        // https://www.geeksforgeeks.org/user/naved_alam/contributions/?itm_source=geeksforgeeks&itm_medium=article_author&itm_campaign=auth_user
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.timeout_popup_dialog, null)
+
+        // Create the AlertDialog using the custom layout.
+        val dialogBuilder = AlertDialog.Builder(context)
+        dialogBuilder.setView(dialogView) // Set the custom view for the dialog.
+        dialogBuilder.setCancelable(false) // Prevent cancellation by tapping outside.
+
+        // Create and display the dialog.
+        val dialog = dialogBuilder.create()
+        dialog.show()
+
+        // Return the created dialog for potential future updates.
+        return dialog
+    }
+
+
+    fun updateProgressDialog(context: Context, dialog: AlertDialog, message: String, hideProgressBar: Boolean) {
+        // Access UI elements from the dialog layout.
+
+        // This method was adapted from eeksforgeeks
+        // https://www.geeksforgeeks.org/how-to-create-an-alert-dialog-box-in-android/
+        // naved_alam
+        // https://www.geeksforgeeks.org/user/naved_alam/contributions/?itm_source=geeksforgeeks&itm_medium=article_author&itm_campaign=auth_user
+        val progressBar = dialog.findViewById<ProgressBar>(R.id.progressBar)
+        val checkmarkImageView = dialog.findViewById<ImageView>(R.id.checkmarkImageView)
+        val statusTextView = dialog.findViewById<TextView>(R.id.statusTextView)
+
+        // Update the status message displayed to the user.
+        statusTextView?.text = message
+
+        // Control the visibility of the progress bar based on the provided flag.
+        if (hideProgressBar) {
+            progressBar?.visibility = ProgressBar.GONE // Hide the progress bar if instructed.
+        } else {
+            progressBar?.visibility = ProgressBar.VISIBLE // Show the progress bar.
+        }
+
+        // Manage the visibility of the checkmark based on whether the progress bar is hidden.
+        if (hideProgressBar) {
+            // Check for failure messages to decide on the icon and color.
+            if (message.lowercase().contains("fail") || message.lowercase().contains("unsuccessful")) {
+                checkmarkImageView.setImageResource(R.drawable.baseline_close_24) // Show a cross for failure.
+                val color = ContextCompat.getColor(context, R.color.red) // Set color to red.
+                checkmarkImageView.setColorFilter(color)
+            } else {
+                checkmarkImageView.setImageResource(R.drawable.baseline_check_green) // Show a checkmark for success.
+                val color = ContextCompat.getColor(context, R.color.green) // Set color to green.
+                checkmarkImageView.setColorFilter(color)
+            }
+            // Animate the appearance of the checkmark icon.
+            val fadeIn = AnimationUtils.loadAnimation(context, android.R.anim.fade_in)
+            checkmarkImageView.startAnimation(fadeIn)
+            checkmarkImageView?.visibility = ImageView.VISIBLE // Make the checkmark visible.
+        } else {
+            checkmarkImageView?.visibility = ImageView.GONE // Hide the checkmark if the progress bar is visible.
+        }
+    }
+
+
     fun showSuccessDialog(context: Context, errorMessage: String, onItemClick: (AlertDialog) -> Unit){
         // Inflate a custom layout for the error dialog.
         // This method was adapted from eeksforgeeks

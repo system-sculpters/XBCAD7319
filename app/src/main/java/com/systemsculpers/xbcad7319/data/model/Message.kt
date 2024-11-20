@@ -8,7 +8,9 @@ data class Message(
     val chatId: String  = "",
     val senderId: String  = "",
     val timestamp: Long = 0,
-    val text: String  = ""
+    val text: String  = "",
+    val isDateSeparator: Boolean = false,
+    val dateString: String? = null
 ): Parcelable {
 
     // Constructor for creating Message object from Parcel
@@ -17,7 +19,9 @@ data class Message(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readLong(),
-        parcel.readString() ?: ""
+        parcel.readString() ?: "",
+        parcel.readByte() != 0.toByte(), // Read boolean as a byte
+        parcel.readString() // Read nullable String
     )
 
     // Write the Message object to a Parcel
@@ -27,6 +31,8 @@ data class Message(
         parcel.writeString(senderId)
         parcel.writeLong(timestamp)
         parcel.writeString(text)
+        parcel.writeByte(if (isDateSeparator) 1 else 0) // Write boolean as a byte
+        parcel.writeString(dateString)
     }
 
     override fun describeContents(): Int {

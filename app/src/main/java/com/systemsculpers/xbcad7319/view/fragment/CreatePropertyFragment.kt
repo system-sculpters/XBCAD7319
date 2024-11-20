@@ -3,6 +3,8 @@ package com.systemsculpers.xbcad7319.view.fragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,6 +24,7 @@ import com.systemsculpers.xbcad7319.data.preferences.TokenManager
 import com.systemsculpers.xbcad7319.data.preferences.UserManager
 import com.systemsculpers.xbcad7319.databinding.FragmentCreatePropertyBinding
 import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeAdapter
+import com.systemsculpers.xbcad7319.view.custom.Dialogs
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -46,6 +49,10 @@ class CreatePropertyFragment : Fragment() {
 
     private var propType: String = ""
 
+    // Variable to store the error message if input validation fails
+    private var errorMessage = ""
+    private lateinit var dialog: Dialogs
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +65,8 @@ class CreatePropertyFragment : Fragment() {
         // Get instances of user and token managers
         userManager = UserManager.getInstance(requireContext())
         tokenManager = TokenManager.getInstance(requireContext())
+
+        dialog = Dialogs()
 
         setPropertyTypes()
 
@@ -126,6 +135,12 @@ class CreatePropertyFragment : Fragment() {
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.create_property))
     }
 
     // Sets up the color picker RecyclerView
@@ -292,6 +307,8 @@ class CreatePropertyFragment : Fragment() {
     private fun observeViewModel(token: String, userId: String) {
         Log.d("token", "token: $token")
 
+        val progressDialog = dialog.showProgressDialog(requireContext())
+
         // Retrieve selected images
         val selectedImages = arguments?.getParcelableArrayList<Uri>("selected_images")
 
@@ -299,6 +316,9 @@ class CreatePropertyFragment : Fragment() {
 
         // Validate user input before sending data to the server
         if (!validateProperty(getPropertyData(), selectedImages, owner)) {
+            progressDialog.dismiss()
+            dialog.showAlertDialog(requireContext(), errorMessage)
+            errorMessage = ""
             return
         }
 
@@ -339,8 +359,12 @@ class CreatePropertyFragment : Fragment() {
             if (status) {
                 Log.d("status", "successful")
                 // Optionally dismiss progress dialog here
+                dialog.updateProgressDialog(requireContext(), progressDialog, getString(R.string.property_create_successful), hideProgressBar = true)
+                progressDialog.dismiss()
                 changeCurrentFragment(AgentPropertiesFragment())
             } else {
+                dialog.updateProgressDialog(requireContext(), progressDialog, getString(R.string.property_create_fail), hideProgressBar = true)
+                progressDialog.dismiss()
                 Log.d("status", "fail")
                 // Optionally handle failure case (e.g., show an error message)
             }
@@ -353,7 +377,12 @@ class CreatePropertyFragment : Fragment() {
             // Check for specific messages that indicate a timeout or network issue
             if (message == "timeout" || message.contains("Unable to resolve host")) {
                 Log.d("failed retrieval", "Retry...")
-                controller.createProperty(token, newProperty, imageParts) // Pass images for retry
+
+                progressDialog.dismiss()
+                Dialogs().showTimeoutDialog(requireContext()) {
+                    Dialogs().showProgressDialog(requireContext())
+                    controller.createProperty(token, newProperty, imageParts) // Pass images for retry
+                }
             }
         }
 
@@ -390,11 +419,13 @@ class CreatePropertyFragment : Fragment() {
         // Check required fields
         if (property.title.isEmpty()) {
             Log.d("propertyName", "propertyName is empty")
+            errorMessage += "${getString(R.string.enter_property_name)}\n"
             errors++
         }
 
         if(owner == null){
             Log.d("owner", "owner is empty")
+            errorMessage += "${getString(R.string.enter_property_owner)}\n"
             errors++
         }
 
@@ -406,26 +437,33 @@ class CreatePropertyFragment : Fragment() {
             property.location = location
         } else {
             Log.d("location", "location is empty")
+            errorMessage += "${getString(R.string.enter_property_location)}\n"
             errors++
         }
 
         if (property.price.toString().isEmpty() || property.price <= 0) {
+            errorMessage += "${getString(R.string.enter_property_price)}\n"
             Log.d("propertyPrice", "propertyPrice is empty")
             errors++
         }
 
         if (property.description.isEmpty()) {
+            errorMessage += "${getString(R.string.enter_property_description)}\n"
+
             Log.d("description", "description is empty")
             errors++
         }
 
         if (property.propertyType.isEmpty()) {
+            errorMessage += "${getString(R.string.enter_property_type)}\n"
             Log.d("type", "type is empty")
             errors++
         }
 
         if (selectedImages.isNullOrEmpty()) {
             Log.d("image", "No images selected")
+            errorMessage += "${getString(R.string.enter_property_image)}\n"
+
             errors++
         }
 
@@ -433,29 +471,35 @@ class CreatePropertyFragment : Fragment() {
         when (property.propertyType.lowercase()) {
             "land" -> {
                 if (property.size.toString().isEmpty() || property.size.toString().toDoubleOrNull() == null || property.size.toString().toDouble() <= 0) {
+                    errorMessage += "${getString(R.string.enter_property_size)}\n"
                     Log.d("size", "size must be entered and greater than zero for land properties")
                     errors++
                 }
             }
             "house", "rental" -> {
                 if (property.size.toString().isEmpty() || property.size.toString().toDoubleOrNull() == null || property.size.toString().toDouble() <= 0) {
+                    errorMessage += "${getString(R.string.enter_property_size)}\n"
                     Log.d("size", "size must be entered and greater than zero for houses or rentals")
                     errors++
                 }
                 if (property.rooms <= 0) {
+                    errorMessage += "${getString(R.string.enter_property_room)}\n"
                     Log.d("rooms", "rooms must be greater than zero for houses or rentals")
                     errors++
                 }
                 if (property.bathrooms < 0) {
+                    errorMessage += "${getString(R.string.enter_property_bathroom)}\n"
                     Log.d("bathrooms", "bathrooms cannot be negative")
                     errors++
                 }
                 if (property.parking < 0) {
+                    errorMessage += "${getString(R.string.enter_property_parking)}\n"
                     Log.d("parking", "parking cannot be negative")
                     errors++
                 }
             }
             else -> {
+                errorMessage += "${getString(R.string.invalid_property_size)}\n"
                 Log.d("type", "Invalid property type")
                 errors++
             }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,14 +21,22 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginTop="20dp"/>
+                android:layout_height="400dp" />
+
+            <LinearLayout
+                android:id="@+id/dotsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:padding="16dp"></LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="8dp"
                 android:layout_marginHorizontal="20dp">
 
                 <TextView
@@ -38,19 +47,12 @@
                     android:text="Nacary elite house"
                     android:layout_gravity="center_horizontal"
                     android:textAlignment="center"
-                    android:fontFamily="@font/inter_bold"/>
+                    android:fontFamily="@font/inter_bold" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <ImageView
-                    android:id="@+id/bookmark"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/baseline_bookmark_border_24"/>
-
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -59,6 +61,7 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp"
                 android:layout_marginHorizontal="20dp">
+
                 <TextView
                     android:id="@+id/property_address"
                     android:layout_width="wrap_content"
@@ -69,7 +72,7 @@
                     android:textAlignment="center"
                     android:fontFamily="@font/inter"
                     android:maxLines="1"
-                    android:ellipsize="end"/>
+                    android:ellipsize="end" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,7 +94,7 @@
                         android:id="@+id/property_types_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"/>
+                        android:orientation="horizontal" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -101,13 +104,14 @@
                 android:orientation="vertical"
                 android:layout_marginTop="5dp"
                 android:layout_marginHorizontal="20dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:text="Property Description"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/inter_bold"/>
+                    android:textColor="?attr/ItemBorder"
+                    android:fontFamily="@font/inter_bold" />
 
                 <TextView
                     android:id="@+id/property_description"
@@ -117,7 +121,7 @@
                     android:layout_marginTop="10dp"
                     android:textSize="12sp"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                    android:fontFamily="@font/inter"/>
+                    android:fontFamily="@font/inter" />
             </LinearLayout>
 
             <LinearLayout
@@ -125,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginHorizontal="20dp">
 
                 <TextView
@@ -135,18 +139,19 @@
                     android:text="@string/see_on_maps"
                     android:layout_gravity="center_horizontal"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/inter"/>
+                    android:textColor="?attr/ItemBorder"
+                    android:fontFamily="@font/inter" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/baseline_chevron_right_24"/>
+                    android:src="@drawable/baseline_chevron_right_24"
+                    app:tint="?attr/ItemBorder" />
             </LinearLayout>
 
 
@@ -157,7 +162,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"
+        android:layout_weight="1"
         android:gravity="end"
         android:orientation="vertical">
 
@@ -179,12 +184,12 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:text="@string/delete"
-                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:fontFamily="@font/inter_bold"
                 android:background="@drawable/button_background"
                 android:layout_weight="1"
-                android:layout_marginStart="5dp"/>
+                android:layout_marginHorizontal="5dp"
+                android:textColor="?attr/colorItemLayoutBg"/>
 
         </LinearLayout>
     </LinearLayout>

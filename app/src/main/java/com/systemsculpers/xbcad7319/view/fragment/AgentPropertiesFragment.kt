@@ -18,6 +18,7 @@ import com.systemsculpers.xbcad7319.data.preferences.UserManager
 import com.systemsculpers.xbcad7319.databinding.FragmentAgentPropertiesBinding
 import com.systemsculpers.xbcad7319.databinding.FragmentSearchLocationBinding
 import com.systemsculpers.xbcad7319.view.adapter.PropertyAdapter
+import com.systemsculpers.xbcad7319.view.custom.Dialogs
 import com.systemsculpers.xbcad7319.view.observer.PropertyObserver
 import com.systemsculpers.xbcad7319.view.observer.ValuationsObserver
 
@@ -72,6 +73,12 @@ class AgentPropertiesFragment : Fragment() {
         return binding.root
     }
 
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.properties))
+    }
+
     private fun setUpRecyclerView() {
         binding.propertyRecyclerView.layoutManager = LinearLayoutManager(requireContext()) // Use LinearLayout for layout
         binding.propertyRecyclerView.setHasFixedSize(true) // Improve performance with fixed size
@@ -95,6 +102,7 @@ class AgentPropertiesFragment : Fragment() {
     // Method to observe the ViewModel for transaction-related data and status updates
     private fun observeViewModel(token: String, userId: String) {
         // Show a progress dialog to indicate loading state
+        //val progressDialog = Dialogs().showProgressDialog(requireContext())
 
         // Observe the status of the transaction fetching operation
         propertyController.status.observe(viewLifecycleOwner) { status ->
@@ -111,6 +119,7 @@ class AgentPropertiesFragment : Fragment() {
                 Log.d("status", "successful")
 
             } else {
+
                 Log.d("status", "fail")
                 // Failure: Dismiss the progress dialog
                 //progressDialog.dismiss()
@@ -128,7 +137,6 @@ class AgentPropertiesFragment : Fragment() {
 
             // Log the message for debugging purposes
             Log.d("Valuations message", message)
-
             // Check for specific messages that indicate a timeout or network issue
             if (message == "timeout" || message.contains("Unable to resolve host")) {
                 // Show a timeout dialog and attempt to reconnect

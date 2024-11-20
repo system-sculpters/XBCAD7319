@@ -1,14 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.EditProfileFragment">
+    tools:context=".view.fragment.EditProfileFragment"
+    android:orientation="vertical"
+    android:paddingVertical="25dp"
+    android:paddingHorizontal="20dp">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Profile Picture with Edit Icon -->
+
+
+    <!-- Username Label and Container -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username"
+        android:fontFamily="@font/inter_medium"
+        android:textSize="20sp"/>
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:inputType="text"
+        android:layout_marginTop="8dp"
+        android:hint="@string/enter_username"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+        android:background="@drawable/edittext_background"
+        android:fontFamily="@font/inter_medium"/>
+
+
+    <!-- Email Label and Container -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:fontFamily="@font/inter_medium"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:inputType="text"
+        android:layout_marginTop="8dp"
+        android:hint="@string/enter_email"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+        android:background="@drawable/edittext_background"
+        android:fontFamily="@font/inter_medium"/>
+
+
+    <!-- Password Label and Container -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone_number"
+        android:fontFamily="@font/inter_medium"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:inputType="text"
+        android:layout_marginTop="8dp"
+        android:hint="@string/enter_phone_number"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+        android:background="@drawable/edittext_background"
+        android:fontFamily="@font/inter_medium"/>
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_background"
+        android:text="@string/update"
+        android:fontFamily="@font/inter_bold"
+        android:textColor="?attr/colorItemLayoutBg"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_background"
+        android:text="@string/delete"
+        android:fontFamily="@font/inter_bold"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:theme="@style/DeleteButtonStyle"/>
+
+</LinearLayout>

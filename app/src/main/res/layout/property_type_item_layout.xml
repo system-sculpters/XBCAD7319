@@ -19,7 +19,8 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:src="@drawable/baseline_home_filled_24"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="10dp"
+        app:tint="?attr/ItemBorder"/>
     <TextView
         android:id="@+id/property_type_name"
         android:layout_width="wrap_content"
@@ -27,6 +28,7 @@
         android:text="@string/land"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:fontFamily="@font/inter_medium"/>
+        android:fontFamily="@font/inter_medium"
+        android:textColor="?attr/ItemBorder"/>
 
 </LinearLayout>

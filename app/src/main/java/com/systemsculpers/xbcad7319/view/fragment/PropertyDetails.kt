@@ -12,9 +12,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.systemsculpers.xbcad7319.AppConstants
 import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.data.api.controller.BookmarkController
 import com.systemsculpers.xbcad7319.data.api.controller.ChatController
@@ -107,47 +111,11 @@ class PropertyDetails : Fragment() {
         return binding.root
     }
 
-//    private fun hideCta(){
-//        val user = userManager.getUser() // Get the current user details
-//
-//        if(user.role == "admin" || user.role == "agent" || property!!.status == "Sold"){
-//            binding.bookmark.visibility = View.GONE
-//            binding.divider.visibility =  View.GONE
-//            binding.priceLabel.visibility = View.GONE
-//            binding.propertyPrice.visibility = View.GONE
-//            binding.buyNow.visibility = View.GONE
-//
-//            binding.contactAgentLabel.visibility = View.GONE
-//            binding.contactAgent.visibility = View.GONE
-//            binding.messageLogo.visibility = View.GONE
-//            binding.messaeLabel.visibility = View.GONE
-//        } else{
-//            binding.bookmark.visibility = View.VISIBLE
-//            binding.divider.visibility =  View.VISIBLE
-//            binding.priceLabel.visibility = View.VISIBLE
-//            binding.propertyPrice.visibility = View.VISIBLE
-//            binding.buyNow.visibility = View.VISIBLE
-//
-//            binding.contactAgentLabel.visibility = View.VISIBLE
-//            binding.contactAgent.visibility = View.VISIBLE
-//            binding.messageLogo.visibility = View.VISIBLE
-//            binding.messaeLabel.visibility = View.VISIBLE
-//
-//
-//            binding.soldLabel.visibility = View.GONE
-//            binding.soldLabelView.visibility =View.GONE
-//            binding.soldLabelInnerConteainer.visibility = View.GONE
-//            binding.soldLabelView.visibility =View.GONE
-//        }
-//
-//        if(property!!.status == "Sold"){
-//            binding.soldLabel.visibility = View.VISIBLE
-//            binding.soldLabelView.visibility =View.VISIBLE
-//            binding.soldLabelInnerConteainer.visibility = View.VISIBLE
-//            binding.soldLabelView.visibility =View.VISIBLE
-//        }
-//    }
-
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.property_details))
+    }
 
     private fun setBookmarked(isBookmarked: Boolean){
         if(isBookmarked){
@@ -190,13 +158,65 @@ class PropertyDetails : Fragment() {
 
         binding.viewPager.adapter = imageSlideAdapter
 
+        // Add dots to the layout
+        setupDots(imageSlideAdapter.itemCount)
+
+        // Listen for page changes to update dots
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                updateDots(position)
+            }
+        })
+
+
         binding.propertyName.text = property!!.title
 
         binding.propertyAddress.text = property!!.location.address
 
         binding.propertyDescription.text = property!!.description
+
+        binding.propertyPrice.text = "R ${AppConstants.formatAmount(property!!.price)}"
     }
 
+    private fun setupDots(count: Int) {
+        binding.dotsLayout.removeAllViews() // Clear existing dots
+
+        for (i in 0 until count) {
+            val dot = ImageView(context).apply {
+                setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.dot_inactive // Create this drawable for inactive dots
+                    )
+                )
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginStart = 8
+                    marginEnd = 8
+                }
+                layoutParams = params
+            }
+            binding.dotsLayout.addView(dot)
+        }
+
+        // Set the first dot as active
+        updateDots(0)
+    }
+
+    private fun updateDots(position: Int) {
+        for (i in 0 until binding.dotsLayout.childCount) {
+            val dot = binding.dotsLayout.getChildAt(i) as ImageView
+            dot.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    if (i == position) R.drawable.dot_active else R.drawable.dot_inactive
+                )
+            )
+        }
+    }
 
     private fun showMessageDialog() {
         // Inflate the custom dialog layout

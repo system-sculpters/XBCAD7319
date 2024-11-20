@@ -8,9 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.BookmarkController
@@ -76,9 +81,6 @@ class AgentPropertyDetailsFragment : Fragment() {
         setupPropertyDetails()
         setPropertyTypes()
 
-
-        property?.let { setBookmarked(it.isBookmarked) }
-
         val viewOnMapFragment = property?.let { ViewOnMapFragment.newInstance(it.location) }
 
 
@@ -88,23 +90,9 @@ class AgentPropertyDetailsFragment : Fragment() {
             }
         }
 
-        binding.bookmark.setOnClickListener {
-            bookmarkAction()
-        }
-
         binding.delete.setOnClickListener {
             deleteDialog()
         }
-
-//        binding.update.setOnClickListener {
-//            val bundle = Bundle().apply {
-//                putParcelable("property", property)
-//            }
-//            val createPropertyFragment = UpdatePropertyFragment()
-//            createPropertyFragment.arguments = bundle
-//
-//            changeCurrentFragment(createPropertyFragment)
-//        }
 
         return binding.root
     }
@@ -134,14 +122,14 @@ class AgentPropertyDetailsFragment : Fragment() {
         alertDialog.show()
     }
 
-    private fun setBookmarked(isBookmarked: Boolean){
-        if(isBookmarked){
-
-            binding.bookmark.setImageResource(R.drawable.baseline_bookmark_checked)
-        } else{
-            binding.bookmark.setImageResource(R.drawable.baseline_bookmark_border_24)
-        }
-    }
+//    private fun setBookmarked(isBookmarked: Boolean){
+//        if(isBookmarked){
+//
+//            binding.bookmark.setImageResource(R.drawable.baseline_bookmark_checked)
+//        } else{
+//            binding.bookmark.setImageResource(R.drawable.baseline_bookmark_border_24)
+//        }
+//    }
 
     // Sets up the color picker RecyclerView
     private fun setPropertyTypes() {
@@ -175,11 +163,64 @@ class AgentPropertyDetailsFragment : Fragment() {
 
         binding.viewPager.adapter = imageSlideAdapter
 
+        // Add dots to the layout
+        setupDots(imageSlideAdapter.itemCount)
+
+        // Listen for page changes to update dots
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                updateDots(position)
+            }
+        })
+
+
+
         binding.propertyName.text = property!!.title
 
         binding.propertyAddress.text = property!!.location.address
 
         binding.propertyDescription.text = property!!.description
+
+    }
+
+    private fun setupDots(count: Int) {
+        binding.dotsLayout.removeAllViews() // Clear existing dots
+
+        for (i in 0 until count) {
+            val dot = ImageView(context).apply {
+                setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.dot_inactive // Create this drawable for inactive dots
+                    )
+                )
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginStart = 8
+                    marginEnd = 8
+                }
+                layoutParams = params
+            }
+            binding.dotsLayout.addView(dot)
+        }
+
+        // Set the first dot as active
+        updateDots(0)
+    }
+
+    private fun updateDots(position: Int) {
+        for (i in 0 until binding.dotsLayout.childCount) {
+            val dot = binding.dotsLayout.getChildAt(i) as ImageView
+            dot.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    if (i == position) R.drawable.dot_active else R.drawable.dot_inactive
+                )
+            )
+        }
     }
 
     private fun bookmarkAction(){
@@ -217,7 +258,7 @@ class AgentPropertyDetailsFragment : Fragment() {
                 //progressDialog.dismiss()
                 Log.d("status", "successful")
                 property!!.isBookmarked = true
-                setBookmarked(true)
+                //setBookmarked(true)
 
             } else {
                 Log.d("status", "fail")
@@ -251,6 +292,12 @@ class AgentPropertyDetailsFragment : Fragment() {
         bookmarkController.bookmarkProperty(token, propertyId, newBookmark)
     }
 
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.property_details))
+    }
+
     private fun removeBookmark(token: String, userId: String, propertyId: String) {
 
         // Observe the status of the transaction fetching operation
@@ -267,7 +314,7 @@ class AgentPropertyDetailsFragment : Fragment() {
                 //progressDialog.dismiss()
                 Log.d("status", "successful")
                 property!!.isBookmarked = false
-                setBookmarked(false)
+                //setBookmarked(false)
 
             } else {
                 Log.d("status", "fail")

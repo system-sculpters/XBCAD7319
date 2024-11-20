@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragment.AgentPropertiesFragment"
     android:orientation="vertical"
     android:paddingVertical="10dp"
@@ -38,6 +38,6 @@
             android:textSize="24sp"
             android:fontFamily="@font/inter_medium"
             android:background="@drawable/button_background"
-            android:textColor="@color/white"/>
+            android:textColor="?attr/colorItemLayoutBg"/>
     </LinearLayout>
 </LinearLayout>

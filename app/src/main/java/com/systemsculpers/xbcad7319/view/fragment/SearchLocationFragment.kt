@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.MapController
 import com.systemsculpers.xbcad7319.data.model.LocationResult
@@ -75,6 +76,12 @@ class SearchLocationFragment : Fragment() {
         })
         // Inflate the layout for this fragment
         return  binding.root
+    }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.select_location))
     }
 
     private fun onLocationSelected(location: LocationResult) {

@@ -8,16 +8,6 @@
     android:paddingVertical="10dp"
     android:paddingHorizontal="25dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/select_users"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/inter_medium"
-        android:layout_marginBottom="20dp"/>
-
-
     <LinearLayout
         android:id="@+id/location_redirect"
         android:layout_width="match_parent"

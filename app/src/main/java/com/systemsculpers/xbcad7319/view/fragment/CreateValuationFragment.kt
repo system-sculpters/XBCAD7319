@@ -21,6 +21,7 @@ import com.systemsculpers.xbcad7319.databinding.FragmentCreateValuationBinding
 import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeAdapter
 import com.systemsculpers.xbcad7319.view.adapter.PropertyTypeFilterAdapter
 import com.systemsculpers.xbcad7319.view.adapter.ValuationsAdapter
+import com.systemsculpers.xbcad7319.view.custom.Dialogs
 import com.systemsculpers.xbcad7319.view.observer.ValuationsObserver
 
 
@@ -42,6 +43,8 @@ class CreateValuationFragment : Fragment() {
     private lateinit var userManager: UserManager
     private lateinit var tokenManager: TokenManager
 
+    private var errorMessage = ""
+    private lateinit var dialog: Dialogs
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +57,8 @@ class CreateValuationFragment : Fragment() {
         // Get instances of user and token managers
         userManager = UserManager.getInstance(requireContext())
         tokenManager = TokenManager.getInstance(requireContext())
+
+        dialog = Dialogs()
 
         setPropertyTypes()
 
@@ -75,6 +80,12 @@ class CreateValuationFragment : Fragment() {
         }
 
         binding.propertyTypesList.adapter = propertyTypeAdapter
+    }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.free_valuation))
     }
 
     // Helper function to change the current fragment in the activity.
@@ -106,6 +117,8 @@ class CreateValuationFragment : Fragment() {
 
     // Method to observe the ViewModel for transaction-related data and status updates
     private fun observeViewModel(token: String, userId: String) {
+        val progressDialog = dialog.showProgressDialog(requireContext())
+
         Log.d("token", "token: ${token}")
         val propertyName = binding.propertyName.text.toString()
         val location = binding.location.text.toString()
@@ -115,6 +128,9 @@ class CreateValuationFragment : Fragment() {
 
         // Validate user input before sending data to the server
         if (!validateValuationData(propertyName, location, propertyPrice, description, type)) {
+            progressDialog.dismiss()
+            dialog.showAlertDialog(requireContext(), errorMessage)
+            errorMessage = ""
             return
         }
 
@@ -131,13 +147,17 @@ class CreateValuationFragment : Fragment() {
             // https://stackoverflow.com/users/244702/kevin-robatel
             if (status) {
                 // Success: Dismiss the progress dialog
-                //progressDialog.dismiss()
+                dialog.updateProgressDialog(requireContext(), progressDialog, getString(R.string.create_valuation_successful), hideProgressBar = true)
+
+                progressDialog.dismiss()
                 Log.d("status", "successful")
 
             } else {
                 Log.d("status", "fail")
-// Failure: Dismiss the progress dialog
-                //progressDialog.dismiss()
+                dialog.updateProgressDialog(requireContext(), progressDialog, getString(R.string.create_valuation_failed), hideProgressBar = true)
+
+                // Failure: Dismiss the progress dialog
+                progressDialog.dismiss()
                 // Optionally handle failure case (e.g., show an error message)
             }
         }
@@ -158,8 +178,11 @@ class CreateValuationFragment : Fragment() {
                 // Show a timeout dialog and attempt to reconnect
                 Log.d("failed retrieval", "Retry...")
 
-                valuationController.createValuation(token, newValuation)
-
+                progressDialog.dismiss()
+                Dialogs().showTimeoutDialog(requireContext()) {
+                    Dialogs().showProgressDialog(requireContext())
+                    valuationController.createValuation(token, newValuation)
+                }
             }
         }
 
@@ -172,22 +195,28 @@ class CreateValuationFragment : Fragment() {
 
         if(propertyName.isEmpty()){
             Log.d("propertyName", "propertyName is empty")
+            errorMessage += "${getString(R.string.enter_valuation_name)}\n"
+
             errors += 1
         }
         if(location.isEmpty()){
             Log.d("location", "location is empty")
+            errorMessage += "${getString(R.string.select_location)}\n"
             errors += 1
         }
         if(propertyPrice.isEmpty()){
+            errorMessage += "${getString(R.string.enter_price)}\n"
             Log.d("propertyPrice", "propertyPrice is empty")
             errors += 1
         }
 
         if(description.isEmpty()){
             Log.d("description", "description is empty")
+            errorMessage += "${getString(R.string.enter_description)}\n"
             errors += 1
         }
         if(type.isEmpty() || type == ""){
+            errorMessage += "${getString(R.string.enter_property_type)}\n"
             Log.d("type", "type is empty")
             errors += 1
         }

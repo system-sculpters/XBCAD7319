@@ -45,12 +45,25 @@ class SettingsFragment : Fragment() {
         userManager = UserManager.getInstance(requireContext())
         tokenManager = TokenManager.getInstance(requireContext())
 
-        binding.editProfile.setOnClickListener{
+        val savedTheme = sharedPreferences.getString("theme_preferences", "Light") ?: "Light"
 
+        val notifications = sharedPreferences.getBoolean("notifications_enabled", true)
+
+
+        binding.notificationsSwitch.isChecked = notifications
+
+
+
+        binding.editProfile.setOnClickListener{
+            changeCurrentFragment(EditProfileFragment())
         }
 
         binding.changePassword.setOnClickListener{
 
+        }
+
+        binding.theme.setOnClickListener {
+            changeCurrentFragment(ThemeFragment())
         }
 
         binding.language.setOnClickListener{
@@ -58,7 +71,7 @@ class SettingsFragment : Fragment() {
         }
 
         binding.about.setOnClickListener{
-            changeCurrentFragment(AboutFragment())
+            changeCurrentFragment(AboutUsFragment())
         }
 
         binding.logout.setOnClickListener{
@@ -69,6 +82,13 @@ class SettingsFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.settings))
+    }
+
 
     private fun setupListeners() {
         binding.notificationsSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -81,20 +101,25 @@ class SettingsFragment : Fragment() {
             sharedPreferences.edit().putBoolean("notifications_enabled", isChecked).apply()
         }
 
-        binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Save preference for notification enabled state
-            // This method was adapted from stackoverflow
-            // https://stackoverflow.com/questions/3624280/how-to-use-sharedpreferences-in-android-to-store-fetch-and-edit-values
-            // Harneet Kaur
-            // https://stackoverflow.com/users/1444525/harneet-kaur
-            // Ziem
-            sharedPreferences.edit().putBoolean("theme_preference", isChecked).apply()
-            applyTheme(isChecked)
-        }
+//        binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
+//            // Save preference for notification enabled state
+//            // This method was adapted from stackoverflow
+//            // https://stackoverflow.com/questions/3624280/how-to-use-sharedpreferences-in-android-to-store-fetch-and-edit-values
+//            // Harneet Kaur
+//            // https://stackoverflow.com/users/1444525/harneet-kaur
+//            // Ziem
+//            var theme = "Light"
+//
+//            if(isChecked){
+//                theme = "Dark"
+//            }
+//            sharedPreferences.edit().putString("theme_preferences", theme).apply()
+//            applyTheme(theme)
+//        }
 
 
     }
-    private fun applyTheme(theme: Boolean) {
+    private fun applyTheme(theme: String) {
         // This method was adapted from stackoverflow
         // https://stackoverflow.com/questions/3624280/how-to-use-sharedpreferences-in-android-to-store-fetch-and-edit-values
         // Harneet Kaur
@@ -102,8 +127,8 @@ class SettingsFragment : Fragment() {
         // Ziem
         // https://stackoverflow.com/posts/11027631/revisions
         when (theme) {
-            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) // Set light mode
-            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES) // Set dark mode
+            "Light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            "Dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
         // Restart the activity to apply the new theme settings
         activity?.recreate()

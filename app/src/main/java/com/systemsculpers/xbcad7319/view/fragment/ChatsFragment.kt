@@ -56,7 +56,7 @@ class ChatsFragment : Fragment() {
             // val sortedMessages = chats.messages.sortedByDescending { message -> message.timestamp }
 
             // Pass the sorted messages and chatId to the MessagesFragment
-            val messagesFragment = MessagesFragment.newInstance(sortedMessages, chats.id)
+            val messagesFragment = MessagesFragment.newInstance(sortedMessages, chats)
 
             // Replace the current fragment with the MessagesFragment
             changeCurrentFragment(messagesFragment)
@@ -73,6 +73,12 @@ class ChatsFragment : Fragment() {
         setUpUserDetails()
 
         return binding.root
+    }
+
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.chats))
     }
 
     // Function to set up the RecyclerView for displaying transactions

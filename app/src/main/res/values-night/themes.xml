@@ -3,9 +3,9 @@
     <style name="Base.Theme.XBCAD7319" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/light_grey</item>
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/primary</item>
 
         <!-- PRIMARY-->
         <item name="android:windowBackground">?attr/colorSurface</item>
@@ -33,4 +33,6 @@
         <item name="thumbTint">@color/textPrimary</item>
         <item name="trackTint">@color/textPrimary</item>
     </style>
+    <style name="Theme.XBCAD7319" parent="Base.Theme.XBCAD7319" />
+
 </resources>

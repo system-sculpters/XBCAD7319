@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal"
+    >
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User"
+        android:textSize="18sp"
+        android:fontFamily="@font/inter_bold"
+        android:layout_gravity="center_horizontal"/>
+
+
+
+
+    <com.skydoves.powerspinner.PowerSpinnerView
+        android:id="@+id/roleSpinner"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edittext_background"
+        android:foreground="?attr/selectableItemBackground"
+        android:hint="@string/select_a_role"
+        android:padding="10dp"
+        android:textColor="?attr/themeBgBorder"
+        android:textColorHint="@color/light_grey"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        app:spinner_arrow_gravity="end"
+        app:spinner_arrow_padding="8dp"
+        app:spinner_divider_color="?attr/themeBgBorder"
+        app:spinner_divider_show="true"
+        app:spinner_divider_size="0.4dp"
+        app:spinner_item_array="@array/questions1"
+        app:spinner_popup_animation="normal"
+        app:spinner_popup_background="?attr/colorItemLayoutBg"
+        app:spinner_popup_elevation="14dp"
+        app:spinner_arrow_tint="?attr/themeBgBorder"
+        android:fontFamily="@font/inter_medium"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:text="@string/update"
+        android:textColor="?attr/colorItemLayoutBg"
+        android:textSize="12sp"
+        android:layout_marginHorizontal="20dp"
+        android:fontFamily="@font/inter_bold"
+        android:background="@drawable/button_background"/>
+</LinearLayout>
+

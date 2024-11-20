@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/property_type_container"
     android:layout_width="match_parent"
@@ -8,14 +8,14 @@
     android:gravity="center"
     android:elevation="2dp"
     android:layout_margin="10dp"
-    android:background="@drawable/edittext_background"
-    >
+    android:background="@drawable/edittext_background">
     <ImageView
         android:id="@+id/property_type_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/baseline_home_filled_24"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        app:tint="?attr/themeBgBorder"/>
     <TextView
         android:id="@+id/property_type_name"
         android:layout_width="wrap_content"

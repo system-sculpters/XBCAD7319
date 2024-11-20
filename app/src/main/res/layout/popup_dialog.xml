@@ -31,7 +31,7 @@
         android:textSize="15sp"
         android:fontFamily="@font/inter_medium"
         android:background="@drawable/button_background"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorItemLayoutBg"
         android:elevation="100dp"
         android:layout_marginTop="10dp"
         />

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -11,13 +12,15 @@
     android:background="@drawable/edittext_background"
 
     >
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:src="@drawable/baseline_home_filled_24"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        app:tint="?attr/ItemBorder" />
     <TextView
         android:id="@+id/value"
         android:layout_width="wrap_content"

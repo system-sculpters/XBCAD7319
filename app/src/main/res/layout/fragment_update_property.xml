@@ -22,16 +22,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/update_property"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/inter_medium"
-                android:layout_marginBottom="20dp"/>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/property_name"
                 android:textSize="14sp"
                 android:textStyle="bold"

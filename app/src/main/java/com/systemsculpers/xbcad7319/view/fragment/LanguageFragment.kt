@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.databinding.FragmentLanguageBinding
 import java.util.Locale
@@ -53,6 +54,12 @@ class LanguageFragment : Fragment() {
         return binding.root
     }
 
+    // Called after the view is created. Sets the toolbar title in MainActivity
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.setToolbarTitle(getString(R.string.language))
+    }
+
     //Saves the selected language preference to SharedPreferences.
     private fun saveLanguagePreference(language: String) {
         // This method was adapted from stackoverflow
@@ -65,6 +72,8 @@ class LanguageFragment : Fragment() {
             apply() // Apply changes asynchronously
         }
     }
+
+
 
     //Sets the application locale based on the selected language
     private fun setLocale(language: String) {
