@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,7 +23,7 @@
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,18 +40,18 @@
                     android:text="Nacary elite house"
                     android:layout_gravity="center_horizontal"
                     android:textAlignment="center"
-                    android:fontFamily="@font/inter_bold"/>
+                    android:fontFamily="@font/inter_bold" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:id="@+id/bookmark"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/baseline_bookmark_border_24"/>
+                    android:src="@drawable/baseline_bookmark_border_24" />
 
             </LinearLayout>
 
@@ -60,6 +61,7 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp"
                 android:layout_marginHorizontal="20dp">
+
                 <TextView
                     android:id="@+id/property_address"
                     android:layout_width="wrap_content"
@@ -70,7 +72,7 @@
                     android:textAlignment="center"
                     android:fontFamily="@font/inter"
                     android:maxLines="1"
-                    android:ellipsize="end"/>
+                    android:ellipsize="end" />
             </LinearLayout>
 
             <LinearLayout
@@ -92,7 +94,7 @@
                         android:id="@+id/property_types_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"/>
+                        android:orientation="horizontal" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -102,13 +104,14 @@
                 android:orientation="vertical"
                 android:layout_marginTop="5dp"
                 android:layout_marginHorizontal="20dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:text="Property Description"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/inter_bold"/>
+                    android:textColor="?attr/ItemBorder"
+                    android:fontFamily="@font/inter_bold" />
 
                 <TextView
                     android:id="@+id/property_description"
@@ -118,7 +121,7 @@
                     android:layout_marginTop="10dp"
                     android:textSize="12sp"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                    android:fontFamily="@font/inter"/>
+                    android:fontFamily="@font/inter" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,18 +139,20 @@
                     android:text="@string/see_on_maps"
                     android:layout_gravity="center_horizontal"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/inter"/>
+                    android:textColor="?attr/ItemBorder"
+                    android:fontFamily="@font/inter"
+                    />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/baseline_chevron_right_24"/>
+                    android:src="@drawable/baseline_chevron_right_24"
+                    app:tint="?attr/ItemBorder"/>
             </LinearLayout>
 
             <LinearLayout
@@ -165,12 +170,12 @@
                     android:textSize="15sp"
                     android:text="@string/contact_agent"
                     android:textAlignment="center"
-                    android:fontFamily="@font/inter"/>
+                    android:fontFamily="@font/inter" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:id="@+id/contact_agent"
@@ -179,12 +184,14 @@
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:background="@drawable/edittext_background">
+
                     <ImageView
                         android:id="@+id/message_logo"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:src="@drawable/baseline_message_24"
-                        android:layout_marginEnd="5dp"/>
+                        android:layout_marginEnd="5dp"
+                        app:tint="?attr/ItemBorder" />
 
                     <TextView
                         android:id="@+id/messae_label"
@@ -192,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="10sp"
                         android:text="@string/message"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/ItemBorder"
                         android:fontFamily="@font/inter"/>
                 </LinearLayout>
             </LinearLayout>
@@ -203,7 +210,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"
+        android:layout_weight="0.9"
         android:gravity="end"
         android:orientation="vertical">
 

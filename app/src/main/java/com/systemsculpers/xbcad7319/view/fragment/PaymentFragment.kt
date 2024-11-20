@@ -2,6 +2,9 @@ package com.systemsculpers.xbcad7319.view.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.InputFilter
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -56,9 +59,25 @@ class PaymentFragment : Fragment() {
         userManager = UserManager.getInstance(requireContext())
         tokenManager = TokenManager.getInstance(requireContext())
 
+        binding.propertyPrice.text = property?.price.toString()
+
         binding.buyNow.setOnClickListener {
             pay()
         }
+
+        binding.expiryDate.filters = arrayOf(InputFilter.LengthFilter(5)) // Max 5 characters
+        binding.expiryDate.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val input = s.toString()
+                if (input.length == 2 && !input.contains("/")) {
+                    binding.expiryDate.setText("$input/")
+                    binding.expiryDate.setSelection(binding.expiryDate.text?.length!!)
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
         // Inflate the layout for this fragment
         return binding.root
     }
