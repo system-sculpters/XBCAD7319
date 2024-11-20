@@ -161,5 +161,7 @@
     <string name="invalid_phone_number_format">• Ifomethi yenombolo yocingo ayilungile</string>
     <string name="empty_phone_number">• Faka inombolo yocingo</string>
     <string name="empty_full_name">• Faka igama eligcwele</string>
+    <string name="company_description">Yasungulwa ngo-2018, i-F.G. Latto Property Group igxile ekuthengiseni, ekwakheni, nasekuklameni izindawo zokuhlala ezinkulu ezisezingeni eliphezulu e-Waterfall Country Estate. Iholwa uNoksie Khumalo noFraser Gourlay, inkampani inikeza uhla olubanzi lwezinsiza, kufaka phakathi izigaba zayo zokwakha nezokwakha izakhiwo.</string>
+    <string name="company_stats">Ngamaphrojekthi angaphezu kuka-100 aphumelele, i-F.G. Latto iyinhlangano ezimele ethengisa kakhulu endaweni, eganekela ngokuhlangenwe nakho kwamakhasimende okwenziwe ngokwezifiso. Guqula umbono wakho ube yikhaya elinobukhazikhazi nge-F.G. Latto Property Group.</string>
 
 </resources>

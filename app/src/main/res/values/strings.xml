@@ -159,5 +159,7 @@
     <string name="invalid_phone_number_format">• Invalid phone number format</string>
     <string name="empty_phone_number">• Enter a phone number</string>
     <string name="empty_full_name">• Enter full name</string>
+    <string name="company_description">Founded in 2018, F.G. Latto Property Group specializes in selling, designing, and constructing luxury properties in Waterfall Country Estate. Led by Noksie Khumalo and Fraser Gourlay, the company offers a comprehensive range of services, including its own building and architect divisions.</string>
+    <string name="company_stats">With over 100 successful projects, F.G. Latto is the highest-selling independent agency in the area, prioritizing personalized client experiences. Turn your vision into a luxurious home with F.G. Latto Property Group.</string>
 
 </resources>
