@@ -67,10 +67,31 @@ The app's design prioritizes both usability and security. Key design considerati
 - admin is provide with a dashboard on startup
 - They have the power to give and revoke user status (changing user to agent and agent to user)
 
+
+
 #### AGENT
 - Agents havethe ability to create, read and delete properties
 - They have access to the chat feature which allows them to communicate with users who asked for a valuation or enquired about a specific property
 - They arealso able to change the status of an evaluation
+
+
+![WhatsApp Image 2024-11-21 at 01 35 45 (2)](https://github.com/user-attachments/assets/41609b0e-498d-4882-8e03-64cb6f8d6242)
+
+
+Agents have the ability to view the current revenue of F.G. Latto, view the number of users, requested valuations and properties which are listed along with a graphical view of the revenue
+
+
+![WhatsApp Image 2024-11-21 at 01 35 45 (3)](https://github.com/user-attachments/assets/3225bd02-6dc3-4016-9169-c646d52c17e1)
+
+
+Agents are able to view the users and also have the ability to update a user to admin and vice versa. 
+
+
+![WhatsApp Image 2024-11-21 at 01 35 45 (4)](https://github.com/user-attachments/assets/3facb990-c8f9-4e1e-9fc3-755de61e3e97)
+
+
+Agents are able to adjust the settings from language, profile, notifications, dark mode and about us and have the ability to alter settings based on preference. 
+
 
 
 #### USER
@@ -79,6 +100,41 @@ The app's design prioritizes both usability and security. Key design considerati
 - Users have the ability to request an evaluation for their property allowing them to chat with an agent
 - The user is also able to buy a property on the system as long as they have the funds
 
+
+
+![WhatsApp Image 2024-11-21 at 01 35 44](https://github.com/user-attachments/assets/77966a4a-00c7-42b5-86d9-4bb0fa8f7327)
+
+
+
+Users are able to view different and filter property options ranging from houses, rentals and land. 
+
+
+
+![WhatsApp Image 2024-11-21 at 01 35 44 (1)](https://github.com/user-attachments/assets/46f6bfc8-568e-4c97-a7db-98b3d33db4cb)
+
+
+Users are able to view their purchased properties 
+
+
+
+![WhatsApp Image 2024-11-21 at 01 35 44 (2)](https://github.com/user-attachments/assets/e1642fe7-73f6-42c4-b1fc-8cfadf4e1a79)
+
+
+Users have enabled the chat by sending a message to an agent on a specific property.
+
+
+
+![WhatsApp Image 2024-11-21 at 01 35 45](https://github.com/user-attachments/assets/c81adbaa-a960-4462-a920-90d7c40bad54)
+
+
+Users are able to bookmark properties they are interested in
+
+
+
+![WhatsApp Image 2024-11-21 at 01 35 45 (1)](https://github.com/user-attachments/assets/f326133e-666d-4e4e-8f74-c381d5b1ccde)
+
+
+Users are able to alter their settings based on their user preferences. 
 
 ## GitHub Utilisation
 PennyWise’s development will be version-controlled and managed through GitHub, following best practices for code collaboration and maintenance. The GitHub repository will include:
@@ -146,4 +202,6 @@ Continuous Integration (CI) is a practice that encourages developers to integrat
 ![Screenshot 2024-10-25 204428](https://github.com/user-attachments/assets/5732e0e1-5f3b-40b3-bbbd-1a74eb076a93)
 
 
+Snyk was used to perform scans and check for any vulnerabilities. It connects to both the api and main repository. 
+![Snyk](https://github.com/user-attachments/assets/d6aeb02a-ec36-445c-b018-dfbd8dd0df97)
 
