@@ -11,8 +11,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.systemsculpers.xbcad7319.MainActivity
 import com.systemsculpers.xbcad7319.R
 import com.systemsculpers.xbcad7319.data.api.controller.BookmarkController
@@ -76,9 +79,9 @@ class SoldPropertyDetailsFragment : Fragment() {
         setupPropertyDetails()
         setPropertyTypes()
         // Find the message button (LinearLayout in your case)
-        binding.contactAgent.setOnClickListener {
-            showMessageDialog()
-        }
+//        binding.contactAgent.setOnClickListener {
+//            showMessageDialog()
+//        }
 
         property?.let { setBookmarked(it.isBookmarked) }
 
@@ -146,6 +149,17 @@ class SoldPropertyDetailsFragment : Fragment() {
 
         binding.viewPager.adapter = imageSlideAdapter
 
+        // Add dots to the layout
+        setupDots(imageSlideAdapter.itemCount)
+
+        // Listen for page changes to update dots
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                updateDots(position)
+            }
+        })
+
         binding.propertyName.text = property!!.title
 
         binding.propertyAddress.text = property!!.location.address
@@ -185,6 +199,45 @@ class SoldPropertyDetailsFragment : Fragment() {
         }
         // Show the dialog
         dialog.show()
+    }
+
+    private fun setupDots(count: Int) {
+        binding.dotsLayout.removeAllViews() // Clear existing dots
+
+        for (i in 0 until count) {
+            val dot = ImageView(context).apply {
+                setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.dot_inactive // Create this drawable for inactive dots
+                    )
+                )
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginStart = 8
+                    marginEnd = 8
+                }
+                layoutParams = params
+            }
+            binding.dotsLayout.addView(dot)
+        }
+
+        // Set the first dot as active
+        updateDots(0)
+    }
+
+    private fun updateDots(position: Int) {
+        for (i in 0 until binding.dotsLayout.childCount) {
+            val dot = binding.dotsLayout.getChildAt(i) as ImageView
+            dot.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    if (i == position) R.drawable.dot_active else R.drawable.dot_inactive
+                )
+            )
+        }
     }
 
     private fun sendMessage(message: String){

@@ -21,7 +21,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="400dp" />
+                android:layout_height="300dp" />
 
             <LinearLayout
                 android:id="@+id/dotsLayout"
@@ -30,7 +30,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_gravity="bottom"
-                android:padding="16dp"></LinearLayout>
+                android:padding="16dp"/>
 
 
             <LinearLayout
